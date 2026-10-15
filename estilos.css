@@ -131,7 +131,7 @@ body { font-family: 'Poppins', sans-serif; background-color: #ffffff; color: #33
 .hero-section {
     width: 95%; max-width: 1400px; height: 70vh; margin: 0 auto 50px auto;
     border-radius: 15px;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('img/portada.jpeg') bottom/cover;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.1)), url('img/portada.webp') bottom/cover;
     display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
 }
 

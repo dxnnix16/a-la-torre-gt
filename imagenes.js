@@ -5,7 +5,7 @@
    CÓMO FUNCIONA
    - El "nombre base" de cada destino sale de su campo `imagen` en
      destinos-data.js, sin la extensión.
-         "img/rostromaya.jpeg"  ->  nombre base "img/rostromaya"
+         "img/rostromaya.webp"  ->  nombre base "img/rostromaya"
    - Guarda las fotos en la carpeta img/ así:
          rostromaya        (foto principal / portada)
          rostromaya1
@@ -110,7 +110,7 @@ const Imagenes = (() => {
     }, true);
 
     // ---------- elementos con foto de fondo (no avisan cuando fallan) ----------
-    // Uso: <div data-foto="img/nombre" style="background-image:url('img/nombre.jpg')">
+    // Uso: <div data-foto="img/nombre" style="background-image:url('img/nombre.webp')">
     function corregirFondos(raiz) {
         (raiz || document).querySelectorAll('[data-foto]:not(img)').forEach(async el => {
             const m = (el.style.backgroundImage || '').match(/url\(["']?(.*?)["']?\)/);

@@ -205,17 +205,20 @@
         </a>`;
   }
 
-  // La foto aparece con fade al cargar; si el archivo no existe se queda el color con la montañita.
+  // La foto aparece con fade al cargar. Si la extensión no coincide (ej. guardaste fuego.webp
+  // pero en destinos-data.js dice fuego.jpeg), imagenes.js busca la correcta solo.
+  // La imagen solo se quita cuando NO existe con ninguna extensión (se queda el color con la montañita).
   function prepararFotos() {
     grid.querySelectorAll('.ds-card__foto').forEach(caja => {
       const img = caja.querySelector('img');
       if (!img) return;
-      const ok = () => { img.classList.add('cargada'); caja.classList.add('con-foto'); };
+      const ok = () => {
+        if (img.src === Imagenes.VACIA) { img.remove(); return; }   // no existe con ninguna extensión
+        img.classList.add('cargada');
+        caja.classList.add('con-foto');
+      };
       if (img.complete && img.naturalWidth > 0) ok();
-      else {
-        img.addEventListener('load', ok, { once: true });
-        img.addEventListener('error', () => img.remove(), { once: true });
-      }
+      else img.addEventListener('load', ok);   // sin "once": también corre cuando imagenes.js cambia la extensión
     });
   }
 

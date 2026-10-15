@@ -22,7 +22,7 @@ const PROVEEDORES = {
     // ------------------------------------------
     'a-la-torre': {
         nombre: 'A La Torre GT',
-        logo: 'img/proveedores/a-la-torre.png',   // TODO: pon tu logo (cuadrado, ~120px). Si no existe, se muestran las iniciales.
+        logo: 'img/proveedores/a-la-torre.webp',   // TODO: pon tu logo (cuadrado, ~120px). Si no existe, se muestran las iniciales.
         color: '#ff4500',
         activo: true,
         contacto: {

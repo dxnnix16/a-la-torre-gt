@@ -1,6 +1,6 @@
 /* =========================================================
    LA REVISTA · A La Torre GT
-   Fotos:  img/revista/momento1.jpg ... momento7.jpg
+   Fotos:  img/revista/momento1.webp ... momento7.jpg
            (acepta jpg, jpeg, JPG, JPEG, png y webp)
    Posts:  se agregan en el arreglo POSTS de abajo.
    ========================================================= */
@@ -12,7 +12,7 @@ const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 /* ---------------------------------------------------------
    ESPACIO PARA TUS POSTS
    Cuando tengas el primero, quita las // y llena los datos.
-   La foto se busca como img/revista/<foto>.jpg (o jpeg, png, webp)
+   La foto se busca como img/revista/<foto>.webp (o jpeg, png, webp)
    --------------------------------------------------------- */
 const POSTS = [
   // { titulo: 'Amanecer sobre Acatenango', categoria: 'Volcanes', fecha: '20 sep 2026',

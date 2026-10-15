@@ -17,7 +17,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: 4.8,
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/fuego.jpeg",
+        imagen: "img/fuego.webp",
 
         descripcion: "Vive una de las experiencias más impresionantes de Guatemala: contempla en vivo las erupciones del Volcán de Fuego, uno de los volcanes más activos de Centroamérica. Una aventura de ascenso nocturno guiado, pensada para quienes buscan algo más que una simple caminata — un recuerdo que se queda para siempre.",
 
@@ -156,16 +156,16 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/fuego.jpeg",
-            "img/fuego1.jpeg",   // TODO
-            "img/fuego2.jpeg",   // TODO
-            "img/fuego3.jpeg",   // TODO
-            "img/fuego4.jpg",   // TODO
-            "img/fuego-6.jpg",   // TODO
-            "img/fuego-7.jpg",   // TODO
-            "img/fuego-8.jpg",   // TODO
-            "img/fuego-9.jpg",   // TODO
-            "img/fuego-10.jpg"   // TODO
+            "img/fuego.webp",
+            "img/fuego1.webp",   // TODO
+            "img/fuego2.webp",   // TODO
+            "img/fuego3.webp",   // TODO
+            "img/fuego4.webp",   // TODO
+            "img/fuego-6.webp",   // TODO
+            "img/fuego-7.webp",   // TODO
+            "img/fuego-8.webp",   // TODO
+            "img/fuego-9.webp",   // TODO
+            "img/fuego-10.webp"   // TODO
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -358,7 +358,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: 4.9,
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/acatenango.png",
+        imagen: "img/acatenango.webp",
 
         descripcion: "El Volcán Acatenango es un estratovolcán activo ubicado entre Chimaltenango y Sacatepéquez, a un lado de Antigua Guatemala. Con una altitud de 3,976 metros sobre el nivel del mar, es famoso por ser el mejor mirador del Volcán de Fuego: desde su cumbre y su zona de camping se observan sus erupciones de frente, de día y de noche. El ascenso atraviesa fincas de cultivo, bosque de pino y vegetación de altura hasta una cumbre de ceniza volcánica, y recompensa con vistas amplias del altiplano y, con buen clima, un amanecer sobre el mar de nubes.",
 
@@ -472,8 +472,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/acatenango.png"
-            // TODO: agrega más fotos, por ejemplo "img/acatenango1.jpg", "img/acatenango2.jpg"... (separadas por coma)
+            "img/acatenango.webp"
+            // TODO: agrega más fotos, por ejemplo "img/acatenango1.webp", "img/acatenango2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -651,7 +651,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: 4.7,
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/pacaya.jpg",
+        imagen: "img/pacaya.webp",
 
         descripcion: "El Volcán de Pacaya es uno de los volcanes activos más fascinantes y accesibles de Guatemala, ubicado entre los departamentos de Escuintla y Guatemala. Con una altitud de 2,552 metros sobre el nivel del mar, es famoso por ofrecer una experiencia única de contacto cercano con campos de lava petrificada y paisajes lunares. El ascenso desde la aldea San Francisco de Sales o San Vicente Pacaya es corto y accesible, atravesando senderos de arena volcánica y vegetación baja hasta llegar a la meseta del cráter activo Mackenney, donde los visitantes disfrutan de vistas impresionantes y la tradicional experiencia de asar malvaviscos con el calor de las rocas volcánicas.",
 
@@ -765,8 +765,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/pacaya.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/pacaya1.jpg", "img/pacaya2.jpg"... (separadas por coma)
+            "img/pacaya.webp"
+            // TODO: agrega más fotos, por ejemplo "img/pacaya1.webp", "img/pacaya2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -930,7 +930,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/agua.jpg",
+        imagen: "img/agua.webp",
 
         descripcion: "El Volcán de Agua, conocido ancestralmente como Hunahpú, es un majestuoso e imponente estratovolcán extinto que domina el paisaje del valle de Panchoy en Sacatepéquez. Con una altitud de 3,760 metros sobre el nivel del mar, su cono casi perfecto se eleva desde Santa María de Jesús. Durante el ascenso, los senderistas recorren senderos rodeados de cultivos agrícolas y bosques húmedos hasta alcanzar su célebre cráter en la cumbre, una planicie circular rodeada de pinos que ofrece vistas espectaculares hacia los volcanes de Fuego y Acatenango, así como a la costa sur y el altiplano guatemalteco.",
 
@@ -1044,8 +1044,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/agua.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/agua1.jpg", "img/agua2.jpg"... (separadas por coma)
+            "img/agua.webp"
+            // TODO: agrega más fotos, por ejemplo "img/agua1.webp", "img/agua2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -1208,7 +1208,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/santamaria.jpg",
+        imagen: "img/santamaria.webp",
 
         descripcion: "El Volcán Santa María es un impresionante estratovolcán activo situado en el departamento de Quetzaltenango, al occidente de Guatemala. Con una altitud de 3,772 metros sobre el nivel del mar, destaca por su imponente cono simétrico y por albergar en sus faldas al complejo volcánico Santiaguito, uno de los domos de lava más activos del mundo. Durante el ascenso, los senderistas atraviesan frondosos bosques de pino y encino hasta alcanzar una cumbre despejada que ofrece vistas panorámicas espectaculares del altiplano guatemalteco y de las erupciones constantes del Santiaguito desde una posición privilegiada.",
 
@@ -1321,8 +1321,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/santamaria.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/santamaria1.jpg", "img/santamaria2.jpg"... (separadas por coma)
+            "img/santamaria.webp"
+            // TODO: agrega más fotos, por ejemplo "img/santamaria1.webp", "img/santamaria2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -1500,7 +1500,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/tacana.jpg",
+        imagen: "img/tacana.webp",
 
         descripcion: "El Volcán Tacaná es un imponente estratovolcán activo situado en el departamento de San Marcos, sobre la frontera entre Guatemala y México. Con una altitud de 4,092 metros sobre el nivel del mar, es una de las cumbres más altas del país y representa una expedición larga y exigente, ideal para quienes buscan un reto de verdad. El ascenso atraviesa bosques de altura y paisajes de alta montaña hasta alcanzar una cumbre desde donde se contemplan el altiplano marquense, el volcán Tajumulco y, si el cielo lo permite, el horizonte hacia la costa del Pacífico.",
 
@@ -1614,8 +1614,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/tacana.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/tacana1.jpg", "img/tacana2.jpg"... (separadas por coma)
+            "img/tacana.webp"
+            // TODO: agrega más fotos, por ejemplo "img/tacana1.webp", "img/tacana2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -1750,7 +1750,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/atitlan.jpg",
+        imagen: "img/atitlan.webp",
 
         descripcion: "El Volcán Atitlán es un estratovolcán activo situado en el departamento de Sololá, al sur del célebre lago de Atitlán. Con una altitud de 3,537 metros sobre el nivel del mar y un desnivel exigente de más de 2,000 metros desde la base en Santiago Atitlán (o San Lucas Tolimán), representa uno de los ascensos físicos más demandantes del país. A lo largo del trayecto, los senderistas atraviesan densos bosques nubosos y de roble hasta emerger en un cono cimero despejado que brinda panorámicas extraordinarias del lago de Atitlán, los volcanes vecinos Tolimán y San Pedro, e incluso la línea de la costa del Pacífico.",
 
@@ -1864,8 +1864,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/atitlan.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/atitlan1.jpg", "img/atitlan2.jpg"... (separadas por coma)
+            "img/atitlan.webp"
+            // TODO: agrega más fotos, por ejemplo "img/atitlan1.webp", "img/atitlan2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -2029,7 +2029,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/toliman.jpg",
+        imagen: "img/toliman.webp",
 
         descripcion: "El Volcán Tolimán es un imponente estratovolcán extinto ubicado en la orilla sur del Lago de Atitlán, en el departamento de Sololá. Con una altitud de 3,158 metros sobre el nivel del mar y un desnivel pronunciado de aproximadamente 1,600 metros desde su base en San Lucas Tolimán o Santiago Atitlán, ofrece una travesía exigente y poco transitada. Su densa cubierta de vegetación y bosque nuboso acompaña al senderista a lo largo de la ruta hasta alcanzar su peculiar cumbre con un cráter elíptico, desde donde se aprecian vistas imponentes hacia el vecino Volcán Atitlán, el Lago de Atitlán y el altiplano occidental.",
 
@@ -2143,8 +2143,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/toliman.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/toliman1.jpg", "img/toliman2.jpg"... (separadas por coma)
+            "img/toliman.webp"
+            // TODO: agrega más fotos, por ejemplo "img/toliman1.webp", "img/toliman2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -2307,7 +2307,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/sanpedro.jpg",
+        imagen: "img/sanpedro.webp",
 
         descripcion: "El Volcán San Pedro es un icónico estratovolcán extinto situado a orillas del majestuoso Lago de Atitlán, en el municipio de San Pedro La Laguna, Sololá. Con una altitud de 3,020 metros sobre el nivel del mar y un desnivel de aproximadamente 1,200 metros, es uno de los ascensos más populares y accesibles del altiplano. El sendero serpentea a través de cultivos de café, bosques subtropicales y áreas de conservación protegidas hasta alcanzar un mirador cimero rodeado de frondosa vegetación que brinda vistas espectaculares del lago de Atitlán y de las poblaciones circunvecinas.",
 
@@ -2421,8 +2421,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/sanpedro.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/sanpedro1.jpg", "img/sanpedro2.jpg"... (separadas por coma)
+            "img/sanpedro.webp"
+            // TODO: agrega más fotos, por ejemplo "img/sanpedro1.webp", "img/sanpedro2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -2585,7 +2585,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/santotomas.jpg", // TODO: sube esta foto
+        imagen: "img/santotomas.webp", // TODO: sube esta foto
 
         descripcion: "El Volcán Santo Tomás, también conocido como Pecul o Peña Blanca, es un imponente estratovolcán extinto ubicado entre los límites de Quetzaltenango y Suchitepéquez. Con una altitud de 3,160 metros sobre el nivel del mar y una abrupta cresta que culmina en el icónico peñasco de Peña Blanca, ofrece una de las rutas de montañismo más boscosas, húmedas y menos exploradas del país. A lo largo del trayecto, los senderistas atraviesan exuberantes selvas de montaña y bosques nubosos característicos de la bocacosta guatemalteca, disfrutando en la cumbre de espectaculares vistas hacia la costa sur, el volcán Zunil y el altiplano occidental.",
 
@@ -2699,8 +2699,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/santotomas.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/santotomas1.jpg", "img/santotomas2.jpg"... (separadas por coma)
+            "img/santotomas.webp"
+            // TODO: agrega más fotos, por ejemplo "img/santotomas1.webp", "img/santotomas2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -2881,7 +2881,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/sieteorejas.jpg", // TODO: sube esta foto
+        imagen: "img/sieteorejas.webp", // TODO: sube esta foto
 
         descripcion: "El Volcán Siete Orejas es un fascinante complejo volcánico extinto situado en el departamento de Quetzaltenango, entre los municipios de San Martín Sacatepéquez, Concepción Chiquirichapa y Quetzaltenango. Su nombre proviene de los siete picos prominentes (\"orejas\") que bordean las paredes de su enorme y colapsada caldera volcánica. El ascenso recorre la cresta de la caldera conectando los picos sobre senderos rodeados de frondosos bosques de pino y encino, ofreciendo una travesía prolongada y entretenida con impresionantes vistas hacia el Volcán Santa María, el Santiaguito, el valle de Quetzaltenango y la mística Laguna de Chicabal.",
 
@@ -2995,8 +2995,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/sieteorejas.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/sieteorejas1.jpg", "img/sieteorejas2.jpg"... (separadas por coma)
+            "img/sieteorejas.webp"
+            // TODO: agrega más fotos, por ejemplo "img/sieteorejas1.webp", "img/sieteorejas2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -3173,7 +3173,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/zunil.jpg", // TODO: sube esta foto
+        imagen: "img/zunil.webp", // TODO: sube esta foto
 
         descripcion: "El Cerro Zunil es un imponente estratovolcán extinto y domo volcánico ubicado en el departamento de Quetzaltenango. Con una altitud de 3,542 metros sobre el nivel del mar y un desnivel exigente, es una de las cumbres más místicas y menos exploradas de la cadena volcánica guatemalteca. El recorrido atraviesa frondosos bosques nubosos, ecosistemas de pajonal de alta montaña y zonas de densa vegetación tropical en la bocacosta. Desde su cima despejada se obtienen vistas panorámicas impresionantes hacia el Volcán Santa María, el activo domo Santiaguito, el Volcán Pecul (Santo Tomás) y el valle de Quetzaltenango.",
 
@@ -3287,8 +3287,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/zunil.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/zunil1.jpg", "img/zunil2.jpg"... (separadas por coma)
+            "img/zunil.webp"
+            // TODO: agrega más fotos, por ejemplo "img/zunil1.webp", "img/zunil2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -3468,7 +3468,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/quemado.jpg", // TODO: sube esta foto
+        imagen: "img/quemado.webp", // TODO: sube esta foto
 
         descripcion: "El Cerro Quemado (también conocido como Volcán de Almolonga) es un complejo de domos de lava de gran valor geológico, histórico y sagrado, situado a pocos minutos de la ciudad de Quetzaltenango. Con una altitud de 3,197 metros sobre el nivel del mar, destaca por su terreno rocoso único compuesto por un gran campo de bloques de lava andesítica formados tras la erupción de 1818. El ascenso conduce a través de cruces y altares ceremoniales mayas y evangélicos hasta alcanzar su cumbre rocosa, la cual ofrece una panorámica espectacular de 360 grados hacia la ciudad de Xela, el Volcán Santa María y el paisaje circundante del altiplano.",
 
@@ -3582,8 +3582,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/quemado.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/quemado1.jpg", "img/quemado2.jpg"... (separadas por coma)
+            "img/quemado.webp"
+            // TODO: agrega más fotos, por ejemplo "img/quemado1.webp", "img/quemado2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -3760,7 +3760,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/chicabal.jpg", // TODO: sube esta foto
+        imagen: "img/chicabal.webp", // TODO: sube esta foto
 
         descripcion: "El Volcán Chicabal es un sagrado y místico estratovolcán extinto situado en el municipio de San Martín Sacatepéquez, en el departamento de Quetzaltenango. Con una altitud de 2,900 metros sobre el nivel del mar, es famoso por albergar en el fondo de su cráter colapsado a la hermosa y mística Laguna de Chicabal. Rodeado por un denso y exuberante bosque nuboso, este lugar es un centro espiritual sagrado para la cosmovisión maya mam, donde se realizan ceremonias y altares tradicionales. Durante el recorrido, los senderistas ascienden entre la neblina por senderos boscosos hasta el mirador del cráter, desde donde se contempla la laguna rodeada de vegetación y las cumbres vecinas del altiplano.",
 
@@ -3874,8 +3874,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/chicabal.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/chicabal1.jpg", "img/chicabal2.jpg"... (separadas por coma)
+            "img/chicabal.webp"
+            // TODO: agrega más fotos, por ejemplo "img/chicabal1.webp", "img/chicabal2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -4052,7 +4052,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/cuxliquel.jpg", // TODO: sube esta foto
+        imagen: "img/cuxliquel.webp", // TODO: sube esta foto
 
         descripcion: "El Cerro Cuxliquel es un accesible y pintoresco domo de origen volcánico ubicado en el departamento de Totonicapán, muy cerca de los límites con Quetzaltenango. Con una altitud de 2,160 metros sobre el nivel del mar, destaca por su caminata amigable rodeada de hermosos bosques de pino, ciprés y áreas de pastizal. Es una ruta ideal para principiantes y senderistas que buscan una experiencia tranquila de montaña, ofreciendo desde su cumbre vistas panorámicas espectaculares del valle de Totonicapán, la ciudad de Xela y la imponente cordillera volcánica del altiplano occidental.",
 
@@ -4166,8 +4166,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/cuxliquel.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/cuxliquel1.jpg", "img/cuxliquel2.jpg"... (separadas por coma)
+            "img/cuxliquel.webp"
+            // TODO: agrega más fotos, por ejemplo "img/cuxliquel1.webp", "img/cuxliquel2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -4344,7 +4344,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/lacandon.jpg", // TODO: sube esta foto
+        imagen: "img/lacandon.webp", // TODO: sube esta foto
 
         descripcion: "El Volcán Lacandón es un antiguo y pintoresco estratovolcán extinto ubicado en el departamento de Quetzaltenango, entre los municipios de Ostuncalco y Concepción Chiquirichapa. Con una altitud de 2,740 metros sobre el nivel del mar, destaca por su forma cónica y por estar rodeado de fértiles campos agrícolas y hermosos bosques de pino-encino. El ascenso a través de sus senderos rurales ofrece una caminata tranquila y poco concurrida, ideal para quienes buscan conectar con la naturaleza del altiplano. Desde su cumbre se disfrutan panorámicas espectaculares del valle de Quetzaltenango, así como de las cumbres vecinas del Siete Orejas, Chicabal y el imponente Volcán Santa María.",
 
@@ -4458,8 +4458,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/lacandon.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/lacandon1.jpg", "img/lacandon2.jpg"... (separadas por coma)
+            "img/lacandon.webp"
+            // TODO: agrega más fotos, por ejemplo "img/lacandon1.webp", "img/lacandon2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -4636,7 +4636,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/sanantonio.jpg", // TODO: sube esta foto
+        imagen: "img/sanantonio.webp", // TODO: sube esta foto
 
         descripcion: "El Volcán San Antonio (también conocido como Saquibutz) es un pequeño y encantador domo o cono volcánico ubicado en el departamento de San Marcos. Con una altitud de 2,543 metros sobre el nivel del mar, destaca por su ascenso accesible, corto y rodeado de paisajes agrícolas y bosques de pino. Por su corta extensión y menor exigencia física, esta cumbre habitualmente se realiza combinada o en conjunto con la expedición al majestuoso Volcán Tajumulco, permitiendo a los senderistas sumar una cumbre adicional en la misma región. Desde su parte alta se obtienen vistas espectaculares del altiplano marquense y de las grandes masas volcánicas del occidente.",
 
@@ -4751,8 +4751,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/sanantonio.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/sanantonio1.jpg", "img/sanantonio2.jpg"... (separadas por coma)
+            "img/sanantonio.webp"
+            // TODO: agrega más fotos, por ejemplo "img/sanantonio1.webp", "img/sanantonio2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -4929,7 +4929,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/tecuamburro.jpg",
+        imagen: "img/tecuamburro.webp",
 
         descripcion: "El Volcán Tecuamburro es un estratovolcán complejo y extinto ubicado en el departamento de Santa Rosa, en los municipios de Pueblo Nuevo Viñas, Barberena y Taxisco. Con una altitud de 1,845 metros sobre el nivel del mar, destaca por su entorno exuberante caracterizado por plantaciones de café, fincas agrícolas y densas áreas de vegetación subtropical. Un atractivo especial de esta montaña es su actividad geotérmica latente, observable en la naciente de aguas termales y azufradas en sus inmediaciones, como la famosa Laguna de Ixpaco al pie del complejo. La caminata hacia su cima es amigable y rodeada de sombra, ofreciendo desde sus miradores vistas espectaculares hacia la costa del Pacífico y los valles de Santa Rosa.",
 
@@ -5045,8 +5045,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/tecuamburro.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/tecuamburro1.jpg", "img/tecuamburro2.jpg"... (separadas por coma)
+            "img/tecuamburro.webp"
+            // TODO: agrega más fotos, por ejemplo "img/tecuamburro1.webp", "img/tecuamburro2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -5203,7 +5203,7 @@ const destinos = [
         categoria: "volcanes",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/tajumulco.jpg", // TODO: sube esta foto
+        imagen: "img/tajumulco.webp", // TODO: sube esta foto
 
         descripcion: "El Volcán Tajumulco es el punto más alto de Guatemala y de toda Centroamérica, elevándose majestuosamente a 4,220 metros sobre el nivel del mar en el departamento de San Marcos. Cuenta con un acercamiento en vehículo 4x4 que aproxima al grupo por los caminos de montaña hasta la zona base de inicio, optimizando la caminata a aproximadamente 4 horas de ascenso amigable con un desnivel acumulado de 793 metros. El sendero atraviesa pintorescos bosques de pino, extensos prados alpinos y zonas de alta montaña hasta alcanzar su imponente cráter principal. Llegar a la cima del gigante centroamericano ofrece una recompensa visual inigualable: una vista panorámica de 360 grados sobre la cadena volcánica guatemalteca, el altiplano occidental, la costa del Pacífico e incluso el territorio mexicano.",
 
@@ -5320,8 +5320,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/tajumulco.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/tajumulco1.jpg", "img/tajumulco2.jpg"... (separadas por coma)
+            "img/tajumulco.webp"
+            // TODO: agrega más fotos, por ejemplo "img/tajumulco1.webp", "img/tajumulco2.webp"... (separadas por coma)
         ],
 
         // --- PRECIOS (RESPALDO) ---
@@ -5501,7 +5501,7 @@ const destinos = [
         categoria: "lugares",
         calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
-        imagen: "img/rostromaya.jpeg", // TODO: sube esta foto
+        imagen: "img/rostromaya.webp", // TODO: sube esta foto
 
         descripcion: "El Rostro Maya es un mirador natural en las alturas de Santa Clara la Laguna, en Sololá, desde donde se contempla el perfil de un rostro maya tallado por la montaña frente al Lago de Atitlán y sus volcanes. Se llega tras una caminata corta y accesible de aproximadamente 45 minutos que inicia de madrugada, para disfrutar del amanecer sobre el lago y quedarse unas horas arriba. Después del descenso, el día continúa con una visita a San Juan la Laguna, donde hay tiempo para recorrer el pueblo y almorzar antes de regresar a la Ciudad de Guatemala.",
 
@@ -5614,8 +5614,8 @@ const destinos = [
 
         // --- GALERÍA DE FOTOS ---
         fotos: [
-            "img/rostromaya.jpg"
-            // TODO: agrega más fotos, por ejemplo "img/rostromaya1.jpg", "img/rostromaya2.jpg"...
+            "img/rostromaya.webp"
+            // TODO: agrega más fotos, por ejemplo "img/rostromaya1.webp", "img/rostromaya2.webp"...
         ],
 
         // --- PRECIOS (RESPALDO) --- solo salida grupal
@@ -5673,7 +5673,7 @@ const destinos = [
         categoria: "lugares",
         precioDesde: 600, // TODO
         calificacion: 4.9, // TODO
-        imagen: "img/semuc.jpg", // TODO: sube una foto con este nombre
+        imagen: "img/semuc.webp", // TODO: sube una foto con este nombre
         duracion: "2 días / 1 noche",
         edadMinima: 8,
         condicionSalud: "Condición de salud regular",
