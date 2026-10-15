@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">A La Torre GT | Detalle</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <meta id="page-description" name="description" content="Expediciones a volcanes en Guatemala.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="comun.css">
+    <link rel="stylesheet" href="reserva.css">
+    <script src="moneda.js"></script>
+    <script src="comun.js" defer></script>
+    <!-- Logo del navbar: tamaño controlado para que la imagen no desacomode la página -->
+    <style>
+        .navbar .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+        .navbar .logo img { height: 44px; width: auto; max-width: 60px; object-fit: contain; display: block; flex-shrink: 0; }
+        .navbar .logo span { white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="img/logo.png" alt="" onerror="this.remove()">
+            <span>A La Torre GT</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="destinos.html">Destinos</a>
+            <a href="revista.html">La Revista</a>
+            <a href="staff.html">Staff</a>
+            <a href="contacto.html">Contacto</a>
+        </div>
+        <div class="nav-actions">
+            <input type="text" class="search-bar" placeholder="🔍 Buscar un volcán...">
+            <a href="#" class="btn-book">Reservar ahora</a>
+        </div>
+    </nav>
+
+    <section class="detail-hero container">
+        <p class="detail-breadcrumb"><a href="index.html">Inicio</a> / <a href="destinos.html">Destinos</a> / <span id="detail-breadcrumb-nombre">...</span></p>
+        <h1 id="detail-title">Cargando...</h1>
+        <div class="detail-meta">
+            <span class="detail-rating">⭐ <strong id="detail-rating">-</strong> <span id="detail-reviews-count">(0 reseñas)</span></span>
+            <span class="detail-provider">Proveedor: A La Torre GT</span>
+            <div class="detail-actions">
+                <button type="button" class="detail-action-btn" id="btn-favorito">🤍 Favorito</button>
+                <button type="button" class="detail-action-btn" id="btn-compartir">↗ Compartir</button>
+            </div>
+        </div>
+    </section>
+
+    <div class="detail-layout container">
+
+        <div class="detail-main">
+
+            <div class="detail-gallery" id="detail-gallery"></div>
+
+            <!-- NUEVO: franja de íconos "Lo esencial" -->
+            <section class="detail-block" id="block-franja">
+                <h2>Lo esencial</h2>
+                <div class="franja-info" id="franja-info"></div>
+            </section>
+
+            <section class="detail-block">
+                <h2>Sobre esta experiencia</h2>
+                <p id="detail-descripcion"></p>
+            </section>
+
+            <section class="detail-block" id="block-itinerario">
+                <h2>Itinerario</h2>
+                <div class="detail-modalidad-tabs" id="detail-modalidad-tabs"></div>
+                <div class="detail-itinerary-wrap">
+                    <div class="detail-itinerary-track" id="detail-itinerary-track"></div>
+                    <div class="detail-itinerary-days" id="detail-itinerary-days"></div>
+                </div>
+            </section>
+
+            <section class="detail-block" id="block-requisitos">
+                <h2>Requisitos y nivel</h2>
+                <div class="detail-requisitos" id="detail-requisitos"></div>
+            </section>
+
+            <!-- NUEVO: bloques de info en dos columnas (La experiencia, incluido, restricciones...) -->
+            <section class="detail-block" id="block-info-bloques">
+                <div class="detail-info-bloques" id="detail-info-bloques"></div>
+            </section>
+
+            <section class="detail-block">
+                <h2>Reseñas de clientes</h2>
+                <div id="detail-resenas"></div>
+                <button type="button" class="btn-escribir-resena" id="btn-escribir-resena">Escribir una reseña</button>
+                <div class="resena-form-wrap" id="detail-resena-form-wrap" hidden>
+                    <form id="form-resena" class="resena-form">
+                        <div class="resena-form-row">
+                            <input type="text" id="resena-nombre" class="detail-select" placeholder="Tu nombre" required>
+                            <select id="resena-calificacion" class="detail-select">
+                                <option value="5">★★★★★ Excelente</option>
+                                <option value="4">★★★★☆ Muy bueno</option>
+                                <option value="3">★★★☆☆ Bueno</option>
+                                <option value="2">★★☆☆☆ Regular</option>
+                                <option value="1">★☆☆☆☆ Malo</option>
+                            </select>
+                        </div>
+                        <textarea id="resena-texto" class="detail-select" rows="3" placeholder="Cuéntanos cómo fue tu experiencia..." required></textarea>
+                        <button type="submit" class="btn-primary">Publicar reseña</button>
+                    </form>
+                </div>
+            </section>
+
+            <section class="detail-block" id="block-sugerencias">
+                <h2>También te puede interesar</h2>
+                <div class="detail-suggestions" id="detail-suggestions"></div>
+            </section>
+
+        </div>
+
+        <aside class="detail-sidebar">
+            <div class="detail-price-box">
+                <div class="detail-price-from">Desde</div>
+                <div class="detail-price-amount" id="detail-price">Q —</div>
+                <div class="detail-price-per">por persona</div>
+
+                <!-- ¿Cómo quieres ir?: dos tarjetas con su precio (las dibuja detalle.js; se oculta si el volcán no tiene salidas grupales) -->
+                <div class="detail-field" id="field-tipo-tour" hidden>
+                    <label class="detail-field-label" id="tipo-tour-label">¿Cómo quieres ir?</label>
+                    <div class="tt-opciones" id="tipo-tour" role="radiogroup" aria-labelledby="tipo-tour-label"></div>
+                </div>
+
+                <div class="detail-field" id="field-modalidad">
+                    <label class="detail-field-label">Modalidad</label>
+                    <select id="select-modalidad" class="detail-select"></select>
+                </div>
+
+                <div class="detail-field" id="field-punto">
+                    <label class="detail-field-label">Punto de salida</label>
+                    <select id="select-punto" class="detail-select"></select>
+                </div>
+
+                <!-- Participantes: ahora es un contador (reserva.js). El select queda oculto
+                     y detalle.js lo sigue usando para elegir el precio individual/grupo. -->
+                <div class="detail-field" id="field-grupo">
+                    <label class="detail-field-label">Participantes</label>
+                    <div id="rv-personas"></div>
+                    <select id="select-tipo-grupo" class="detail-select" hidden>
+                        <option value="individual">Individual</option>
+                        <option value="grupo">Grupo (2 o más)</option>
+                    </select>
+                </div>
+
+                <!-- NUEVO: fecha de la salida grupal con fecha fija -->
+                <div class="detail-field" id="field-fecha-grupal"></div>
+
+                <!-- NUEVO: fecha exacta del tour privado (calendario en reserva.js) -->
+                <div class="detail-field" id="field-fecha"></div>
+
+                <button type="button" class="btn-primary detail-btn-reservar" id="btn-reservar">Ver disponibilidad</button>
+
+                <div class="detail-policy">
+                    <div class="detail-policy-item"><strong>Reserva mínima:</strong> <span id="detail-reserva-minima"></span></div>
+                    <div class="detail-policy-item"><strong>Cancelación:</strong> <span id="detail-cancelacion"></span></div>
+                </div>
+
+                <div class="detail-policy-extra" id="detail-policy-extra"></div>
+            </div>
+
+            <div class="detail-newsletter-box">
+                <h3>Únete a la expedición</h3>
+                <p>Recibe tips de montaña y descuentos exclusivos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+                    <button type="button" class="newsletter-btn">Enviar</button>
+                </form>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>A La Torre GT</h3>
+                <p>Especialistas en expediciones volcánicas en Guatemala. Llevándote a lo más alto de forma segura e inolvidable. Tu próxima gran aventura empieza aquí.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Explorar</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="destinos.html">Todos los Destinos</a></li>
+                    <li><a href="#">Preparación y Equipo</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <p>📍 Ciudad de Guatemala, Guatemala</p>
+                <p>📞 +502 30554595</p>
+                <p>✉️ info@alatorregt.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Únete a la expedición</h3>
+                <p>Suscríbete para recibir noticias, tips de montaña y descuentos exclusivos para nuestros próximos ascensos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+                    <button type="button" class="newsletter-btn">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 A La Torre GT. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="destinos-data.js"></script>
+    <script src="imagenes.js"></script>
+    <script src="proveedores-data.js"></script>
+    <script src="ofertas.js"></script>
+    <script src="reserva.js"></script>
+    <script src="detalle.js"></script>
+</body>
+</html>

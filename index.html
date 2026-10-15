@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="inicio.titulo">A La Torre GT | Inicio</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preload" as="image" href="img/portada.jpeg" media="(min-width: 769px)">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="comun.css">
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="anuncio.css">
+    <script src="moneda.js"></script>
+    <script src="i18n.js" defer></script>
+    <script src="traducciones/trad-comun.js" defer></script>
+    <script src="traducciones/trad-inicio.js" defer></script>
+    <script src="comun.js" defer></script>
+    <script src="menu-movil.js" defer></script>
+</head>
+<body>
+
+    <!-- Pantalla de carga: se desvanece sola cuando todo está listo -->
+    <div class="pre" id="pre" aria-hidden="true">
+        <div class="pre-in">
+            <img src="img/logo.png" alt="" onerror="this.remove()">
+            <b>A La Torre GT</b>
+            <div class="pre-barra"><span></span></div>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="img/logo.png" alt="" onerror="this.remove()">
+            <span>A La Torre GT</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" data-i18n="comun.nav.inicio">Inicio</a>
+            <a href="destinos.html" data-i18n="comun.nav.destinos">Destinos</a>
+            <a href="revista.html" data-i18n="comun.nav.revista">La Revista</a>
+            <a href="staff.html" data-i18n="comun.nav.staff">Staff</a>
+            <a href="contacto.html" data-i18n="comun.nav.contacto">Contacto</a>
+        </div>
+        <div class="nav-actions">
+            <input type="text" class="search-bar" placeholder="🔍 Buscar un volcán...">
+            <a href="#" class="btn-book">Reservar ahora</a>
+        </div>
+    </nav>
+
+    <!-- ===== 1. HERO ===== -->
+    <section class="hero-section">
+        <h1 data-i18n-html="inicio.hero.titulo">Lo mejor de <br class="br-movil">Guate te espera</h1>
+
+        <div class="hero-search" id="hero-search">
+            <div class="search-field search-field-main" id="field-search">
+                <button type="button" class="ms-atras" id="ms-atras" aria-label="Volver" data-i18n-attr="aria-label:inicio.busq.volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+                <input type="text" id="search-input" placeholder="Buscar lugares o actividades" data-i18n-attr="placeholder:inicio.busq.placeholder" autocomplete="off">
+                <div class="search-dropdown" id="dropdown-search">
+                    <p class="dropdown-label" data-i18n="inicio.busq.recientes">Búsquedas recientes</p>
+                    <div id="recent-searches-list"></div>
+                    <p class="dropdown-label ms-sug-label" data-i18n="inicio.busq.sugerencias">Sugerencias</p>
+                    <div id="sugerencias-list"></div>
+                </div>
+            </div>
+            <div class="search-divider"></div>
+            <div class="search-field" id="field-date">
+                <span class="search-label" id="date-label" data-i18n="inicio.busq.cualquier_fecha" data-i18n-suave>Cualquier fecha</span>
+                <span class="search-chevron">▾</span>
+                <div class="search-dropdown dropdown-calendar" id="dropdown-date">
+                    <h3 class="ms-titulo" data-i18n="inicio.busq.cuando">¿Cuándo?</h3>
+                    <div class="quick-dates">
+                        <button type="button" class="quick-date-btn" data-quick="hoy" data-i18n="inicio.busq.hoy">Hoy</button>
+                        <button type="button" class="quick-date-btn" data-quick="manana" data-i18n="inicio.busq.manana">Mañana</button>
+                        <button type="button" class="quick-date-btn" data-quick="finde" data-i18n="inicio.busq.finde">Próximo fin de semana</button>
+                    </div>
+                    <div class="calendar-months" id="calendar-months">
+                        <div class="calendar-month">
+                            <div class="calendar-header">
+                                <button type="button" class="calendar-nav" id="cal-prev">❮</button>
+                                <span id="calendar-month-label-1"></span>
+                                <span class="calendar-nav-spacer"></span>
+                            </div>
+                            <div class="calendar-grid" id="calendar-grid-1"></div>
+                        </div>
+                        <div class="calendar-month">
+                            <div class="calendar-header">
+                                <span class="calendar-nav-spacer"></span>
+                                <span id="calendar-month-label-2"></span>
+                                <button type="button" class="calendar-nav" id="cal-next">❯</button>
+                            </div>
+                            <div class="calendar-grid" id="calendar-grid-2"></div>
+                        </div>
+                    </div>
+                    <div class="ms-pie">
+                        <button type="button" class="ms-link" id="ms-reset" data-i18n="inicio.busq.restablecer">Restablecer</button>
+                        <button type="button" class="ms-link" id="ms-saltar" data-i18n="inicio.busq.saltar">Saltar</button>
+                        <button type="button" class="ms-continuar" id="ms-continuar" data-i18n="inicio.busq.continuar">Continuar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="search-divider"></div>
+            <div class="search-field" id="field-people">
+                <span class="search-label" id="people-label" data-i18n="inicio.busq.participante_1" data-i18n-suave>1 participante</span>
+                <span class="search-chevron">▾</span>
+                <div class="search-dropdown dropdown-people" id="dropdown-people">
+                    <h3 class="ms-titulo" data-i18n="inicio.busq.quien">¿Quién va a ir?</h3>
+                    <div class="people-row">
+                        <div>
+                            <p class="people-title" data-i18n="inicio.busq.adultos">Adultos</p>
+                            <p class="people-sub" data-i18n="inicio.busq.adultos_sub">A partir de 18 años</p>
+                        </div>
+                        <div class="people-counter">
+                            <button type="button" class="counter-btn" id="adults-minus">−</button>
+                            <span id="adults-count">1</span>
+                            <button type="button" class="counter-btn" id="adults-plus">+</button>
+                        </div>
+                    </div>
+                    <div class="people-row">
+                        <div>
+                            <p class="people-title" data-i18n="inicio.busq.ninos">Niños</p>
+                            <p class="people-sub" data-i18n="inicio.busq.ninos_sub">De 0 a 17 años</p>
+                        </div>
+                        <div class="people-counter">
+                            <button type="button" class="counter-btn" id="children-minus">−</button>
+                            <span id="children-count">0</span>
+                            <button type="button" class="counter-btn" id="children-plus">+</button>
+                        </div>
+                    </div>
+                    <div id="children-ages-list"></div>
+                </div>
+            </div>
+            <button class="search-btn" id="search-submit" data-i18n="inicio.busq.buscar">Buscar</button>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- ===== 2. LOS 5 MÁS RESERVADOS =====
+             Las tarjetas se generan solas (script.js, sección 2.5): Acatenango y Fuego fijos y
+             los 3 destinos con la salida grupal más próxima. No hay que editarlas aquí. -->
+        <section class="mas-res" id="mas-reservados" aria-label="Los destinos más reservados" data-i18n-attr="aria-label:inicio.mas.aria">
+            <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+                <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7c0 5.3 7 13 7 13s7-7.7 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.500a2.5 2.5 0 0 1 0 5z"/></symbol>
+                <symbol id="i-reloj" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.500 2M9 2h6"/></g></symbol>
+                <symbol id="i-monte" viewBox="0 0 24 24"><path fill="currentColor" d="M12 4 2 20h20L12 4z"/></symbol>
+                <symbol id="i-corazon" viewBox="0 0 24 24"><path fill="currentColor" stroke="currentColor" stroke-width="1.500" stroke-linejoin="round" d="M12 21s-8-5.300-8-11.100A4.600 4.600 0 0 1 12 7a4.600 4.600 0 0 1 8 2.900C20 15.700 12 21 12 21z"/></symbol>
+                <symbol id="i-flecha" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+            </svg>
+
+            <div class="mas-res-head">
+                <div>
+                    <h2 data-i18n="inicio.mas.titulo">Los más reservados</h2>
+                    <p data-i18n="inicio.mas.texto">Las cinco expediciones que nuestros exploradores reservan primero. Asegura tu lugar antes de que se llenen.</p>
+                </div>
+                <a href="destinos.html" class="mas-res-todos" data-i18n="inicio.mas.ver_todos">Ver todos los destinos <span aria-hidden="true">→</span></a>
+            </div>
+
+            <div class="mas-res-grid">
+                <!-- Las 5 tarjetas las dibuja script.js (sección 2.5) desde destinos-data.js -->
+            </div>
+        </section>
+
+        <!-- ===== 3. TU PRÓXIMA AVENTURA ===== -->
+        <section class="why-section">
+            <div class="why-left">
+                <h2 data-i18n="inicio.why.titulo">Tu próxima aventura está en buenas manos</h2>
+                <p data-i18n="inicio.why.texto">Tu objetivo es llegar a ese lugar que tanto imaginas, el nuestro es llevarte de forma segura. Te acompañamos paso a paso por las caminatas, los volcanes y los paisajes más impresionantes de Guatemala, encargándonos de toda la logística para que tú solo te enfoques en disfrutar el camino.</p>
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-icon"><img src="img/grupospequenos.jpg" alt="Viajes" data-i18n-attr="alt:inicio.why.alt_viajes" loading="lazy" decoding="async"></div>
+                        <p data-i18n="inicio.why.grupos">Grupos pequeños</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><img src="img/guiaslocales.jpg" alt="Guías" data-i18n-attr="alt:inicio.why.alt_guias" loading="lazy" decoding="async"></div>
+                        <p data-i18n="inicio.why.guias">Guías locales</p>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon"><img src="img/rutasclaves.jpg" alt="Rutas" data-i18n-attr="alt:inicio.why.alt_rutas" loading="lazy" decoding="async"></div>
+                        <p data-i18n="inicio.why.rutas">Rutas clave</p>
+                    </div>
+                </div>
+            </div>
+            <div class="why-right">
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <div class="feature-text"><h3 data-i18n="inicio.why.f1_t">Asesoría a tu medida</h3><p data-i18n="inicio.why.f1_p">¿Es tu primera vez o ya eres experto? Te asesoramos de forma honesta para elegir la aventura perfecta según tu nivel físico y experiencia previa.</p></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-text"><h3 data-i18n="inicio.why.f2_t">Seguridad y logística</h3><p data-i18n="inicio.why.f2_p">Nos encargamos de los detalles pesados. Desde el transporte y la planificación de la ruta, hasta los protocolos de seguridad en ruta para que tú solo te enfoques en disfrutar.</p></div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌿</div>
+                    <div class="feature-text"><h3 data-i18n="inicio.why.f3_t">Turismo responsable</h3><p data-i18n="inicio.why.f3_p">Amamos los lugares que visitamos. Fomentamos el respeto por la naturaleza.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 4. TOP VOLCANES (las tarjetas las genera script.js) ===== -->
+        <section class="top-destinations">
+            <div class="dest-header">
+                <div class="dest-header-text">
+                    <h2 data-i18n="inicio.top.titulo">Top Volcanes</h2>
+                    <p data-i18n="inicio.top.texto">Las 37 cumbres oficiales de Guatemala. Desliza para explorar a dónde te llevará tu próximo ascenso.</p>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn" id="btn-prev" aria-label="Anterior" data-i18n-attr="aria-label:inicio.top.anterior">❮</button>
+                    <button class="slider-btn" id="btn-next" aria-label="Siguiente" data-i18n-attr="aria-label:inicio.top.siguiente">❯</button>
+                </div>
+            </div>
+            <div class="slider-container" id="volcano-slider"></div>
+        </section>
+
+        <!-- ===== 5. PRÓXIMAS SALIDAS GRUPALES =====
+             Se genera solo desde destinos-data.js (fechasGrupales). Ver script.js, sección 5. -->
+        <section class="packages-grid" id="proximas-salidas" style="display:none">
+            <div class="featured-summit" id="summit-box">
+                <div class="slider-dots" id="summit-dots"></div>
+            </div>
+        </section>
+
+        <!-- ===== 6. CALIFICACIONES Y RESEÑAS =====
+             OJO: las cifras y los comentarios de abajo son de ejemplo.
+             Reemplázalos por datos y reseñas reales de tus clientes. -->
+        <section class="resenas" id="resenas" aria-label="Calificaciones de nuestros exploradores" data-i18n-attr="aria-label:inicio.res.aria">
+            <div class="res-resumen">
+                <div class="res-nota">
+                    <span class="res-num"><span class="cuenta" data-valor="4.9" data-dec="1">4.9</span></span>
+                    <div>
+                        <span class="estrellas" style="--w:98%" aria-label="4.9 de 5 estrellas" data-i18n-attr="aria-label:inicio.res.estrellas" data-i18n-n="4.9"><i>★★★★★</i></span>
+                        <p data-i18n="inicio.res.promedio">Calificación promedio de quienes ya subieron con nosotros</p>
+                    </div>
+                </div>
+                <div class="res-dato"><b><span class="cuenta" data-valor="1200" data-pref="+">+1,200</span></b><span data-i18n="inicio.res.acompanados">exploradores acompañados</span></div>
+                <div class="res-dato"><b><span class="cuenta" data-valor="98" data-suf="%">98%</span></b><span data-i18n="inicio.res.recomienda">recomienda nuestras expediciones</span></div>
+            </div>
+
+            <div class="marq" id="marq">
+                <div class="marq-track" id="marqTrack">
+                    <figure class="res-card"><div class="res-card-top"><span class="res-av">M</span><div><b>Mariana R.</b><small>Acatenango</small></div><span class="res-st">★★★★★</span></div><blockquote data-i18n="inicio.res.r1">Llegamos a la cima sin una sola preocupación. Los guías conocen cada tramo y la cena caliente en el campamento fue lo mejor.</blockquote></figure>
+                    <figure class="res-card"><div class="res-card-top"><span class="res-av">D</span><div><b>Daniel K.</b><small>Volcán de Fuego</small></div><span class="res-st">★★★★★</span></div><blockquote data-i18n="inicio.res.r2">Ver las erupciones de noche desde el campamento no se compara con nada. Organización impecable de principio a fin.</blockquote></figure>
+                    <figure class="res-card"><div class="res-card-top"><span class="res-av">L</span><div><b>Lucía G.</b><small>Pacaya</small></div><span class="res-st">★★★★★</span></div><blockquote data-i18n="inicio.res.r3">Era mi primera vez en un volcán y me sentí acompañada todo el camino. El grupo pequeño hace la diferencia.</blockquote></figure>
+                    <figure class="res-card"><div class="res-card-top"><span class="res-av">T</span><div><b>Tom H.</b><small>Volcán de Agua</small></div><span class="res-st">★★★★☆</span></div><blockquote data-i18n="inicio.res.r4">Ruta exigente pero muy bien guiada. Nos recomendaron el volcán justo para nuestro nivel y acertaron.</blockquote></figure>
+                    <figure class="res-card"><div class="res-card-top"><span class="res-av">A</span><div><b>Andrea P.</b><small>Tajumulco</small></div><span class="res-st">★★★★★</span></div><blockquote data-i18n="inicio.res.r5">Transporte, equipo y comida resueltos. Yo solo tuve que caminar y disfrutar la vista desde lo más alto.</blockquote></figure>
+                    <figure class="res-card"><div class="res-card-top"><span class="res-av">S</span><div><b>Sebastián M.</b><small>Acatenango</small></div><span class="res-st">★★★★★</span></div><blockquote data-i18n="inicio.res.r6">Seguridad y buen trato. Ya reservé mi segunda expedición con ellos.</blockquote></figure>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>A La Torre GT</h3>
+                <p data-i18n="comun.footer.sobre">Especialistas en expediciones volcánicas en Guatemala. Llevándote a lo más alto de forma segura e inolvidable. Tu próxima gran aventura empieza aquí.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="comun.footer.explorar">Explorar</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-i18n="comun.nav.inicio">Inicio</a></li>
+                    <li><a href="destinos.html" data-i18n="comun.footer.destinos">Todos los Destinos</a></li>
+                    <li><a href="#" data-i18n="comun.footer.preparacion">Preparación y Equipo</a></li>
+                    <li><a href="#" data-i18n="comun.footer.faq">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="comun.footer.contacto">Contacto</h3>
+                <p>📍 Ciudad de Guatemala, Guatemala</p>
+                <p>📞 +502 30554595</p>
+                <p>✉️ info@alatorregt.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="comun.footer.unete">Únete a la expedición</h3>
+                <p data-i18n="comun.footer.unete_texto">Suscríbete para recibir noticias, tips de montaña y descuentos exclusivos para nuestros próximos ascensos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico" data-i18n-attr="placeholder:comun.footer.correo_ph">
+                    <button type="button" class="newsletter-btn" data-i18n="comun.footer.enviar">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p data-i18n="comun.footer.derechos">&copy; 2026 A La Torre GT. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="cumbres-reference">
+            <img src="img/cumbres.png" alt="Las 37 cumbres oficiales de Guatemala" data-i18n-attr="alt:comun.footer.cumbres_alt" loading="lazy" decoding="async">
+        </div>
+    </footer>
+
+    <!-- ===== ANUNCIO DE LA PRÓXIMA SALIDA GRUPAL =====
+         Aparece una vez, ~3 s después de entrar. Imagen, enlace y tiempos se cambian en anuncio.js.
+         Póster en img/anuncio1.(jpg/png/webp…) con proporción 3:4. -->
+    <div class="anu" id="anuncio" role="dialog" aria-modal="true" aria-label="Próxima salida grupal" data-i18n-attr="aria-label:inicio.anuncio.aria" hidden>
+        <div class="anu-fondo" data-anu-cerrar></div>
+
+        <div class="anu-volcan" aria-hidden="true">
+            <svg viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax slice" focusable="false">
+                <defs>
+                    <radialGradient id="anu-g-cra" cx="50%" cy="50%" r="50%">
+                        <stop offset="0" stop-color="#fff3b0"/><stop offset=".25" stop-color="#ffcc00"/>
+                        <stop offset=".6" stop-color="#ff4500" stop-opacity=".55"/><stop offset="1" stop-color="#8b0000" stop-opacity="0"/>
+                    </radialGradient>
+                    <linearGradient id="anu-g-mon" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#2a1410"/><stop offset=".45" stop-color="#14151d"/><stop offset="1" stop-color="#0b0c11"/>
+                    </linearGradient>
+                    <linearGradient id="anu-g-rio" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#ffcc00"/><stop offset=".5" stop-color="#ff4500"/><stop offset="1" stop-color="#8b0000" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <ellipse class="anu-resplandor" cx="600" cy="150" rx="270" ry="150" fill="url(#anu-g-cra)"/>
+                <path d="M0 420V318L150 276 260 300 400 232 520 150 560 128 600 140 640 128 680 150 800 236 940 262 1060 240 1200 310V420Z" fill="url(#anu-g-mon)"/>
+                <path d="M560 128 600 140 640 128" fill="none" stroke="#ffcc00" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M574 138 580 172 566 206 586 244 576 286 596 336" fill="none" stroke="url(#anu-g-rio)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M626 138 622 170 638 204 620 240 632 280 618 322" fill="none" stroke="url(#anu-g-rio)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div class="anu-brasas" aria-hidden="true"></div>
+
+        <div class="anu-card" tabindex="-1">
+            <button type="button" class="anu-x" aria-label="Cerrar anuncio" data-i18n-attr="aria-label:inicio.anuncio.cerrar" data-anu-cerrar>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+            <div class="anu-foto">
+                <img alt="Próxima salida grupal" data-i18n-attr="alt:inicio.anuncio.alt" decoding="async">
+                <div class="anu-frente" aria-hidden="true"><div class="anu-lava"></div><div class="anu-cubre"></div></div>
+            </div>
+            <div class="anu-pie">
+                <a class="btn-primary anu-cta" href="detalle.html?id=fuego" data-i18n="inicio.summit.reservar">Ver itinerario y reservar</a>
+            </div>
+        </div>
+    </div>
+
+<script src="destinos-data.js"></script>
+<script src="imagenes.js"></script>
+<script src="buscador.js"></script>
+<script src="script.js"></script>
+<script src="whatsapp.js"></script>
+<script src="legal.js" defer></script>
+<script src="anuncio.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+/* =========================================
+   PÁGINA STAFF — A La Torre GT
+   Usa la misma paleta de estilos.css:
+   #1a1b26 (oscuro) · #ff4500 (lava) · #ffcc00 (fuego) · #f5f6f9 (gris claro)
+   Depende de estilos.css (reutiliza @property --ang y @keyframes lava-giro).
+   ========================================= */
+
+/* ---------- PARTE 1: texto + acordeón ---------- */
+.staff-hero {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.8fr) 2.2fr;
+    gap: 50px;
+    align-items: center;
+    margin: 40px auto 90px;
+}
+
+.staff-hero-text h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -1px;
+    color: #1a1b26;
+    margin-bottom: 18px;
+}
+.staff-hero-text p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 280px;
+}
+
+.st-acordeon {
+    display: flex;
+    gap: 12px;
+    height: clamp(26rem, 42vw, 30rem);
+}
+
+.st-card {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #f5f6f9;
+    cursor: pointer;
+    outline: none;
+    transition: flex-grow 0.75s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+.st-card.is-open { flex-grow: 4.6; cursor: default; }
+.st-card:focus-visible { box-shadow: 0 0 0 3px #fff, 0 0 0 5px #ff4500; }
+
+.st-card__foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    transform: scale(1.06);
+    transition: transform 0.9s cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+.st-card.is-open .st-card__foto { transform: scale(1); }
+
+/* velo para que el texto se lea sobre la foto */
+.st-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26, 27, 38, 0.85) 0%, rgba(26, 27, 38, 0.25) 40%, transparent 65%);
+    opacity: 0.55;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+}
+.st-card.is-open::after { opacity: 1; }
+
+/* aro lava (el mismo de tus botones) solo en la tarjeta abierta */
+.st-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--ang), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: lava-giro 3s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+.st-card.is-open::before { opacity: 1; }
+
+/* nombre vertical cuando está cerrada */
+.st-card__nombre-v {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    z-index: 2;
+    transform: translateX(-50%);
+    writing-mode: vertical-rl;
+    rotate: 180deg;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+.st-card.is-open .st-card__nombre-v { opacity: 0; }
+
+/* texto que aparece al abrir */
+.st-card__info {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    z-index: 2;
+    padding: 25px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: none;
+}
+.st-card.is-open .st-card__info { opacity: 1; transform: none; transition-delay: 0.3s; }
+
+.st-card__info h3 { font-size: clamp(1.5rem, 2.6vw, 2rem); font-weight: 800; }
+.st-card__rol { color: #ffcc00; font-size: 0.9rem; font-weight: 600; margin: 2px 0 10px; }
+.st-card__bio { max-width: 44ch; font-size: 0.9rem; line-height: 1.6; color: rgba(255, 255, 255, 0.9); }
+
+/* ---------- PARTE 2: cuadrícula de 7 ---------- */
+.staff-team { margin: 0 auto 80px; }
+
+.staff-team-header { margin-bottom: 30px; }
+.staff-team-header h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 5px; color: #1a1b26; }
+.staff-team-header p { color: #666; font-size: 0.9rem; max-width: 420px; line-height: 1.5; }
+
+.st-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+    gap: 24px;
+}
+
+.st-tarjeta {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.st-tarjeta:hover { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); transform: translateY(-3px); }
+
+.st-tarjeta__marco {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    background: #f5f6f9;
+    overflow: hidden;
+}
+.st-tarjeta__foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 1s ease, transform 6s ease-out;
+}
+.st-tarjeta__foto.is-activa { opacity: 1; transform: scale(1); }
+
+.st-tarjeta__vacio {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 4rem;
+    font-weight: 800;
+    color: #d5d8e0;
+}
+
+/* barritas: cada una se llena en 5 s */
+.st-puntos { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 2; display: flex; gap: 6px; }
+.st-punto { flex: 1 1 0; height: 20px; padding: 0; border: 0; background: none; cursor: pointer; position: relative; }
+.st-punto::before,
+.st-punto::after { content: ''; position: absolute; left: 0; right: 0; bottom: 8px; height: 3px; border-radius: 2px; }
+.st-punto::before { background: rgba(255, 255, 255, 0.55); }
+.st-punto::after {
+    background: linear-gradient(90deg, #ff4500, #ffcc00);
+    transform: scaleX(0);
+    transform-origin: left;
+}
+.st-punto.is-hecho::after { transform: scaleX(1); }
+.st-punto.is-activa::after { animation: st-progreso 5s linear forwards; }
+.st-tarjeta.is-pausada .st-punto.is-activa::after { animation-play-state: paused; }
+.st-punto:focus-visible { outline: 2px solid #ff4500; outline-offset: 2px; }
+@keyframes st-progreso { to { transform: scaleX(1); } }
+
+.st-tarjeta__texto { padding: 18px 20px 22px; }
+.st-tarjeta__texto h3 { font-size: 1.15rem; font-weight: 700; color: #1a1b26; }
+.st-tarjeta__rol { color: #ff4500; font-size: 0.85rem; font-weight: 600; margin: 2px 0 8px; }
+.st-tarjeta__info { color: #666; font-size: 0.88rem; line-height: 1.5; }
+
+/* ---------- Redes sociales de cada persona ---------- */
+.st-tarjeta__texto { flex: 1 1 auto; }   /* empuja las redes siempre al fondo de la tarjeta */
+
+.st-redes {
+    display: flex;
+    gap: 8px;
+    margin: 0 20px;
+    padding: 14px 0 18px;
+    border-top: 1px solid #f0f1f4;
+}
+
+/* botón gris: círculo que se vuelve píldora con el nombre de la red al pasar el cursor */
+.st-red {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    border-radius: 50px;
+    background: #f5f6f9;
+    color: #9aa0ad;
+    text-decoration: none;
+    overflow: hidden;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.st-red__icono {
+    flex: 0 0 36px;
+    width: 36px; height: 36px;
+    display: grid;
+    place-items: center;
+}
+.st-red__icono svg { width: 17px; height: 17px; transition: transform 0.3s ease; }
+.st-red__txt {
+    max-width: 0;
+    opacity: 0;
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: max-width 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+}
+
+/* al pasar el cursor: el mismo degradado lava de tu tarjeta de correo */
+.st-red:hover,
+.st-red:focus-visible {
+    background: linear-gradient(135deg, #ff4500, #ffb300);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255, 69, 0, 0.25);
+}
+.st-red:hover .st-red__icono svg,
+.st-red:focus-visible .st-red__icono svg { transform: rotate(-8deg); }
+.st-red:hover .st-red__txt,
+.st-red:focus-visible .st-red__txt { max-width: 90px; opacity: 1; padding-right: 14px; }
+.st-red:focus-visible { outline: 2px solid #ff4500; outline-offset: 2px; }
+
+/* ---------- Celulares y tablets ---------- */
+@media (max-width: 768px) {
+    .staff-hero { grid-template-columns: 1fr; gap: 30px; margin-bottom: 60px; }
+    .staff-hero-text p { max-width: 380px; }
+
+    /* acordeón vertical con alturas definidas: cerradas = franja, abierta = grande */
+    .st-acordeon { flex-direction: column; height: auto; gap: 10px; }
+
+    .st-card {
+        flex: 0 0 4.5rem;
+        transition: flex-basis 0.7s cubic-bezier(0.22, 0.8, 0.24, 1);
+    }
+    .st-card.is-open { flex: 0 0 27rem; }
+
+    .st-card__foto { object-position: center 15%; }
+
+    /* cerradas: velo parejo para que el nombre se lea sobre cualquier foto */
+    .st-card::after {
+        background: linear-gradient(90deg, rgba(26, 27, 38, 0.8) 0%, rgba(26, 27, 38, 0.3) 100%);
+        opacity: 1;
+    }
+            /* abierta: la parte de abajo (donde va el texto) casi sólida */
+    .st-card.is-open::after {
+        background: linear-gradient(to top,
+            rgba(26, 27, 38, 0.96) 0%,
+            rgba(26, 27, 38, 0.92) 34%,
+            rgba(26, 27, 38, 0.55) 47%,
+            transparent 63%);
+    }
+
+    .st-card__nombre-v {
+        writing-mode: horizontal-tb;
+        rotate: none;
+        left: 20px;
+        bottom: 50%;
+        transform: translateY(50%);
+        font-size: 1.1rem;
+        text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .st-card__info { padding: 20px 20px 22px; }
+    .st-card__info h3 { font-size: 1.5rem; }
+    .st-card__rol { font-size: 0.85rem; margin-bottom: 8px; }
+    .st-card__bio {
+        max-width: none;
+        font-size: 0.88rem;
+        line-height: 1.55;
+        color: #fff;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .staff-team { margin-bottom: 60px; }
+}
+
+/* celulares chicos: un poco más de altura para que la bio larga (Natalia) no se apriete */
+@media (max-width: 400px) {
+    .st-card.is-open { flex-basis: 30rem; }
+    .st-card__bio { font-size: 0.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .st-card, .st-card__foto, .st-card__info, .st-tarjeta__foto, .st-tarjeta { transition-duration: 0.01s; transition-delay: 0s; }
+    .st-card::before { animation: none; }
+    .st-punto.is-activa::after { animation: none; transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .st-red, .st-red__icono svg, .st-red__txt { transition-duration: 0.01s; }
+}

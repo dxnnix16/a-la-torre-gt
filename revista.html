@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="revista.meta.titulo">A La Torre GT | La Revista</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <script>document.documentElement.classList.add('js');</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="comun.css">
+    <link rel="stylesheet" href="revista.css">
+    <!-- Traducciones: i18n.js primero, luego los diccionarios, y comun.js al final (todos con defer) -->
+    <script src="i18n.js" defer></script>
+    <script src="traducciones/trad-comun.js" defer></script>
+    <script src="traducciones/trad-revista.js" defer></script>
+    <script src="comun.js" defer></script>
+    <!-- Logo del navbar: tamaño controlado para que la imagen no desacomode la página -->
+    <style>
+        .navbar .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+        .navbar .logo img { height: 44px; width: auto; max-width: 60px; object-fit: contain; display: block; flex-shrink: 0; }
+        .navbar .logo span { white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="img/logo.png" alt="" onerror="this.remove()">
+            <span>A La Torre GT</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html" data-i18n="comun.nav.inicio">Inicio</a>
+            <a href="destinos.html" data-i18n="comun.nav.destinos">Destinos</a>
+            <a href="revista.html" data-i18n="comun.nav.revista">La Revista</a>
+            <a href="staff.html" data-i18n="comun.nav.staff">Staff</a>
+            <a href="contacto.html" data-i18n="comun.nav.contacto">Contacto</a>
+        </div>
+        <div class="nav-actions">
+            <input type="text" class="search-bar" placeholder="🔍 Buscar un volcán..." data-i18n-attr="placeholder:comun.nav.buscar_ph">
+            <a href="#" class="btn-book" data-i18n="comun.nav.reservar">Reservar ahora</a>
+        </div>
+    </nav>
+
+    <main class="container rv-main">
+
+        <section class="rv-hero">
+
+            <!-- Cabecera: sello giratorio · título · equipo -->
+            <div class="rv-cabecera">
+                <a class="rv-sello" href="#momentos" aria-label="Ver los momentos destacados" data-i18n-attr="aria-label:revista.sello.aria">
+                    <svg class="rv-sello-anillo" viewBox="0 0 120 120" aria-hidden="true">
+                        <defs><path id="rvCirculo" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+                        <text><textPath href="#rvCirculo" textLength="272" lengthAdjust="spacing" data-i18n="revista.sello.texto">mira nuestros momentos • mira nuestros momentos • </textPath></text>
+                    </svg>
+                    <span class="rv-sello-play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.500v15l13-7.500z"/></svg></span>
+                </a>
+
+                <h1 class="rv-titulo">
+                    <span class="rv-linea"><span style="--d:.1s" data-i18n="revista.titulo.l1">Momentos que</span></span>
+                    <span class="rv-linea"><span style="--d:.25s" data-i18n-html="revista.titulo.l2">se quedan <span class="rv-grad">contigo</span></span></span>
+                </h1>
+
+                <div class="rv-equipo">
+                    <span class="rv-avatar" title="Natalia">N</span>
+                    <span class="rv-avatar" title="Pablo">P</span>
+                    <span class="rv-avatar" title="Luis">L</span>
+                    <a class="rv-mas" href="staff.html" aria-label="Conoce al equipo" data-i18n-attr="aria-label:revista.equipo.aria">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Collage de momentos (fotos: img/revista/momento1 ... momento7)
+                 Los nombres de lugares (<strong>) son nombres propios: no se traducen. -->
+            <div class="rv-collage">
+                <div class="rv-col" style="--i:0; --h:100%" data-prof="1.3">
+                    <article class="rv-card rv-naranja" style="--f:2.1; --fd:0s" data-foto="momento1" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Volcán de Acatenango</strong><span data-i18n="revista.c1.desc">Amanecer sobre el mar de nubes</span></div>
+                    </article>
+                    <article class="rv-card rv-amarillo rv-chica" style="--f:1; --fd:1.2s" data-foto="momento2" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Antigua Guatemala</strong><span data-i18n="revista.c2.desc">Calles llenas de color</span></div>
+                    </article>
+                </div>
+                <div class="rv-col" style="--i:1; --h:86%" data-prof="0.7">
+                    <article class="rv-card rv-selva" style="--f:1; --fd:.6s" data-foto="momento3" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Semuc Champey</strong><span data-i18n="revista.c3.desc">Pozas de agua turquesa</span></div>
+                    </article>
+                </div>
+                <div class="rv-col rv-col-cta" style="--i:2; --h:78%" data-prof="1">
+                    <article class="rv-card rv-lago" style="--f:1; --fd:1.8s" data-foto="momento4" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Lago de Atitlán</strong><span data-i18n="revista.c4.desc">Tres volcanes, un solo lago</span></div>
+                    </article>
+                    <a class="rv-cta" href="#momentos" data-i18n="revista.cta.explorar">Explorar momentos
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                    </a>
+                </div>
+                <div class="rv-col" style="--i:3; --h:86%" data-prof="0.7">
+                    <article class="rv-card rv-lava" style="--f:1; --fd:2.4s" data-foto="momento5" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Volcán de Fuego</strong><span data-i18n="revista.c5.desc">Noche de erupciones</span></div>
+                    </article>
+                </div>
+                <div class="rv-col" style="--i:4; --h:100%" data-prof="1.3">
+                    <article class="rv-card rv-teal" style="--f:2.1; --fd:.9s" data-foto="momento6" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Tikal</strong><span data-i18n="revista.c6.desc">Entre templos y selva</span></div>
+                    </article>
+                    <article class="rv-card rv-amarillo rv-chica" style="--f:1; --fd:3s" data-foto="momento7" tabindex="0">
+                        <img class="rv-foto" alt="">
+                        <div class="rv-leyenda"><strong>Volcán de Pacaya</strong><span data-i18n="revista.c7.desc">Malvaviscos en la lava</span></div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- Pie: frase + artículo destacado -->
+            <div class="rv-pie">
+                <blockquote class="rv-cita rv-reveal">
+                    <span class="rv-cita-marca" aria-hidden="true">&ldquo;</span>
+                    <p data-i18n="revista.cita.texto">La mejor vista siempre llega después de la parte difícil. Aquí guardamos esos momentos para que nunca se te olviden.</p>
+                    <span class="rv-firma" data-i18n="revista.cita.firma">El equipo de A La Torre</span>
+                </blockquote>
+
+                <a class="rv-destacado rv-reveal" style="--d:.15s" href="#momentos">
+                    <div class="rv-destacado-top">
+                        <div class="rv-num"><b>01</b><span data-i18n="revista.dest.etiqueta">Momentos</span></div>
+                        <span class="rv-flecha"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                    </div>
+                    <h3 data-i18n="revista.dest.titulo">Lo mejor de nuestras expediciones, en un solo lugar</h3>
+                </a>
+            </div>
+        </section>
+
+        <!-- ESPACIO PARA LOS POSTS: se llenan desde el arreglo POSTS de revista.js -->
+        <section class="rv-momentos" id="momentos" aria-labelledby="rv-momentos-titulo">
+            <div class="rv-momentos-cabecera rv-reveal">
+                <h2 id="rv-momentos-titulo" data-i18n="revista.momentos.titulo">Momentos destacados</h2>
+                <p data-i18n="revista.momentos.texto">Historias, paisajes y cumbres de las experiencias que vivimos con nuestros viajeros.</p>
+            </div>
+            <div class="rv-posts" id="rvPosts"></div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>A La Torre GT</h3>
+                <p data-i18n="comun.footer.sobre">Especialistas en expediciones volcánicas en Guatemala. Llevándote a lo más alto de forma segura e inolvidable. Tu próxima gran aventura empieza aquí.</p>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="comun.footer.explorar">Explorar</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html" data-i18n="comun.nav.inicio">Inicio</a></li>
+                    <li><a href="destinos.html" data-i18n="comun.footer.destinos">Todos los Destinos</a></li>
+                    <li><a href="#" data-i18n="comun.footer.preparacion">Preparación y Equipo</a></li>
+                    <li><a href="#" data-i18n="comun.footer.faq">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="comun.footer.contacto">Contacto</h3>
+                <p>📍 Ciudad de Guatemala, Guatemala</p>
+                <p>📞 +502 30554595</p>
+                <p>✉️ info@alatorregt.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3 data-i18n="comun.footer.unete">Únete a la expedición</h3>
+                <p data-i18n="comun.footer.unete_texto">Suscríbete para recibir noticias, tips de montaña y descuentos exclusivos para nuestros próximos ascensos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico" data-i18n-attr="placeholder:comun.footer.correo_ph">
+                    <button type="button" class="newsletter-btn" data-i18n="comun.footer.enviar">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p data-i18n="comun.footer.derechos">&copy; 2026 A La Torre GT. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="cumbres-reference">
+            <img src="img/cumbres.png" alt="Las 37 cumbres oficiales de Guatemala" data-i18n-attr="alt:comun.footer.cumbres_alt">
+        </div>
+    </footer>
+
+    <script src="revista.js"></script>
+    <script src="whatsapp.js"></script>
+</body>
+</html>

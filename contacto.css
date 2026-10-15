@@ -1,0 +1,226 @@
+/* =========================================
+   PÁGINA CONTACTO — A La Torre GT
+   Paleta de estilos.css: #1a1b26 · #ff4500 · #ffcc00 · #f5f6f9
+   ========================================= */
+
+.ct-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+    margin: 50px auto 90px;
+}
+
+/* ---------- fondo animado (manchas de lava) ---------- */
+.ct-fondo { position: absolute; inset: -60px -40px; z-index: -1; pointer-events: none; overflow: hidden; }
+.ct-fondo span { position: absolute; border-radius: 50%; filter: blur(50px); }
+.ct-fondo span:nth-child(1) {
+    width: 420px; height: 420px; left: -80px; top: 0;
+    background: radial-gradient(circle, rgba(255, 69, 0, 0.16), transparent 68%);
+    animation: ct-deriva 15s ease-in-out infinite alternate;
+}
+.ct-fondo span:nth-child(2) {
+    width: 380px; height: 380px; right: -60px; bottom: -20px;
+    background: radial-gradient(circle, rgba(255, 204, 0, 0.22), transparent 68%);
+    animation: ct-deriva 18s ease-in-out infinite alternate-reverse;
+}
+@keyframes ct-deriva { to { transform: translate(50px, 35px) scale(1.12); } }
+
+/* ---------- columna izquierda ---------- */
+.ct-anim { animation: ct-sube 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: var(--d, 0s); }
+@keyframes ct-sube { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+
+.ct-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 16px 7px 12px;
+    border-radius: 50px;
+    background: rgba(37, 211, 102, 0.12);
+    color: #0f7a3c;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 22px;
+}
+.ct-chip i {
+    position: relative;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #25d366;
+}
+.ct-chip i::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #25d366;
+    animation: ct-pulso 2s ease-out infinite;
+}
+@keyframes ct-pulso { from { transform: scale(1); opacity: 0.6; } to { transform: scale(3); opacity: 0; } }
+
+.ct-info h1 {
+    font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: #1a1b26;
+    margin-bottom: 20px;
+}
+.ct-info h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #ff4500, #ffcc00);
+    -webkit-background-clip: text;
+            background-clip: text;
+    color: transparent;
+}
+.ct-intro { color: #666; font-size: 0.98rem; line-height: 1.7; max-width: 440px; margin-bottom: 34px; }
+
+.ct-datos { list-style: none; display: grid; gap: 12px; max-width: 440px; }
+.ct-dato {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+a.ct-dato:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(26, 27, 38, 0.08); border-color: #ffd2bf; }
+.ct-icono {
+    flex: 0 0 46px;
+    width: 46px; height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #f5f6f9;
+    color: #ff4500;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.ct-icono svg { width: 22px; height: 22px; }
+a.ct-dato:hover .ct-icono { background: linear-gradient(135deg, #ff4500, #ffb300); color: #fff; transform: rotate(-6deg); }
+.ct-dato small { display: block; font-size: 0.74rem; color: #888; font-weight: 500; margin-bottom: 1px; }
+.ct-dato strong { font-size: 0.95rem; font-weight: 600; color: #1a1b26; }
+
+/* ---------- tarjeta del formulario ---------- */
+.ct-card {
+    position: relative;
+    background: #f5f6f9;
+    border-radius: 26px;
+    padding: clamp(26px, 3.2vw, 40px);
+    box-shadow: 0 25px 60px rgba(26, 27, 38, 0.07);
+}
+/* aro lava (el mismo de tus botones) */
+.ct-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--ang), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: lava-giro 4s linear infinite;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+.ct-card:focus-within::before { opacity: 1; }
+
+.ct-card h2 { font-size: 1.35rem; font-weight: 700; color: #1a1b26; margin-bottom: 6px; }
+.ct-sub { color: #777; font-size: 0.86rem; margin-bottom: 24px; }
+
+.ct-fila { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ct-campo { margin-bottom: 16px; }
+.ct-campo label { display: block; font-size: 0.8rem; font-weight: 600; color: #1a1b26; margin-bottom: 7px; }
+.ct-campo input,
+.ct-campo select,
+.ct-campo textarea {
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.92rem;
+    color: #1a1b26;
+    background: #fff;
+    border: 1.5px solid transparent;
+    border-radius: 12px;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.ct-campo textarea { min-height: 120px; resize: vertical; line-height: 1.5; }
+.ct-campo select { appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231a1b26' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 42px;
+}
+.ct-campo input::placeholder,
+.ct-campo textarea::placeholder { color: #a3a7b3; }
+.ct-campo input:focus,
+.ct-campo select:focus,
+.ct-campo textarea:focus {
+    border-color: #ff4500;
+    box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.12);
+    transform: translateY(-1px);
+}
+.ct-ayuda { display: block; font-size: 0.74rem; color: #8a8fa0; margin-top: 6px; }
+.ct-error { display: block; min-height: 0; font-size: 0.76rem; font-weight: 500; color: #d92d4f; margin-top: 6px; }
+.ct-error:empty { display: none; }
+.ct-campo.tiene-error input,
+.ct-campo.tiene-error textarea { border-color: #d92d4f; box-shadow: 0 0 0 4px rgba(217, 45, 79, 0.1); }
+.ct-campo.tiene-error { animation: ct-tiembla 0.4s ease; }
+@keyframes ct-tiembla { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+.ct-enviar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+    background: #1a1b26;
+    border: 0;
+    border-radius: 14px;
+    padding: 16px 26px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ct-enviar svg { width: 20px; height: 20px; transition: transform 0.3s ease; }
+.ct-enviar:hover { background: linear-gradient(90deg, #ff4500, #ffcc00); color: #1a1b26; transform: translateY(-2px); box-shadow: 0 12px 28px rgba(255, 69, 0, 0.28); }
+.ct-enviar:hover svg { transform: translateX(5px); }
+.ct-enviar:focus-visible { outline: 3px solid #ff4500; outline-offset: 3px; }
+.ct-nota { text-align: center; font-size: 0.76rem; color: #8a8fa0; margin-top: 14px; }
+
+/* ---------- estado de éxito ---------- */
+.ct-exito { text-align: center; padding: 20px 6px; animation: ct-sube 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.ct-exito[hidden] { display: none; }
+.ct-check { width: 84px; height: 84px; margin: 0 auto 20px; }
+.ct-check circle { fill: none; stroke: #25d366; stroke-width: 3; stroke-dasharray: 190; stroke-dashoffset: 190; animation: ct-trazo 0.8s 0.1s ease forwards; }
+.ct-check path { fill: none; stroke: #25d366; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: ct-trazo 0.5s 0.7s ease forwards; }
+@keyframes ct-trazo { to { stroke-dashoffset: 0; } }
+.ct-exito h3 { font-size: 1.5rem; font-weight: 800; color: #1a1b26; margin-bottom: 10px; }
+.ct-exito p { color: #666; font-size: 0.92rem; line-height: 1.6; max-width: 340px; margin: 0 auto 24px; }
+.ct-otro { background: none; border: 0; font-family: inherit; font-size: 0.85rem; font-weight: 600; color: #1a1b26; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; margin-top: 16px; }
+.ct-otro:hover { color: #ff4500; }
+
+/* ---------- celulares y tablets ---------- */
+@media (max-width: 900px) {
+    .ct-hero { grid-template-columns: 1fr; gap: 44px; margin-top: 30px; }
+    .ct-intro, .ct-datos { max-width: none; }
+}
+@media (max-width: 480px) {
+    .ct-fila { grid-template-columns: 1fr; gap: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ct-anim, .ct-exito, .ct-fondo span, .ct-chip i::after, .ct-card::before { animation: none; }
+    .ct-check circle, .ct-check path { animation: none; stroke-dashoffset: 0; }
+}

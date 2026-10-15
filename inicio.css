@@ -1,0 +1,367 @@
+/* =========================================
+   INICIO · A La Torre GT
+   Se carga DESPUÉS de estilos.css (no reemplaza nada, solo suma y corrige).
+   Contiene: logo, lava del menú (rápida), pantalla de carga,
+   Los más reservados, tarjetas de volcanes, calificaciones.
+   ========================================= */
+
+/* ---------- LOGO + NOMBRE ---------- */
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo img { height: 46px; width: auto; display: block; }
+
+/* ---------- LAVA DEL MENÚ: antes era un cuadrado de 3000px girando
+   (muy pesado, por eso se trababa). Ahora es solo un aro de 2px. ---------- */
+.nav-links { isolation: isolate; background: #fff; }
+.nav-links::before {
+    inset: 0; top: 0; left: 0; width: auto; height: auto; margin: 0;
+    border-radius: inherit; padding: 2px; z-index: 0; pointer-events: none;
+    background: conic-gradient(from var(--ang), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: lava-giro 4s linear infinite;
+}
+.nav-links::after { display: none; }
+.navbar.pausa .nav-links::before { animation-play-state: paused; }
+
+/* ---------- PANTALLA DE CARGA ---------- */
+.pre { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: #fff; transition: opacity 0.6s ease, visibility 0.6s; }
+.pre.fuera { opacity: 0; visibility: hidden; }
+.pre-in { display: grid; justify-items: center; gap: 14px; }
+.pre-in img { height: 76px; width: auto; animation: pre-latido 1.8s ease-in-out infinite; }
+.pre-in b { font-size: 1.3rem; font-weight: 800; color: #85420b; }
+.pre-barra { width: 150px; height: 3px; border-radius: 3px; background: #f0f0f0; overflow: hidden; }
+.pre-barra span { display: block; width: 40%; height: 100%; border-radius: 3px; background: linear-gradient(90deg, #8b0000, #ff4500, #ffcc00); animation: pre-corre 1.1s ease-in-out infinite; }
+@keyframes pre-corre { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+@keyframes pre-latido { 50% { transform: scale(1.06); } }
+
+/* Entrada del hero: un solo momento, cuando la pantalla de carga se va */
+.hero-section { background-color: #1a1b26; }
+.js:not(.listo) .hero-section h1,
+.js:not(.listo) .hero-section .hero-search { opacity: 0; }
+.js.listo .hero-section h1 { animation: hero-sube 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s backwards; }
+.js.listo .hero-section .hero-search { animation: hero-sube 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s backwards; }
+@keyframes hero-sube { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* Imágenes que aparecen suavemente al terminar de cargar */
+.js img.fade:not(.ok) { opacity: 0; }
+img.fade { transition: opacity 0.6s ease; }
+
+/* ---------- LOS MÁS RESERVADOS (tarjetas como las de Destinos) ---------- */
+.mas-res { margin: 10px auto 0; }
+.mas-res-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 24px; }
+.mas-res-head h2 { font-size: 1.8rem; font-weight: 700; color: #222; margin-bottom: 4px; }
+.mas-res-head p { color: #666; font-size: 0.9rem; max-width: 480px; }
+.mas-res-todos { color: #1a1b26; font-weight: 600; font-size: 0.9rem; text-decoration: none; padding: 9px 18px; border-radius: 50px; background: #f5f6f9; transition: background 0.3s ease, color 0.3s ease; }
+.mas-res-todos:hover { background: #1a1b26; color: #fff; }
+
+.mas-res-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; padding: 6px 0 14px; }
+
+.tc { position: relative; display: flex; flex-direction: column; background: #fff; border-radius: 18px; overflow: hidden; isolation: isolate; box-shadow: 0 4px 18px rgba(26, 27, 38, 0.09); transition: transform 0.35s ease, box-shadow 0.35s ease; }
+.tc:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(26, 27, 38, 0.16); }
+/* Aro de lava: solo aparece (y gira) cuando pasas el mouse */
+.tc::before { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; padding: 2px; opacity: 0; transition: opacity 0.3s ease; background: conic-gradient(from var(--ang), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.tc:hover::before { opacity: 1; animation: lava-giro 4s linear infinite; }
+
+.tc-foto { position: relative; height: 190px; background: #d9dce3; overflow: hidden; }
+.tc-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, opacity 0.6s ease; }
+.tc:hover .tc-foto img { transform: scale(1.06); }
+
+.tc-tag { position: absolute; top: 12px; left: 12px; z-index: 2; background: rgba(26, 27, 38, 0.82); color: #fff; font-size: 0.7rem; font-weight: 600; padding: 5px 11px; border-radius: 50px; backdrop-filter: blur(4px); }
+.tc-tag-hot { background: linear-gradient(135deg, #ff4500, #d62300); }
+.tc-cat { position: absolute; left: 12px; bottom: 12px; z-index: 2; background: rgba(255, 255, 255, 0.92); color: #1a1b26; font-size: 0.72rem; font-weight: 700; padding: 5px 12px; border-radius: 50px; }
+
+.tc-fav { position: absolute; top: 10px; right: 10px; z-index: 6; width: 34px; height: 34px; border: 0; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, 0.92); color: #c9bdf2; cursor: pointer; transition: transform 0.25s ease, color 0.25s ease; }
+.tc-fav svg { width: 17px; height: 17px; }
+.tc-fav:hover { transform: scale(1.12); }
+.tc-fav.on { color: #ff3b3b; }
+.tc-fav:focus-visible, .tc-link:focus-visible::after { outline: 3px solid #ff4500; outline-offset: 2px; }
+
+.tc-cuerpo { display: flex; flex-direction: column; flex: 1; padding: 14px 13px 16px; }
+.tc-lugar { display: flex; align-items: center; gap: 4px; font-size: 0.66rem; font-weight: 600; color: #d4380d; margin-bottom: 6px; white-space: nowrap; }
+.tc-lugar svg { width: 13px; height: 13px; flex: none; }
+.tc-cuerpo h3 { font-size: 1.02rem; font-weight: 700; line-height: 1.25; color: #1a1b26; margin-bottom: 12px; }
+.tc-link { color: inherit; text-decoration: none; }
+.tc-link::after { content: ''; position: absolute; inset: 0; z-index: 1; } /* toda la tarjeta es clicable */
+
+.tc-datos { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 0.74rem; color: #666; margin-bottom: 14px; }
+.tc-dato { display: inline-flex; align-items: center; gap: 4px; }
+.tc-dato svg { width: 12px; height: 12px; }
+.tc-nota { font-weight: 700; color: #1a1b26; }
+
+.tc-pie { display: flex; justify-content: space-between; align-items: flex-end; margin-top: auto; padding-top: 12px; border-top: 1px solid #eee; }
+.tc-precio { line-height: 1.25; }
+.tc-precio small { display: block; font-size: 0.7rem; color: #777; }
+.tc-precio b { display: block; font-size: 1.15rem; font-weight: 800; color: #1a1b26; }
+.tc-ir { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: #f5f6f9; color: #1a1b26; transition: background 0.3s ease, color 0.3s ease; }
+.tc-ir svg { width: 16px; height: 16px; }
+.tc:hover .tc-ir { background: linear-gradient(135deg, #ff9500, #e03a00); color: #fff; }
+
+/* ---------- TARJETAS DE TOP VOLCANES (ahora con <img> y carga diferida) ---------- */
+.dest-card { background-color: #d9dce3; contain: paint; }
+.dest-card > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; transition: transform 0.6s ease, opacity 0.6s ease; }
+.dest-card:hover > img { transform: scale(1.05); }
+.dest-card > .dest-price, .dest-card > .dest-info { position: relative; z-index: 1; }
+.slider-container { will-change: scroll-position; overscroll-behavior-x: contain; }
+
+/* ---------- CALIFICACIONES Y RESEÑAS ---------- */
+.resenas { background: #1a1b26; color: #fff; border-radius: 24px; padding: 54px 0 46px; margin: 80px auto 0; position: relative; overflow: hidden; isolation: isolate; }
+.resenas::before { content: ''; position: absolute; width: 420px; height: 420px; right: -120px; top: -160px; border-radius: 50%; z-index: -1; background: radial-gradient(circle, rgba(255, 69, 0, 0.35), transparent 70%); }
+.res-resumen { display: flex; align-items: center; justify-content: space-between; gap: 30px 50px; flex-wrap: wrap; padding: 0 54px 38px; }
+.res-nota { display: flex; align-items: center; gap: 20px; }
+.res-num { font-size: 4.4rem; font-weight: 800; line-height: 1; letter-spacing: -2px; background: linear-gradient(135deg, #ffcc00, #ff4500); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.res-nota p { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); max-width: 210px; margin-top: 6px; line-height: 1.4; }
+.estrellas { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 3px; line-height: 1; color: rgba(255, 255, 255, 0.18); }
+.estrellas i { position: absolute; left: 0; top: 0; width: 0; overflow: hidden; white-space: nowrap; font-style: normal; color: #ffcc00; transition: width 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s; }
+.resenas.visto .estrellas i { width: var(--w); }
+.res-dato { display: grid; gap: 2px; }
+.res-dato b { font-size: 2.2rem; font-weight: 800; line-height: 1.1; }
+.res-dato span:last-child { font-size: 0.85rem; color: rgba(255, 255, 255, 0.7); }
+
+.marq { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent); }
+.marq-track { display: flex; gap: 18px; width: max-content; padding: 6px 0; animation: marq 60s linear infinite; will-change: transform; }
+.marq:hover .marq-track, .marq.pausa .marq-track { animation-play-state: paused; }
+@keyframes marq { to { transform: translateX(calc(-50% - 9px)); } }
+
+.res-card { width: 340px; flex: none; margin: 0; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; padding: 22px; }
+.res-card-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.res-av { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; flex: none; font-weight: 700; color: #1a1b26; background: linear-gradient(135deg, #ffcc00, #ff4500); }
+.res-card-top b { display: block; font-size: 0.9rem; }
+.res-card-top small { font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); }
+.res-st { margin-left: auto; color: #ffcc00; font-size: 0.85rem; letter-spacing: 1px; white-space: nowrap; }
+.res-card blockquote { font-size: 0.88rem; line-height: 1.6; color: rgba(255, 255, 255, 0.85); white-space: normal; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+    .mas-res-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 20px; scrollbar-width: none; margin: 0 -20px; padding: 6px 20px 16px; }
+    .mas-res-grid::-webkit-scrollbar { display: none; }
+    .tc { flex: 0 0 255px; scroll-snap-align: start; }
+    .res-resumen { padding: 0 24px 30px; }
+}
+@media (max-width: 768px) {
+    .logo { justify-content: center; }
+    .logo img { height: 38px; }
+    .mas-res-head h2 { font-size: 1.5rem; }
+    .resenas { padding: 40px 0 34px; border-radius: 20px; }
+    .res-card { width: 290px; }
+    .res-num { font-size: 3.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nav-links::before, .marq-track, .pre-barra span, .pre-in img, .tc:hover::before { animation: none; }
+    .tc, .tc-foto img, .pre { transition-duration: 0.01s; }
+    .js.listo .hero-section h1, .js.listo .hero-section .hero-search { animation: none; }
+    .estrellas i { transition: none; }
+}
+/* =========================================
+   BUSCADOR MÓVIL A PANTALLA COMPLETA (como GetYourGuide)
+   Cerrado: una sola píldora. Al tocarla se abre una pantalla con
+   el buscador, la fecha y los participantes como pasos.
+   ========================================= */
+.ms-atras, .ms-titulo, .ms-pie, .ms-sug-label, #sugerencias-list { display: none; }
+
+@media (max-width: 768px) {
+    :root { --ms-fondo: #f1f3f7; --ms-chip: #eceef3; --ms-tinta: #1a1b26; --ms-gris: #6b7280; }
+    html.ms-bloqueo, html.ms-bloqueo body { overflow: hidden; }
+
+    /* ----- CERRADO: solo la píldora de búsqueda ----- */
+    .hero-search:not(.abierto) { padding: 6px; border-radius: 50px; }
+    .hero-search:not(.abierto) #field-date,
+    .hero-search:not(.abierto) #field-people,
+    .hero-search:not(.abierto) .search-btn { display: none; }
+    .hero-search:not(.abierto) .search-field-main {
+        padding: 15px 20px 15px 52px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") no-repeat 20px center / 20px;
+    }
+    .hero-search:not(.abierto) .search-field-main input { pointer-events: none; font-size: 1rem; }
+
+    /* ----- ABIERTO: pantalla completa ----- */
+    .hero-search.abierto {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; max-width: none;
+        z-index: 99999; box-sizing: border-box; margin: 0; padding: 22px 22px 0;
+        display: grid; grid-template-columns: 1fr 1fr; align-content: start; gap: 10px;
+        background: var(--ms-fondo); border-radius: 0; box-shadow: none; overflow: hidden;
+        animation: none; transform: none; text-align: left;
+    }
+    /* tarjeta blanca detrás de la barra y los dos botones */
+    .hero-search.abierto::before {
+        content: ''; position: absolute; top: 10px; left: 10px; right: 10px; height: 132px; z-index: 0;
+        border-radius: 24px; background: #fff; box-shadow: 0 4px 18px rgba(26, 27, 38, 0.10);
+    }
+    .hero-search.abierto .search-divider,
+    .hero-search.abierto .search-chevron { display: none; }
+
+    .hero-search.abierto .search-field {
+        position: relative; z-index: 2; width: auto; min-width: 0; height: 46px; box-sizing: border-box;
+        padding: 0 12px; gap: 8px; justify-content: flex-start; border-radius: 50px; background: var(--ms-chip);
+    }
+    .hero-search.abierto .search-field:hover { background: var(--ms-chip); }
+    .hero-search.abierto .search-field-main { grid-column: 1 / -1; height: 52px; padding: 0 16px 0 6px; }
+    .hero-search.abierto .search-field input { font-size: 1rem; }  /* 16px: el iPhone no hace zoom */
+    .hero-search.abierto .search-label { font-size: 0.88rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .hero-search.abierto .ms-atras { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border: 0; border-radius: 50%; background: transparent; color: var(--ms-tinta); cursor: pointer; }
+    .hero-search.abierto .ms-atras svg { width: 22px; height: 22px; }
+
+    .hero-search.abierto #field-date::before,
+    .hero-search.abierto #field-people::before { content: ''; flex: none; width: 22px; height: 22px; background: no-repeat center / contain; }
+    .hero-search.abierto #field-date::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='3'/%3E%3Cpath d='M3 10h18M8 3v4M16 3v4'/%3E%3C/svg%3E"); }
+    .hero-search.abierto #field-people::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3.5'/%3E%3Cpath d='M2.500 20c0-3.500 3-6 6.500-6s6.500 2.500 6.500 6'/%3E%3Ccircle cx='17.500' cy='9' r='2.500'/%3E%3Cpath d='M17.500 14c2.500 0 4.500 1.800 4.500 4.500'/%3E%3C/svg%3E"); }
+
+    /* el paso activo queda marcado con borde oscuro */
+    .hero-search[data-panel="buscar"] .search-field-main,
+    .hero-search[data-panel="fecha"] #field-date,
+    .hero-search[data-panel="personas"] #field-people { box-shadow: inset 0 0 0 2px var(--ms-tinta); }
+
+    /* ----- Paneles ----- */
+    .hero-search.abierto #dropdown-search,
+    .hero-search.abierto #dropdown-date,
+    .hero-search.abierto #dropdown-people {
+        position: fixed; top: 156px; left: 10px; right: 10px; bottom: auto; width: auto;
+        max-height: calc(100vh - 170px); max-height: calc(100dvh - 170px);
+        box-sizing: border-box; padding: 22px 20px; border-radius: 24px; overflow-y: auto; overscroll-behavior: contain;
+        white-space: normal; z-index: 1; box-shadow: 0 6px 22px rgba(26, 27, 38, 0.10);
+    }
+    .ms-titulo { font-size: 1.5rem; font-weight: 800; color: var(--ms-tinta); margin: 0 0 12px; }
+
+    /* Sugerencias y recientes */
+    .hero-search.abierto #dropdown-search { background: transparent; box-shadow: none; padding: 4px 8px; }
+    .hero-search.abierto .ms-sug-label, .hero-search.abierto #sugerencias-list { display: block; }
+    .hero-search.abierto .dropdown-label { text-transform: none; letter-spacing: 0; font-size: 0.95rem; color: var(--ms-gris); margin: 10px 0 6px; }
+    .hero-search.abierto .recent-item, .hero-search.abierto .sug-item { display: flex; align-items: center; gap: 14px; padding: 9px 0; border-radius: 0; cursor: pointer; }
+    .hero-search.abierto .recent-item:hover { background: transparent; }
+    .hero-search.abierto .recent-icon, .sug-ico { width: 46px; height: 46px; border-radius: 12px; background-color: #dfe3ea; flex: none; display: grid; place-items: center; }
+    .sug-ico { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231a1b26' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s-7-6.200-7-11.500A7 7 0 0 1 19 9.500C19 14.800 12 21 12 21z'/%3E%3Ccircle cx='12' cy='9.500' r='2.500'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: 24px; }
+    .sug-item strong, .hero-search.abierto .recent-text strong { display: block; font-size: 1rem; font-weight: 600; color: var(--ms-tinta); }
+    /* sin búsquedas recientes: se oculta el aviso y su título */
+    .hero-search.abierto #recent-searches-list .no-recent { display: none; }
+    #dropdown-search:has(#recent-searches-list .no-recent) > .dropdown-label:first-child { display: none; }
+    .sug-item small { display: block; font-size: 0.85rem; color: var(--ms-gris); }
+
+    /* Fecha: tarjeta alta con el calendario que se desplaza y pie fijo */
+    .hero-search.abierto #dropdown-date { bottom: 10px; max-height: none; padding: 0; overflow: hidden; }
+    .hero-search.abierto #dropdown-date.active { display: flex; flex-direction: column; }
+    #dropdown-date .ms-titulo { display: block; padding: 22px 22px 0; margin: 0; }
+    #dropdown-date .quick-dates { flex-wrap: nowrap; overflow-x: auto; margin: 0; padding: 14px 22px 10px; scrollbar-width: none; }
+    #dropdown-date .quick-dates::-webkit-scrollbar { display: none; }
+    #dropdown-date .quick-date-btn { flex: none; white-space: nowrap; padding: 10px 16px; font-size: 0.9rem; background: var(--ms-chip); }
+    #dropdown-date .calendar-months { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 22px 16px; flex-direction: column; gap: 22px; }
+    #dropdown-date .calendar-month { flex: none; min-width: 0; }
+    #dropdown-date .calendar-header span { font-size: 1.05rem; }
+    #dropdown-date .calendar-header span { text-transform: none; }
+    #dropdown-date .calendar-header span::first-letter { text-transform: uppercase; }
+    #dropdown-date .calendar-nav { font-size: 1.2rem; padding: 6px 10px; }
+    #dropdown-date .calendar-day { padding: 11px 0; font-size: 1rem; }
+    #dropdown-date .ms-pie { display: flex; align-items: center; gap: 18px; padding: 14px 22px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid #eceef3; background: #fff; }
+    .ms-link { white-space: nowrap; border: 0; background: none; padding: 6px 0; font: inherit; font-size: 0.95rem; font-weight: 600; color: var(--ms-tinta); text-decoration: underline; cursor: pointer; }
+    .ms-continuar { margin-left: auto; border: 0; border-radius: 50px; padding: 13px 28px; background: #ff4500; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+
+    /* Participantes */
+    .hero-search.abierto #dropdown-people { max-height: calc(100vh - 260px); max-height: calc(100dvh - 260px); }
+    #dropdown-people .ms-titulo { display: block; }
+    #dropdown-people .people-row { padding: 14px 0; border-bottom: 0; }
+    #dropdown-people .people-title { font-size: 1.05rem; font-weight: 600; color: var(--ms-tinta); }
+    #dropdown-people .counter-btn { width: 38px; height: 38px; font-size: 1.3rem; border-color: var(--ms-tinta); color: var(--ms-tinta); }
+    #dropdown-people .counter-btn:disabled { border-color: #cfd3dc; color: #9aa0ad; }
+    #dropdown-people .people-counter > span { min-width: 46px; padding: 8px 0; text-align: center; border: 1px solid #cfd3dc; border-radius: 10px; font-weight: 600; }
+    #dropdown-people .child-age-row { border-top: 1px solid #eceef3; border-bottom: 0; padding: 14px 0 4px; }
+    #dropdown-people .child-age-select { flex: 1; padding: 12px; font-size: 1rem; border-radius: 12px; }
+
+    /* Botón Buscar: aparece fijo abajo solo en el último paso */
+    .hero-search.abierto .search-btn { display: none; }
+    .hero-search.abierto[data-panel="personas"] .search-btn {
+        display: block; position: fixed; left: 18px; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+        width: auto; margin: 0; padding: 16px; z-index: 3; font-size: 1.05rem; box-shadow: 0 8px 20px rgba(255, 69, 0, 0.35);
+    }
+}
+
+/* =========================================
+   AJUSTES SOLO PARA TELÉFONO (≤768px): hero limpio, Top Volcanes y Próxima cumbre
+   ========================================= */
+.br-movil { display: none; }
+
+@media (max-width: 768px) {
+    .br-movil { display: inline; }
+
+    /* ----- HERO: sin foto, solo el título en dos líneas y el buscador ----- */
+    .hero-section {
+        width: calc(100% - 40px); height: auto; min-height: 0; margin: 4px auto 0; padding: 0;
+        background: none; border-radius: 0; color: #1a1b26;
+    }
+    .hero-section h1 { font-size: 2.15rem; line-height: 1.12; letter-spacing: -0.5px; margin: 6px 0 16px; color: #1a1b26; }
+
+    /* píldora más delgada, con borde fino en lugar de sombra gruesa */
+    .hero-search:not(.abierto) { padding: 0; border: 1px solid #dfe3ea; box-shadow: 0 4px 14px rgba(26, 27, 38, 0.08); }
+    .hero-search:not(.abierto) .search-field-main { padding: 12px 18px 12px 46px; background-position: 17px center; background-size: 18px; }
+    .hero-search:not(.abierto) .search-field-main input { font-size: 0.95rem; }
+
+    .mas-res { margin-top: 26px; }
+
+    /* ----- Se quitan los íconos de grupos pequeños, guías locales y rutas clave ----- */
+    .stats-row { display: none; }
+    .why-left p { margin-bottom: 8px; }
+
+    /* ----- TOP VOLCANES: tarjetas altas que se deslizan, siempre completas ----- */
+    .top-destinations { background: none; padding: 0; border-radius: 0; margin: 36px 0; }
+    .dest-header { margin-bottom: 16px; gap: 6px; }
+    .dest-header-text h2 { font-size: 1.5rem; }
+    .dest-header-text p { max-width: none; }
+    .slider-controls { display: none; }
+    .slider-container {
+        gap: 12px; margin: 0 -20px; padding: 4px 20px 18px;
+        scroll-snap-type: x mandatory; scroll-padding-left: 20px; scrollbar-width: none;
+    }
+    .dest-card {
+        flex: 0 0 74vw; max-width: 300px; min-width: 0; height: 390px; padding: 14px; border-radius: 24px;
+        scroll-snap-align: start; box-shadow: 0 12px 26px rgba(26, 27, 38, 0.20);
+    }
+    .dest-card::after { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.25) 40%, transparent 65%); }
+    .dest-price { background: #fff; color: #1a1b26; font-size: 0.78rem; font-weight: 700; padding: 7px 12px; border-radius: 50px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
+    .dest-info { background: none; margin: 0; padding: 0; }
+    .dest-info h3 { font-size: 1.35rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+    .dest-info p { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; opacity: 1; }
+    .dest-loc { font-size: 0.85rem; opacity: 0.92; }
+    .dest-rate { padding: 4px 10px; border-radius: 50px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); font-size: 0.8rem; font-weight: 700; }
+
+    /* ----- PRÓXIMA CUMBRE: la tarjeta crece según el texto y el botón siempre se ve ----- */
+    .packages-grid { margin: 36px 0; gap: 16px; }
+    .featured-summit { height: auto; display: grid; border-radius: 24px; }
+    .featured-summit:hover { transform: none; }
+    .summit-slide { position: relative; grid-area: 1 / 1; min-height: 460px; padding: 26px 22px 58px; justify-content: flex-end; }
+    .summit-slide::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.55) 45%, rgba(0, 0, 0, 0.05) 100%); }
+    .summit-date { font-size: 0.75rem; padding: 7px 13px; margin-bottom: 14px; }
+    .summit-slide h2 { font-size: 1.75rem; margin-bottom: 10px; }
+    .summit-slide p { max-width: 100%; font-size: 0.92rem; margin-bottom: 20px; }
+    .summit-content > div { width: 100%; }
+    .summit-slide .btn-primary { display: block; width: 100%; box-sizing: border-box; text-align: center; padding: 14px 20px; }
+    .slider-dots { bottom: 22px; }
+}
+
+/* =========================================
+   AÑADIDO AL FINAL (no cambia nada de lo de arriba):
+   - las tarjetas de Top Volcanes que tienen ficha ahora son enlaces
+   - sin "Paquetes de Tours", la próxima cumbre ocupa todo el ancho
+   ========================================= */
+a.dest-card { text-decoration: none; color: #fff; cursor: pointer; }
+.packages-grid { grid-template-columns: 1fr; }
+.featured-summit { grid-column: 1 / -1; }
+
+/* =========================================
+   AÑADIDO AL FINAL: PRÓXIMA CUMBRE en celular
+   La foto va arriba bien visible y el texto debajo (en compu no cambia nada).
+   ========================================= */
+.summit-foto { display: none; }
+
+@media (max-width: 768px) {
+    .featured-summit { background: #14151d; }
+    .summit-slide { background: #14151d !important; min-height: 0; padding: 0 0 66px; justify-content: flex-start; } /* la foto de fondo se reemplaza por .summit-foto */
+    .summit-slide::before { display: none; }
+    .summit-slide::after { content: ''; position: absolute; left: 0; right: 0; top: 150px; height: 80px; z-index: 1; pointer-events: none; background: linear-gradient(transparent, #14151d); }
+    .summit-foto { display: block; width: 100%; height: 230px; object-fit: cover; }
+    .summit-content { position: static; padding: 4px 20px 0; }
+    .summit-content > .summit-date { position: absolute; top: 14px; left: 14px; z-index: 3; width: fit-content; margin: 0; padding: 6px 12px; font-size: 0.7rem; }
+    .summit-slide h2 { font-size: 1.45rem; line-height: 1.15; margin: 0 0 8px; }
+    .summit-slide p { max-width: 100%; font-size: 0.88rem; line-height: 1.5; opacity: 1; color: rgba(255, 255, 255, 0.78); margin: 0 0 16px; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+    .summit-slide .btn-primary { padding: 13px 20px; }
+    .slider-dots { bottom: 24px; }
+}

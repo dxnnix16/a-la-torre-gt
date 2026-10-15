@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="comun.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A La Torre GT | Staff</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="comun.css">
+    <link rel="stylesheet" href="staff.css">
+    <!-- Logo del navbar: tamaño controlado para que la imagen no desacomode la página -->
+    <style>
+        .navbar .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+        .navbar .logo img { height: 44px; width: auto; max-width: 60px; object-fit: contain; display: block; flex-shrink: 0; }
+        .navbar .logo span { white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="img/logo.png" alt="" onerror="this.remove()">
+            <span>A La Torre GT</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a> 
+            <a href="destinos.html">Destinos</a> 
+            <a href="revista.html">La Revista</a> 
+            <a href="staff.html">Staff</a> 
+            <a href="contacto.html">Contacto</a>
+        </div>
+        <div class="nav-actions">
+            <input type="text" class="search-bar" placeholder="🔍 Buscar un volcán...">
+            <a href="#" class="btn-book">Reservar ahora</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <!-- PARTE 1: texto + 4 fotos que se abren al pasar el cursor -->
+        <section class="staff-hero" aria-labelledby="staff-titulo">
+            <div class="staff-hero-text">
+                <h1 id="staff-titulo">Conoce.<br>Confía.<br>Sube.</h1>
+                <p>Las personas que te acompañan desde el punto de encuentro hasta la cumbre, y de regreso.</p>
+            </div>
+            <!-- Las tarjetas las genera staff.js -->
+            <div class="st-acordeon" id="stAcordeon" role="list"></div>
+        </section>
+
+        <!-- PARTE 2: todo el equipo, fotos que cambian cada 5 segundos -->
+        <section class="staff-team" aria-labelledby="staff-equipo-titulo">
+            <div class="staff-team-header">
+                <h2 id="staff-equipo-titulo">Todo el equipo</h2>
+                <p>Guías, logística y apoyo en ruta. Siete personas, una sola meta: que llegues y lo disfrutes.</p>
+            </div>
+            <div class="st-grid" id="stGrid"></div>
+        </section>
+
+    </main>
+
+    <!-- PARTE 3: cierre con la info de contacto (el mismo footer del sitio) -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>A La Torre GT</h3>
+                <p>Especialistas en expediciones volcánicas en Guatemala. Llevándote a lo más alto de forma segura e inolvidable. Tu próxima gran aventura empieza aquí.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Explorar</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="destinos.html">Todos los Destinos</a></li>
+                    <li><a href="#">Preparación y Equipo</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <p>📍 Ciudad de Guatemala, Guatemala</p>
+                <p>📞 +502 30554595</p>
+                <p>✉️ info@alatorregt.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Únete a la expedición</h3>
+                <p>Suscríbete para recibir noticias, tips de montaña y descuentos exclusivos para nuestros próximos ascensos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+                    <button type="button" class="newsletter-btn">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 A La Torre GT. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="cumbres-reference">
+            <img src="img/cumbres.png" alt="Las 37 cumbres oficiales de Guatemala">
+        </div>
+    </footer>
+
+    <!-- Ojo: aquí NO va script.js, porque busca elementos del index (slider, buscador) y daría error -->
+    <script src="staff.js"></script>
+    <script src="whatsapp.js"></script>
+</body>
+</html>

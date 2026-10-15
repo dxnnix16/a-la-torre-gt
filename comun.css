@@ -1,0 +1,423 @@
+/* =========================================
+   COMUN · A La Torre GT
+   Barra de carga global + idioma/moneda + login
+   Paleta: #1a1b26 · #ff4500 · #ffcc00 · #f5f6f9
+   Depende de estilos.css (@property --ang, @keyframes lava-giro, .btn-book)
+   ========================================= */
+
+/* el navbar viejo (buscador + reservar) no se ve mientras comun.js arma el selector */
+.nav-actions:not(.nav-actions--cuenta) {
+    visibility: hidden;
+    animation: np-aparece 0s 1.2s forwards;   /* red de seguridad: si el JS falla, se muestra a los 1.2 s */
+}
+@keyframes np-aparece { to { visibility: visible; } }
+
+/* en compu, reserva el espacio para que los links del centro no se muevan cuando aparece el selector */
+@media (min-width: 769px) {
+    .nav-actions { min-width: 290px; justify-content: flex-end; }
+}
+
+/* ---------- barrita de lava (la misma de Destinos, para todas las páginas) ---------- */
+.ds-progreso { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 300; pointer-events: none; opacity: 0; transition: opacity 0.4s ease; }
+.ds-progreso.activo { opacity: 1; }
+.ds-progreso span { display: block; height: 100%; width: 40%; border-radius: 0 3px 3px 0; background: linear-gradient(90deg, #8b0000, #ff4500, #ffcc00); animation: ds-corre 1.1s ease-in-out infinite; box-shadow: 0 0 10px rgba(255, 69, 0, 0.6); }
+@keyframes ds-corre { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
+
+/* ---------- zona derecha del navbar ---------- */
+.nav-actions--cuenta { display: flex; align-items: center; gap: 12px; }
+
+.np-wrap { position: relative; }
+.np-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #f4f4f5;
+    color: #1a1b26;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    padding: 9px 16px;
+    font-family: inherit; font-size: 0.85rem; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.np-btn svg:first-child { width: 17px; height: 17px; }
+.np-chev { width: 13px; height: 13px; transition: transform 0.3s ease; }
+.np-btn:hover { background: #fff; border-color: #ff4500; box-shadow: 0 0 8px rgba(255, 69, 0, 0.2); transform: translateY(-2px); }
+.np-wrap.abierto .np-btn { background: #fff; border-color: #ff4500; }
+.np-wrap.abierto .np-chev { transform: rotate(180deg); }
+.np-btn:focus-visible, .nav-login:focus-visible { outline: 3px solid #ff4500; outline-offset: 3px; }
+
+.nav-login { display: inline-flex; align-items: center; gap: 8px; border: 0; font-family: inherit; cursor: pointer; }
+.nav-login svg { width: 17px; height: 17px; }
+
+/* panel desplegable */
+.np-panel {
+    position: absolute; top: calc(100% + 12px); right: 0; z-index: 250;
+    width: 330px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 22px;
+    padding: 14px;
+    box-shadow: 0 24px 50px rgba(26, 27, 38, 0.18);
+    opacity: 0; visibility: hidden;
+    transform: translateY(-10px) scale(0.97);
+    transform-origin: top right;
+    transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.3s;
+}
+.np-wrap.abierto .np-panel { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+
+.np-tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; background: #f5f6f9; border-radius: 50px; padding: 4px; margin-bottom: 12px; }
+.np-tab { position: relative; z-index: 1; border: 0; background: transparent; border-radius: 50px; padding: 9px 0; font-family: inherit; font-size: 0.82rem; font-weight: 600; color: #888; cursor: pointer; transition: color 0.3s ease; }
+.np-tab.activo { color: #fff; }
+.np-tab-barra { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 50px; background: #1a1b26; box-shadow: 0 6px 14px rgba(26, 27, 38, 0.25); transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1); }
+.np-tabs[data-activa="moneda"] .np-tab-barra { transform: translateX(100%); }
+
+.np-lista { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 300px; overflow-y: auto; padding: 2px; scrollbar-width: thin; }
+.np-lista[hidden] { display: none; }
+.np-opt {
+    position: relative;
+    display: flex; align-items: center; gap: 10px;
+    text-align: left;
+    border: 1.5px solid #e6e8ee; background: #fff;
+    border-radius: 14px;
+    padding: 9px 10px;
+    font-family: inherit; color: #1a1b26;
+    cursor: pointer;
+    transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+.np-opt:hover { border-color: #ff4500; transform: translateY(-2px); }
+.np-opt.activo { background: #1a1b26; border-color: #1a1b26; color: #fff; box-shadow: 0 8px 18px rgba(26, 27, 38, 0.2); }
+.np-flag { font-size: 1.35rem; line-height: 1; }
+.np-txt { display: flex; flex-direction: column; min-width: 0; }
+.np-txt b { font-size: 0.8rem; font-weight: 700; white-space: nowrap; }
+.np-txt small { font-size: 0.68rem; color: #888; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.np-opt.activo small { color: rgba(255, 255, 255, 0.65); }
+.np-check { position: absolute; top: 8px; right: 8px; width: 14px; height: 14px; padding: 2px; border-radius: 50%; background: linear-gradient(135deg, #ff4500, #ffcc00); color: #1a1b26; opacity: 0; transform: scale(0.4); transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.np-opt.activo .np-check { opacity: 1; transform: none; }
+.np-nota { margin: 12px 4px 2px; font-size: 0.72rem; color: #999; text-align: center; }
+
+/* ---------- ventana de login ---------- */
+/* (esta sección ya no depende de @property ni de --ang de estilos.css) */
+body.lg-bloqueado { overflow: hidden; }
+.lg-overlay {
+    position: fixed; inset: 0; z-index: 400;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+    overflow-y: auto; overscroll-behavior: contain;
+    background: rgba(26, 27, 38, 0.55);
+    -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    opacity: 0; transition: opacity 0.3s ease;
+}
+.lg-overlay[hidden] { display: none; }
+.lg-overlay.visible { opacity: 1; }
+
+/* La tarjeta es solo el MARCO de lava (2px). Dentro va .lg-int con todo el contenido.
+   Esta técnica no usa máscaras ni @property: funciona igual en Chrome, Safari, iPhone y Firefox. */
+.lg-card {
+    position: relative; isolation: isolate;
+    width: min(880px, 100%);
+    margin: auto;
+    padding: 2px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #ff4500;                        /* color de respaldo si la animación no corre */
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.35), 0 0 22px rgba(255, 100, 0, 0.35);
+    transform: translateY(30px) scale(0.96);
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+    -webkit-transform-style: flat;
+}
+.lg-overlay.visible .lg-card { transform: none; }
+
+/* Blindaje: si otro CSS del sitio (reserva.css, etc.) le mete relleno, scroll o altura al marco,
+   esto lo anula para que la banda de lava siempre mida exactamente 2px. */
+.lg-overlay .lg-card { padding: 2px !important; overflow: hidden !important; max-height: none !important; height: auto !important; min-height: 0 !important; border: 0 !important; display: block !important; }
+.lg-overlay .lg-int { margin: 0 !important; width: 100% !important; box-sizing: border-box; }
+
+/* el degradado de lava: un cuadrado enorme que gira detrás del contenido */
+.lg-card::before {
+    content: ''; position: absolute; z-index: 0; pointer-events: none;
+    top: 50%; left: 50%; width: 1500px; height: 1500px; margin: -750px 0 0 -750px;
+    background: conic-gradient(#ff4500 0%, #ffcc00 12.5%, #ff4500 25%, #8b0000 37.5%, #ff4500 50%, #ffcc00 62.5%, #ff4500 75%, #8b0000 87.5%, #ff4500 100%);
+    animation: lg-lava-gira 5s linear infinite;
+    will-change: transform;
+}
+@keyframes lg-lava-gira { to { transform: rotate(360deg); } }
+
+/* el contenido real de la ventana (tapa todo menos el borde de 2px) */
+.lg-int {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 0.9fr 1.1fr;
+    max-height: calc(100vh - 44px);
+    max-height: calc(100dvh - 44px);
+    background: #fff;
+    border-radius: 26px;
+    overflow: hidden;
+}
+
+.lg-cerrar { position: absolute; top: 16px; right: 16px; z-index: 6; width: 38px; height: 38px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #f5f6f9; color: #1a1b26; cursor: pointer; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s ease; }
+.lg-cerrar svg { width: 16px; height: 16px; }
+.lg-cerrar:hover { background: #ffcc00; transform: rotate(90deg); }
+.lg-cerrar:focus-visible { outline: 3px solid #ff4500; outline-offset: 2px; }
+
+/* lado de color */
+.lg-lado { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 36px 32px; color: #fff; background: linear-gradient(160deg, #1a1b26 0%, #3a1608 55%, #ff4500 130%); }
+.lg-orbe { position: absolute; border-radius: 50%; filter: blur(40px); pointer-events: none; }
+.lg-orbe:nth-child(1) { width: 260px; height: 260px; left: -60px; top: -40px; background: radial-gradient(circle, rgba(255, 69, 0, 0.55), transparent 70%); animation: ds-deriva 12s ease-in-out infinite alternate; }
+.lg-orbe:nth-child(2) { width: 240px; height: 240px; right: -70px; bottom: 30%; background: radial-gradient(circle, rgba(255, 204, 0, 0.4), transparent 70%); animation: ds-deriva 15s ease-in-out infinite alternate-reverse; }
+@keyframes ds-deriva { to { transform: translate(40px, 30px) scale(1.12); } }
+.lg-monte { position: absolute; top: 12%; left: 50%; width: 62%; translate: -50% 0; opacity: 0.12; animation: ds-flota 4s ease-in-out infinite alternate; }
+@keyframes ds-flota { from { translate: -50% 0; } to { translate: -50% -10px; } }
+.lg-lado h3 { position: relative; font-size: 1.6rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 18px; }
+.lg-lado ul { position: relative; list-style: none; display: grid; gap: 10px; }
+.lg-lado li { position: relative; padding-left: 26px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.85); }
+.lg-lado li::before { content: ''; position: absolute; left: 0; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: linear-gradient(135deg, #ff4500, #ffcc00); }
+.lg-lado li::after { content: ''; position: absolute; left: 5px; top: 6px; width: 6px; height: 3px; border-left: 2px solid #1a1b26; border-bottom: 2px solid #1a1b26; transform: rotate(-45deg); }
+
+/* formulario */
+.lg-form-wrap { padding: 40px 38px 34px; overflow-y: auto; }
+.lg-tabs { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: 250px; background: #f5f6f9; border-radius: 50px; padding: 4px; margin-bottom: 24px; }
+.lg-tab { position: relative; z-index: 1; border: 0; background: transparent; border-radius: 50px; padding: 9px 0; font-family: inherit; font-size: 0.82rem; font-weight: 600; color: #888; cursor: pointer; transition: color 0.3s ease; }
+.lg-tab.activo { color: #fff; }
+.lg-tab-barra { position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 50px; background: #1a1b26; box-shadow: 0 6px 14px rgba(26, 27, 38, 0.25); transition: transform 0.35s cubic-bezier(0.34, 1.3, 0.64, 1); }
+.lg-tabs[data-activa="crear"] .lg-tab-barra { transform: translateX(100%); }
+
+.lg-form-wrap h2 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.5px; color: #1a1b26; margin-bottom: 4px; }
+.lg-sub { color: #777; font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; }
+
+.lg-google { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; border: 1.5px solid #e6e8ee; background: #fff; color: #1a1b26; border-radius: 50px; padding: 11px 18px; font-family: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.lg-google svg { width: 18px; height: 18px; }
+.lg-google:hover { border-color: #ff4500; transform: translateY(-2px); box-shadow: 0 8px 18px rgba(26, 27, 38, 0.1); }
+
+.lg-o { display: flex; align-items: center; gap: 12px; margin: 18px 0; color: #aaa; font-size: 0.75rem; font-weight: 500; }
+.lg-o::before, .lg-o::after { content: ''; flex: 1; height: 1px; background: #eceef3; }
+
+.lg-form { display: grid; gap: 14px; }
+.lg-campo { display: grid; gap: 6px; }
+.lg-campo[hidden], .lg-fila[hidden] { display: none; }
+.lg-campo > span { font-size: 0.78rem; font-weight: 600; color: #1a1b26; }
+.lg-campo input, .lg-pass input { width: 100%; font-family: inherit; font-size: 0.9rem; color: #1a1b26; background: #f5f6f9; border: 1.5px solid transparent; border-radius: 14px; padding: 12px 16px; outline: none; transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease; }
+.lg-campo input:focus, .lg-pass input:focus { background: #fff; border-color: #ff4500; box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.12); }
+.lg-pass { position: relative; }
+.lg-pass input { padding-right: 48px; }
+.lg-ojo { position: absolute; right: 8px; top: 50%; translate: 0 -50%; width: 34px; height: 34px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: #888; cursor: pointer; transition: color 0.25s ease, background 0.25s ease; }
+.lg-ojo svg { width: 18px; height: 18px; }
+.lg-ojo:hover, .lg-ojo.activo { color: #ff4500; background: rgba(255, 69, 0, 0.08); }
+
+.lg-fila { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: 0.8rem; }
+.lg-check { display: inline-flex; align-items: center; gap: 8px; color: #555; cursor: pointer; }
+.lg-check input { position: absolute; opacity: 0; pointer-events: none; }
+.lg-check i { width: 18px; height: 18px; border-radius: 6px; border: 1.5px solid #cfd3dd; display: grid; place-items: center; transition: background 0.25s ease, border-color 0.25s ease; }
+.lg-check input:checked + i { background: linear-gradient(135deg, #ff4500, #ffcc00); border-color: transparent; }
+.lg-check input:checked + i::after { content: ''; width: 8px; height: 4px; border-left: 2px solid #1a1b26; border-bottom: 2px solid #1a1b26; transform: translateY(-1px) rotate(-45deg); }
+.lg-check input:focus-visible + i { outline: 3px solid #ff4500; outline-offset: 2px; }
+.lg-link { color: #c2370a; font-weight: 600; text-decoration: none; }
+.lg-link:hover { text-decoration: underline; }
+
+.lg-enviar { position: relative; overflow: hidden; border: 0; border-radius: 50px; padding: 14px 20px; font-family: inherit; font-size: 0.95rem; font-weight: 700; color: #fff; background: #1a1b26; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease; }
+.lg-enviar:hover { background: linear-gradient(90deg, #ff4500, #ffcc00); color: #1a1b26; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255, 69, 0, 0.3); }
+.lg-enviar:focus-visible { outline: 3px solid #ff4500; outline-offset: 3px; }
+.lg-enviar.cargando { pointer-events: none; color: transparent; background: #1a1b26; }
+.lg-enviar.cargando::after { content: ''; position: absolute; left: 0; bottom: 0; height: 3px; width: 40%; border-radius: 3px; background: linear-gradient(90deg, #8b0000, #ff4500, #ffcc00); animation: ds-corre 0.9s ease-in-out infinite; }
+.lg-aviso { min-height: 1.2em; text-align: center; font-size: 0.8rem; font-weight: 500; color: #1a8a4a; }
+
+/* ---------- pantallas bajas (compu con ventana chica o con barra de favoritos): login más compacto ---------- */
+@media (min-width: 769px) and (max-height: 720px) {
+    .lg-overlay { padding: 10px; }
+    .lg-int { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); }
+    .lg-lado { padding: 26px 26px; }
+    .lg-lado h3 { font-size: 1.35rem; margin-bottom: 12px; }
+    .lg-lado ul { gap: 7px; }
+    .lg-form-wrap { padding: 26px 32px 22px; }
+    .lg-tabs { margin-bottom: 14px; }
+    .lg-form-wrap h2 { font-size: 1.45rem; }
+    .lg-sub { margin-bottom: 12px; }
+    .lg-o { margin: 12px 0; }
+    .lg-form { gap: 10px; }
+    .lg-campo input, .lg-pass input { padding: 10px 14px; }
+    .lg-enviar { padding: 12px 20px; }
+}
+
+/* ---------- celulares y tablets ---------- */
+@media (max-width: 768px) {
+    .nav-actions--cuenta { flex-direction: row; justify-content: center; width: 100%; gap: 10px; }
+    .nav-actions--cuenta .np-btn, .nav-actions--cuenta .nav-login { width: auto; }
+
+    /* panel de idioma/moneda: fijo, centrado en la PANTALLA (ya no depende del botón) y siempre completo */
+    .np-panel {
+        position: fixed; top: var(--np-top, 150px); left: 50%; right: auto;
+        width: min(340px, calc(100vw - 24px));
+        max-height: calc(100vh - var(--np-top, 150px) - 16px);
+        max-height: calc(100dvh - var(--np-top, 150px) - 16px);
+        overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+        box-sizing: border-box;
+        transform: translateX(-50%) translateY(-8px); transform-origin: top center;
+        transition: opacity 0.22s ease, transform 0.25s ease, visibility 0s linear 0.22s;
+    }
+    .np-wrap.abierto .np-panel { transform: translateX(-50%); }
+    .np-lista { max-height: none; overflow: visible; }
+    .np-opt { padding: 10px 10px; }
+
+    /* ventana de login */
+    .lg-overlay { padding: 12px; -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(26, 27, 38, 0.7); }
+    .lg-card { border-radius: 24px; transform: translateY(20px); transition-duration: 0.3s; box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35); }
+    .lg-card::before { width: 1100px; height: 1100px; margin: -550px 0 0 -550px; animation-duration: 6s; }
+    .lg-int { grid-template-columns: 1fr; border-radius: 22px; max-height: calc(100vh - 28px); max-height: calc(100dvh - 28px); }
+    .lg-lado { display: none; }
+    .lg-form-wrap { padding: 62px 22px 24px; -webkit-overflow-scrolling: touch; }
+    .lg-tabs { width: 100%; }
+    .lg-form-wrap h2 { font-size: 1.5rem; }
+    .lg-campo input, .lg-pass input { font-size: 16px; }   /* 16px: el iPhone no hace zoom al tocar el campo */
+    .lg-cerrar { top: 12px; right: 12px; }
+
+    /* menos trabajo para el celular = sin trabas */
+    .lava::before { animation: none; }   /* los botones con .lava quedan quietos en celular */
+    .np-btn, .np-opt, .np-tab, .lg-tab, .nav-login, .lg-enviar, .lg-google, .lg-cerrar { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+}
+
+/* en pantallas táctiles el :hover se queda "pegado" después de tocar: aquí se anula */
+@media (hover: none) {
+    .np-btn:hover { background: #f4f4f5; border-color: transparent; box-shadow: none; transform: none; }
+    .np-wrap.abierto .np-btn { background: #fff; border-color: #ff4500; }
+    .np-opt:not(.activo):hover { border-color: #e6e8ee; transform: none; }
+    .lg-google:hover, .lg-cerrar:hover { transform: none; box-shadow: none; }
+    .lg-enviar:hover { background: #1a1b26; color: #fff; transform: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .ds-progreso span, .lg-card::before, .lg-orbe, .lg-monte, .lg-enviar.cargando::after { animation: none; }
+    .np-panel, .lg-overlay, .lg-card, .np-opt, .np-tab-barra, .lg-tab-barra { transition-duration: 0.01s; }
+}
+
+/* =========================================================
+   REDISEÑO DEL LOGIN (v2) — volcán al atardecer, brasas, campos con íconos
+   Va al final a propósito: pisa lo anterior sin tocarlo.
+   ========================================================= */
+.lg-overlay {
+    --lg-r: 30px;          /* radio del marco: el de adentro se calcula solo, siempre concéntrico */
+    --lg-aro: 2px;         /* grosor de la línea de lava */
+    background: radial-gradient(120% 80% at 50% 0%, rgba(140, 50, 10, 0.32), transparent 62%), rgba(13, 13, 21, 0.66);
+}
+.lg-overlay .lg-card {
+    border-radius: var(--lg-r) !important;
+    background: linear-gradient(135deg, #3a1608, #1a1b26) !important;   /* respaldo si la animación no corre */
+    box-shadow: 0 44px 90px rgba(0, 0, 0, 0.5), 0 0 70px rgba(255, 90, 0, 0.16);
+}
+.lg-overlay .lg-int {
+    border-radius: calc(var(--lg-r) - var(--lg-aro)) !important;
+    grid-template-columns: 0.95fr 1.05fr;
+    grid-template-rows: minmax(0, 1fr);
+}
+
+/* ----- panel izquierdo: la escena ----- */
+.lg-lado {
+    justify-content: space-between; align-items: flex-start;
+    padding: 28px 32px 34px;
+    background: linear-gradient(180deg, #0d0c16 0%, #1a0d12 40%, #3a1208 82%, #7a2308 120%);
+}
+.lg-lado::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 58%; z-index: 1; pointer-events: none;
+    background: linear-gradient(to top, rgba(8, 7, 12, 0.9), rgba(8, 7, 12, 0.5) 50%, transparent);
+}
+.lg-escena { position: absolute; left: 0; bottom: 0; width: 100%; height: 100%; pointer-events: none; }
+.lg-est { animation: lg-titila 3.2s ease-in-out infinite alternate; }
+.lg-est:nth-child(2n) { animation-delay: -1.1s; animation-duration: 2.6s; }
+.lg-est:nth-child(3n) { animation-delay: -2.2s; animation-duration: 4s; }
+@keyframes lg-titila { from { opacity: 0.25; } to { opacity: 0.95; } }
+
+/* brasas que suben desde la base */
+.lg-brasa { position: absolute; bottom: -8px; z-index: 1; width: 4px; height: 4px; border-radius: 50%; pointer-events: none; background: #ffcc00; box-shadow: 0 0 8px 2px rgba(255, 106, 0, 0.7); opacity: 0; animation: lg-sube 7s linear infinite; }
+@keyframes lg-sube { 0% { transform: translate(0, 0) scale(1); opacity: 0; } 12% { opacity: 0.95; } 100% { transform: translate(var(--dx, 18px), -430px) scale(0.3); opacity: 0; } }
+.lg-brasa:nth-of-type(1)  { left: 12%; animation-delay: 0s;    animation-duration: 7.5s; --dx: 22px; }
+.lg-brasa:nth-of-type(2)  { left: 22%; animation-delay: -2.4s; animation-duration: 6.2s; --dx: -16px; width: 3px; height: 3px; }
+.lg-brasa:nth-of-type(3)  { left: 31%; animation-delay: -4.8s; animation-duration: 8.4s; --dx: 30px; }
+.lg-brasa:nth-of-type(4)  { left: 40%; animation-delay: -1.2s; animation-duration: 6.8s; --dx: -24px; width: 3px; height: 3px; }
+.lg-brasa:nth-of-type(5)  { left: 49%; animation-delay: -5.6s; animation-duration: 7.9s; --dx: 14px; }
+.lg-brasa:nth-of-type(6)  { left: 57%; animation-delay: -3.3s; animation-duration: 6.4s; --dx: -30px; width: 5px; height: 5px; }
+.lg-brasa:nth-of-type(7)  { left: 65%; animation-delay: -0.6s; animation-duration: 8.8s; --dx: 26px; width: 3px; height: 3px; }
+.lg-brasa:nth-of-type(8)  { left: 73%; animation-delay: -6.1s; animation-duration: 7.1s; --dx: -12px; }
+.lg-brasa:nth-of-type(9)  { left: 81%; animation-delay: -2s;   animation-duration: 6.6s; --dx: 20px; width: 3px; height: 3px; }
+.lg-brasa:nth-of-type(10) { left: 88%; animation-delay: -4.2s; animation-duration: 8s;   --dx: -26px; }
+.lg-brasa:nth-of-type(11) { left: 17%; animation-delay: -5.2s; animation-duration: 9s;   --dx: 12px; width: 3px; height: 3px; }
+.lg-brasa:nth-of-type(12) { left: 69%; animation-delay: -7s;   animation-duration: 7.3s; --dx: -18px; }
+
+.lg-marca { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 9px; padding: 6px 15px 6px 6px; border-radius: 50px; color: #fff; font-size: 0.82rem; letter-spacing: 0.2px; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.16); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.lg-marca svg { width: 28px; height: 28px; padding: 6px; border-radius: 50%; background: linear-gradient(135deg, #ff4500, #ffcc00); }
+.lg-marca svg path { fill: #1a1b26; }
+.lg-lado-txt { position: relative; z-index: 2; }
+.lg-lado h3 { font-size: 1.8rem; line-height: 1.1; letter-spacing: -0.6px; margin-bottom: 18px; background: linear-gradient(180deg, #fff 30%, #ffd2a6); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lg-lado li { font-size: 0.86rem; color: rgba(255, 255, 255, 0.88); }
+
+/* ----- panel derecho: el formulario ----- */
+.lg-form-wrap { padding: 46px 46px 36px; background: linear-gradient(180deg, #fff 0%, #fffaf6 100%); }
+.lg-form-wrap h2 { font-size: 1.95rem; line-height: 1.1; margin-bottom: 8px; }
+.lg-form-wrap h2::after { content: ''; display: block; width: 38px; height: 4px; border-radius: 4px; margin-top: 12px; background: linear-gradient(90deg, #ff4500, #ffcc00); }
+.lg-sub { margin: 10px 0 22px; }
+.lg-tabs { width: 260px; box-shadow: inset 0 0 0 1px #eceef3; background: #f6f7fa; }
+
+.lg-google { border-radius: 16px; padding: 13px 18px; background: #fff; }
+.lg-o { margin: 20px 0; }
+
+.lg-in { position: relative; }
+.lg-in .ic { position: absolute; left: 16px; top: 50%; translate: 0 -50%; width: 18px; height: 18px; color: #a2a8b6; pointer-events: none; transition: color 0.25s ease; z-index: 1; }
+.lg-in:focus-within .ic { color: #ff4500; }
+.lg-campo input, .lg-pass input { border: 1.5px solid #eceef3; background: #f6f7fa; border-radius: 16px; padding: 14px 16px 14px 46px; }
+.lg-pass input { padding-right: 50px; }
+.lg-campo input:focus, .lg-pass input:focus { background: #fff; border-color: #ff4500; box-shadow: 0 0 0 4px rgba(255, 69, 0, 0.12), 0 8px 20px rgba(255, 69, 0, 0.08); }
+.lg-campo > span { letter-spacing: 0.1px; }
+
+.lg-enviar { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 20px; border-radius: 16px; background: linear-gradient(135deg, #1a1b26 0%, #2c1a14 100%); box-shadow: 0 10px 22px rgba(26, 27, 38, 0.22); }
+.lg-enviar svg { width: 18px; height: 18px; flex: none; transition: transform 0.3s ease; }
+.lg-enviar:hover svg { transform: translateX(5px); }
+.lg-enviar::before { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; transform: skewX(-20deg); background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.32), transparent); transition: left 0.7s ease; pointer-events: none; }
+.lg-enviar:hover::before { left: 130%; }
+.lg-enviar span { position: relative; }
+
+.lg-cerrar { background: rgba(255, 255, 255, 0.92); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14); }
+
+/* entrada escalonada del formulario al abrir */
+@keyframes lg-entra { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.lg-overlay.visible .lg-form-wrap > * { animation: lg-entra 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.lg-overlay.visible .lg-form-wrap > :nth-child(1) { animation-delay: 0.05s; }
+.lg-overlay.visible .lg-form-wrap > :nth-child(2) { animation-delay: 0.10s; }
+.lg-overlay.visible .lg-form-wrap > :nth-child(3) { animation-delay: 0.15s; }
+.lg-overlay.visible .lg-form-wrap > :nth-child(4) { animation-delay: 0.20s; }
+.lg-overlay.visible .lg-form-wrap > :nth-child(5) { animation-delay: 0.25s; }
+.lg-overlay.visible .lg-form-wrap > :nth-child(6) { animation-delay: 0.30s; }
+
+/* compu con pantalla baja */
+@media (min-width: 769px) and (max-height: 720px) {
+    .lg-lado { padding: 22px 28px 26px; }
+    .lg-lado h3 { font-size: 1.45rem; margin-bottom: 12px; }
+    .lg-lado ul { gap: 7px; }
+    .lg-form-wrap { padding: 28px 36px 22px; }
+    .lg-form-wrap h2 { font-size: 1.55rem; }
+    .lg-form-wrap h2::after { margin-top: 8px; }
+    .lg-sub { margin: 6px 0 14px; }
+    .lg-tabs { margin-bottom: 14px; }
+    .lg-o { margin: 12px 0; }
+    .lg-form { gap: 10px; }
+    .lg-campo input, .lg-pass input { padding-top: 11px; padding-bottom: 11px; }
+    .lg-enviar { padding: 13px 20px; }
+}
+
+/* celular: el panel de color pasa a ser una franja con el volcán arriba */
+@media (max-width: 768px) {
+    .lg-overlay { --lg-r: 26px; }
+    .lg-overlay .lg-int { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); }
+    .lg-lado { display: flex; flex-direction: row; align-items: center; height: 132px; padding: 16px 18px; }
+    .lg-lado::after { height: 70%; }
+    .lg-lado-txt { display: none; }
+    .lg-escena { top: auto; bottom: -214px; height: 560px; }
+    .lg-brasa { display: none; }
+    .lg-brasa:nth-of-type(-n+5) { display: block; }
+    @keyframes lg-sube { 0% { transform: translate(0, 0) scale(1); opacity: 0; } 12% { opacity: 0.95; } 100% { transform: translate(var(--dx, 18px), -120px) scale(0.3); opacity: 0; } }
+    .lg-form-wrap { padding: 22px 22px 24px; }
+    .lg-form-wrap h2 { font-size: 1.6rem; }
+    .lg-tabs { width: 100%; }
+    .lg-campo input, .lg-pass input { font-size: 16px; padding-top: 13px; padding-bottom: 13px; }
+    .lg-cerrar { top: 14px; right: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lg-est, .lg-brasa { animation: none; }
+    .lg-brasa { display: none; }
+    .lg-overlay.visible .lg-form-wrap > * { animation: none; }
+    .lg-enviar::before { transition: none; }
+}

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A La Torre GT | Destinos</title>
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <meta name="description" content="Volcanes y lugares turísticos de Guatemala con guías locales: Fuego, Acatenango, Pacaya y más.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="comun.css">
+    <link rel="stylesheet" href="destinos.css">
+    <!-- Logo del navbar: tamaño controlado para que la imagen no desacomode la página -->
+    <style>
+        .navbar .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+        .navbar .logo img { height: 44px; width: auto; max-width: 60px; object-fit: contain; display: block; flex-shrink: 0; }
+        .navbar .logo span { white-space: nowrap; }
+    </style>
+    <script src="moneda.js"></script>
+    <script src="comun.js" defer></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a class="logo" href="index.html">
+            <img src="img/logo.png" alt="" onerror="this.remove()">
+            <span>A La Torre GT</span>
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Inicio</a> 
+            <a href="destinos.html">Destinos</a> 
+            <a href="revista.html">La Revista</a> 
+            <a href="staff.html">Staff</a> 
+            <a href="contacto.html">Contacto</a>
+        </div>
+        <div class="nav-actions">
+            <input type="text" class="search-bar" placeholder="🔍 Buscar un volcán...">
+            <a href="#" class="btn-book">Reservar ahora</a>
+        </div>
+    </nav>
+
+    <!-- Barrita de lava que corre mientras cargan los destinos -->
+    <div class="ds-progreso" id="dsProgreso" aria-hidden="true"><span></span></div>
+
+    <main class="container">
+
+        <!-- ===== CABECERA + BUSCADOR ===== -->
+        <section class="ds-hero">
+            <div class="ds-fondo" aria-hidden="true"><span></span><span></span></div>
+
+            <p class="ds-chip ds-anim" style="--d:.05s"><i></i><span id="dsChipTexto">Cargando destinos…</span></p>
+            <h1 class="ds-anim" style="--d:.15s"><span class="ds-t1" aria-hidden="true">Elige tu próxim<span class="ds-letra" id="dsLetra"><span class="ds-l-a">a</span><span class="ds-l-o">o</span></span></span> <span class="ds-rota" id="dsRota" aria-hidden="true"><span class="ds-rota__w fijo"><em>destino</em></span></span><span class="ds-sr">Elige tu próximo destino</span></h1>
+
+            <!-- Mismo buscador del inicio (mismos ids y clases que estilos.css) -->
+            <div class="ds-buscador ds-anim" style="--d:.25s">
+                <div class="hero-search" id="hero-search">
+                    <div class="search-field search-field-main" id="field-search">
+                        <button type="button" class="ms-atras" id="ms-atras" aria-label="Volver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+                        <input type="text" id="search-input" placeholder="Buscar lugares o actividades" autocomplete="off">
+                        <div class="search-dropdown" id="dropdown-search">
+                            <p class="dropdown-label">Búsquedas recientes</p>
+                            <div id="recent-searches-list"></div>
+                            <p class="dropdown-label ms-sug-label">Sugerencias</p>
+                            <div id="sugerencias-list"></div>
+                        </div>
+                    </div>
+                    <div class="search-divider"></div>
+                    <div class="search-field" id="field-date">
+                        <span class="search-label" id="date-label">Cualquier fecha</span>
+                        <span class="search-chevron">▾</span>
+                        <div class="search-dropdown dropdown-calendar" id="dropdown-date">
+                            <h3 class="ms-titulo">¿Cuándo?</h3>
+                            <div class="quick-dates">
+                                <button type="button" class="quick-date-btn" data-quick="hoy">Hoy</button>
+                                <button type="button" class="quick-date-btn" data-quick="manana">Mañana</button>
+                                <button type="button" class="quick-date-btn" data-quick="finde">Próximo fin de semana</button>
+                            </div>
+                            <div class="calendar-months" id="calendar-months">
+                                <div class="calendar-month">
+                                    <div class="calendar-header">
+                                        <button type="button" class="calendar-nav" id="cal-prev">❮</button>
+                                        <span id="calendar-month-label-1"></span>
+                                        <span class="calendar-nav-spacer"></span>
+                                    </div>
+                                    <div class="calendar-grid" id="calendar-grid-1"></div>
+                                </div>
+                                <div class="calendar-month">
+                                    <div class="calendar-header">
+                                        <span class="calendar-nav-spacer"></span>
+                                        <span id="calendar-month-label-2"></span>
+                                        <button type="button" class="calendar-nav" id="cal-next">❯</button>
+                                    </div>
+                                    <div class="calendar-grid" id="calendar-grid-2"></div>
+                                </div>
+                            </div>
+                            <div class="ms-pie">
+                                <button type="button" class="ms-link" id="ms-reset">Restablecer</button>
+                                <button type="button" class="ms-link" id="ms-saltar">Saltar</button>
+                                <button type="button" class="ms-continuar" id="ms-continuar">Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-divider"></div>
+                    <div class="search-field" id="field-people">
+                        <span class="search-label" id="people-label">1 participante</span>
+                        <span class="search-chevron">▾</span>
+                        <div class="search-dropdown dropdown-people" id="dropdown-people">
+                            <h3 class="ms-titulo">¿Quién va a ir?</h3>
+                            <div class="people-row">
+                                <div>
+                                    <p class="people-title">Adultos</p>
+                                    <p class="people-sub">A partir de 18 años</p>
+                                </div>
+                                <div class="people-counter">
+                                    <button type="button" class="counter-btn" id="adults-minus">−</button>
+                                    <span id="adults-count">1</span>
+                                    <button type="button" class="counter-btn" id="adults-plus">+</button>
+                                </div>
+                            </div>
+                            <div class="people-row">
+                                <div>
+                                    <p class="people-title">Niños</p>
+                                    <p class="people-sub">De 0 a 17 años</p>
+                                </div>
+                                <div class="people-counter">
+                                    <button type="button" class="counter-btn" id="children-minus">−</button>
+                                    <span id="children-count">0</span>
+                                    <button type="button" class="counter-btn" id="children-plus">+</button>
+                                </div>
+                            </div>
+                            <div id="children-ages-list"></div>
+                        </div>
+                    </div>
+                    <button class="search-btn" id="search-submit" type="button">Buscar</button>
+                </div>
+            </div>
+
+            <p class="ds-intro ds-anim" style="--d:.4s">Volcanes y lugares increíbles de Guatemala, con guías locales y toda la logística resuelta. Busca, filtra y entra a cada expedición para ver su itinerario completo.</p>
+        </section>
+
+        <!-- ===== RESULTADOS ===== -->
+        <section class="ds-resultados" id="resultados" aria-labelledby="dsTituloResultados">
+
+            <div class="ds-barra">
+                <div class="ds-chips" id="dsChips" role="tablist" aria-label="Filtrar por tipo de destino"></div>
+                <label class="ds-orden">
+                    <span>Ordenar</span>
+                    <select id="dsOrden">
+                        <option value="recomendados">Recomendados</option>
+                        <option value="precio">Precio: menor a mayor</option>
+                        <option value="calificacion">Mejor calificados</option>
+                        <option value="facil">Menor exigencia</option>
+                    </select>
+                </label>
+            </div>
+
+            <h2 class="ds-titulo-resultados" id="dsTituloResultados" aria-live="polite">Todos los destinos</h2>
+
+            <div class="ds-grid" id="dsGrid" aria-busy="true"></div>
+
+            <!-- Estado vacío -->
+            <div class="ds-vacio" id="dsVacio" hidden>
+                <svg viewBox="0 0 100 70" aria-hidden="true">
+                    <path d="M4 66 34 16l16 24 18-30 28 56z" fill="#ffcc00"/>
+                    <path d="M34 16 22 36l10-5 6 7 8-12z" fill="#fff" opacity=".7"/>
+                    <circle cx="78" cy="14" r="7" fill="#ff4500"/>
+                </svg>
+                <h3>No encontramos destinos con esa búsqueda</h3>
+                <p>Prueba con otra palabra o quita algún filtro para ver todas las expediciones.</p>
+                <button type="button" class="btn-primary" id="dsLimpiar">Limpiar filtros</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>A La Torre GT</h3>
+                <p>Especialistas en expediciones volcánicas en Guatemala. Llevándote a lo más alto de forma segura e inolvidable. Tu próxima gran aventura empieza aquí.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Explorar</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="destinos.html">Todos los Destinos</a></li>
+                    <li><a href="#">Preparación y Equipo</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>Contacto</h3>
+                <p>📍 Ciudad de Guatemala, Guatemala</p>
+                <p>📞 +502 30554595</p>
+                <p>✉️ info@alatorregt.com</p>
+            </div>
+
+            <div class="footer-col">
+                <h3>Únete a la expedición</h3>
+                <p>Suscríbete para recibir noticias, tips de montaña y descuentos exclusivos para nuestros próximos ascensos.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Tu correo electrónico">
+                    <button type="button" class="newsletter-btn">Enviar</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 A La Torre GT. Todos los derechos reservados.</p>
+        </div>
+
+        <div class="cumbres-reference">
+            <img src="img/cumbres.png" alt="Las 37 cumbres oficiales de Guatemala">
+        </div>
+    </footer>
+
+    <!-- Ojo: aquí NO va script.js (busca elementos del index y daría error) -->
+    <script src="buscador.js"></script>
+    <script src="destinos-data.js"></script>
+    <script src="destinos.js"></script>
+    <!-- Título animado: la palabra se desvanece de una a otra, una sola vez, y se queda en "destino" -->
+    <script>
+    (function () {
+        var cont = document.getElementById('dsRota');
+        var letra = document.getElementById('dsLetra');
+        if (!cont || !letra) return;
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; // queda el texto final
+
+        // [palabra, 'a' si lleva "próxima" · 'o' si lleva "próximo"]
+        var PAL = [
+            ['cumbre',  'a'],
+            ['laguna',  'a'],
+            ['ruina',   'a'],
+            ['cascada', 'a'],
+            ['playa',   'a'],
+            ['destino', 'o']        // la última es la que se queda
+        ];
+        var PAUSA_INICIAL = 1600;   // deja entrar el título antes de empezar
+        var PAUSA = 1400;           // tiempo entre palabras
+
+        function crear(par) {
+            var w = document.createElement('span');
+            w.className = 'ds-rota__w';
+            w.innerHTML = '<em>' + par[0] + '</em>';
+            return w;
+        }
+        function genero(par) { letra.classList.toggle('fem', par[1] === 'a'); }
+
+        var i = 0, terminado = false;
+        cont.textContent = '\u200b';              // ancla para mantener la línea base
+        var actual = crear(PAL[0]);
+        cont.appendChild(actual);
+        genero(PAL[0]);
+        cont.style.width = actual.offsetWidth + 'px';
+
+        // si la tipografía termina de cargar después, se vuelve a medir
+        function remedir() { if (!terminado) cont.style.width = actual.offsetWidth + 'px'; }
+        if (document.fonts && document.fonts.ready) document.fonts.ready.then(remedir);
+        if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', remedir);
+
+        function siguiente() {
+            i++;
+            var nuevo = crear(PAL[i]);
+            nuevo.classList.add('entra');
+            cont.appendChild(nuevo);
+            cont.style.width = nuevo.offsetWidth + 'px';    // el ancho se ajusta suave
+            void nuevo.offsetWidth;                         // fija el estado inicial
+            nuevo.classList.remove('entra');                // aparece
+            actual.classList.add('sale');                   // la anterior se desvanece
+            genero(PAL[i]);                                 // si cambia la a/o, se cruza igual de suave
+            var viejo = actual; actual = nuevo;
+            setTimeout(function () { viejo.remove(); }, 1000);
+            if (i < PAL.length - 1) setTimeout(siguiente, PAUSA);
+            else setTimeout(function () {                   // queda fijo y adaptable
+                terminado = true;
+                cont.style.width = '';
+                actual.classList.add('fijo');
+            }, 1100);
+        }
+        setTimeout(siguiente, PAUSA_INICIAL);
+    })();
+    </script>
+    <script src="whatsapp.js"></script>
+    <script src="imagenes.js"></script>
+</body>
+</html>
