@@ -12,14 +12,22 @@
 /* ---------- LAVA DEL MENÚ: antes era un cuadrado de 3000px girando
    (muy pesado, por eso se trababa). Ahora es solo un aro de 2px. ---------- */
 .nav-links { isolation: isolate; background: #fff; }
-.nav-links::before {
-    inset: 0; top: 0; left: 0; width: auto; height: auto; margin: 0;
-    border-radius: inherit; padding: 2px; z-index: 0; pointer-events: none;
-    background: conic-gradient(from var(--ang), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-            mask-composite: exclude;
-    animation: lava-giro 4s linear infinite;
+/* El aro solo existe en computador y solo si el navegador soporta la máscara.
+   En celular (menú hamburguesa) no se dibuja: antes salía como un cuadrado relleno. */
+.nav-links::before { content: none; display: none; }
+@media (min-width: 769px) {
+    @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+        .nav-links::before {
+            content: ''; display: block; position: absolute;
+            inset: 0; top: 0; left: 0; width: auto; height: auto; margin: 0;
+            border-radius: inherit; padding: 2px; z-index: 0; pointer-events: none;
+            background: conic-gradient(from var(--ang, 0deg), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+            animation: lava-giro 4s linear infinite;
+        }
+    }
 }
 .nav-links::after { display: none; }
 .navbar.pausa .nav-links::before { animation-play-state: paused; }
@@ -59,9 +67,22 @@ img.fade { transition: opacity 0.6s ease; }
 
 .tc { position: relative; display: flex; flex-direction: column; background: #fff; border-radius: 18px; overflow: hidden; isolation: isolate; box-shadow: 0 4px 18px rgba(26, 27, 38, 0.09); transition: transform 0.35s ease, box-shadow 0.35s ease; }
 .tc:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(26, 27, 38, 0.16); }
-/* Aro de lava: solo aparece (y gira) cuando pasas el mouse */
-.tc::before { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; border-radius: inherit; padding: 2px; opacity: 0; transition: opacity 0.3s ease; background: conic-gradient(from var(--ang), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-.tc:hover::before { opacity: 1; animation: lava-giro 4s linear infinite; }
+/* Aro de lava: solo existe (y gira) cuando pasas el mouse en pantallas con mouse.
+   Si el navegador no soporta la máscara, el aro NO se dibuja (antes salía un cuadrado relleno). */
+.tc::before { content: none; }
+@media (hover: hover) and (pointer: fine) {
+    @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+        .tc::before {
+            content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none;
+            border-radius: inherit; padding: 2px; opacity: 0; transition: opacity 0.3s ease;
+            background: conic-gradient(from var(--ang, 0deg), #ff4500, #ffcc00, #ff4500, #8b0000, #ff4500);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+                    mask: linear-gradient(#fff 0 0) content-box exclude, linear-gradient(#fff 0 0);
+        }
+        .tc:hover::before { opacity: 1; animation: lava-giro 4s linear infinite; }
+    }
+}
 
 .tc-foto { position: relative; height: 190px; background: #d9dce3; overflow: hidden; }
 .tc-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease, opacity 0.6s ease; }

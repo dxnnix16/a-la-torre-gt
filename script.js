@@ -215,7 +215,7 @@ const vigilante = 'IntersectionObserver' in window
         const enlace = v[4] ? ` href="detalle.html?id=${v[4]}" aria-label="Ver ${v[1]}"` : '';
         return `
         <${etiqueta} class="dest-card"${enlace}>
-            <img class="fade" src="img/${v[0]}" alt="${v[1]}" loading="lazy" decoding="async">
+            <img class="fade" src="img/${v[0]}" data-foto="img/${v[0].replace(/\.[^.]+$/, '')}" alt="${v[1]}" loading="lazy" decoding="async">
             <div class="dest-price">desde Q 300</div>
             <div class="dest-info"><h3>${v[1]}</h3><p><span class="dest-loc">${v[2]}</span> <span class="dest-rate">⭐ ${v[3]}</span></p></div>
         </${etiqueta}>`;

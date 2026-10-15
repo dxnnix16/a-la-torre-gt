@@ -58,7 +58,7 @@ const Legal = (() => {
         el.setAttribute('role', 'region');
         el.setAttribute('aria-label', 'Aviso de cookies');
         el.innerHTML = `
-            <div class="lg-card">
+            <div class="lgk-card">
                 <div class="lg-vista" data-vista="resumen">
                     <div class="lg-texto">
                         <h2><span class="lg-ico">🍪</span> Tu privacidad importa</h2>
@@ -67,7 +67,7 @@ const Legal = (() => {
                     <div class="lg-botones">
                         <button type="button" class="lg-btn lg-btn--primario" data-acc="todas">Aceptar todas</button>
                         <button type="button" class="lg-btn" data-acc="necesarias">Solo necesarias</button>
-                        <button type="button" class="lg-link" data-acc="config">Configurar</button>
+                        <button type="button" class="lgk-link" data-acc="config">Configurar</button>
                     </div>
                 </div>
                 <div class="lg-vista" data-vista="config" hidden>
@@ -77,7 +77,7 @@ const Legal = (() => {
                     ${fila('marketing', 'Publicidad', 'Permiten mostrarte anuncios de A La Torre GT en otros sitios y redes sociales.', actual.marketing, false)}
                     <div class="lg-botones">
                         <button type="button" class="lg-btn lg-btn--primario" data-acc="guardar">Guardar selección</button>
-                        <button type="button" class="lg-link" data-acc="volver">${leer() ? 'Cancelar' : 'Volver'}</button>
+                        <button type="button" class="lgk-link" data-acc="volver">${leer() ? 'Cancelar' : 'Volver'}</button>
                     </div>
                 </div>
             </div>`;
@@ -101,7 +101,7 @@ const Legal = (() => {
         el.querySelectorAll('.lg-vista').forEach(x => { x.hidden = x.dataset.vista !== v; });
     }
     function fila(id, titulo, texto, activo, fijo) {
-        return `<label class="lg-fila${fijo ? ' fijo' : ''}">
+        return `<label class="lgk-fila${fijo ? ' fijo' : ''}">
             <span><strong>${titulo}</strong><small>${texto}</small></span>
             <input type="checkbox" id="lg-${id}" ${activo ? 'checked' : ''} ${fijo ? 'checked disabled' : ''}>
             <i class="lg-switch" aria-hidden="true"></i>
@@ -127,31 +127,31 @@ const Legal = (() => {
         s.textContent = `
         .lg-cookies{position:fixed;left:16px;bottom:16px;z-index:4000;width:min(440px,calc(100vw - 32px));opacity:0;transform:translateY(20px);transition:opacity .3s,transform .35s cubic-bezier(.2,.8,.2,1);font-family:'Poppins',system-ui,sans-serif;color:#1a1b26}
         .lg-cookies.ver{opacity:1;transform:none}
-        .lg-card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 18px 60px rgba(0,0,0,.28);border:1px solid #eee;max-height:calc(100dvh - 32px);overflow-y:auto}
-        .lg-card h2{font-size:1.05rem;font-weight:800;margin:0 0 8px}
-        .lg-card p{font-size:.82rem;line-height:1.55;color:#555;margin:0 0 14px}
-        .lg-card a{color:#1a1b26;font-weight:600}
-        .lg-card [hidden]{display:none}
+        .lgk-card{background:#fff;border-radius:20px;padding:20px;box-shadow:0 18px 60px rgba(0,0,0,.28);border:1px solid #eee;max-height:calc(100dvh - 32px);overflow-y:auto}
+        .lgk-card h2{font-size:1.05rem;font-weight:800;margin:0 0 8px}
+        .lgk-card p{font-size:.82rem;line-height:1.55;color:#555;margin:0 0 14px}
+        .lgk-card a{color:#1a1b26;font-weight:600}
+        .lgk-card [hidden]{display:none}
         .lg-botones{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
         .lg-btn{border:1.5px solid #d9d9e0;background:#fff;color:#1a1b26;border-radius:50px;padding:11px 18px;font:600 .82rem 'Poppins',sans-serif;cursor:pointer;transition:.2s}
         .lg-btn:hover{border-color:#1a1b26}
         .lg-btn--primario{border:0;background:linear-gradient(90deg,#ff4500,#ffcc00);box-shadow:0 6px 14px rgba(255,69,0,.28)}
         .lg-btn--primario:hover{box-shadow:0 8px 18px rgba(255,69,0,.4)}
-        .lg-link{border:0;background:none;padding:8px 4px;font:600 .82rem 'Poppins',sans-serif;color:#1a1b26;text-decoration:underline;cursor:pointer}
+        .lgk-link{border:0;background:none;padding:8px 4px;font:600 .82rem 'Poppins',sans-serif;color:#1a1b26;text-decoration:underline;cursor:pointer}
         .lg-cookies button:focus-visible,.lg-cookies a:focus-visible{outline:3px solid rgba(255,69,0,.4);outline-offset:2px}
-        .lg-fila{position:relative;display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f0f0f3;cursor:pointer}
-        .lg-fila.fijo{cursor:default}
-        .lg-fila span{flex:1}
-        .lg-fila strong{display:block;font-size:.88rem}
-        .lg-fila small{display:block;font-size:.76rem;line-height:1.45;color:#777;margin-top:2px}
-        .lg-fila input{position:absolute;opacity:0;pointer-events:none}
+        .lgk-fila{position:relative;display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid #f0f0f3;cursor:pointer}
+        .lgk-fila.fijo{cursor:default}
+        .lgk-fila span{flex:1}
+        .lgk-fila strong{display:block;font-size:.88rem}
+        .lgk-fila small{display:block;font-size:.76rem;line-height:1.45;color:#777;margin-top:2px}
+        .lgk-fila input{position:absolute;opacity:0;pointer-events:none}
         .lg-switch{flex:none;width:44px;height:26px;border-radius:26px;background:#d6d6dd;position:relative;transition:.25s}
         .lg-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:.25s}
-        .lg-fila input:checked + .lg-switch{background:#ff4500}
-        .lg-fila input:checked + .lg-switch::after{transform:translateX(18px)}
-        .lg-fila.fijo .lg-switch{opacity:.55}
-        .lg-fila input:focus-visible + .lg-switch{outline:3px solid rgba(255,69,0,.4);outline-offset:2px}
-        .lg-card .lg-botones{margin-top:14px}
+        .lgk-fila input:checked + .lg-switch{background:#ff4500}
+        .lgk-fila input:checked + .lg-switch::after{transform:translateX(18px)}
+        .lgk-fila.fijo .lg-switch{opacity:.55}
+        .lgk-fila input:focus-visible + .lg-switch{outline:3px solid rgba(255,69,0,.4);outline-offset:2px}
+        .lgk-card .lg-botones{margin-top:14px}
         .lg-links{margin-top:6px;font-size:.82rem;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
         .lg-links a,.lg-links button{color:inherit;opacity:.85;text-decoration:underline;background:none;border:0;padding:0;font:inherit;cursor:pointer}
         .lg-links a:hover,.lg-links button:hover{opacity:1}
@@ -160,9 +160,9 @@ const Legal = (() => {
             /* Barra flotante centrada, con entrada suave desde abajo */
             .lg-cookies{left:50%;right:auto;bottom:22px;width:min(1080px,calc(100vw - 48px));transform:translate(-50%,36px)}
             .lg-cookies.ver{transform:translate(-50%,0)}
-            .lg-cookies .lg-card{display:block;width:auto;height:auto;margin:0;box-sizing:border-box;position:relative;overflow-x:hidden;overflow-y:auto;max-height:80dvh;padding:24px 30px 22px;background:#fff;border:1px solid #eee;border-radius:22px;transform:none;box-shadow:0 20px 60px rgba(26,27,38,.28),0 2px 8px rgba(26,27,38,.08)}
+            .lg-cookies .lgk-card{display:block;width:auto;height:auto;margin:0;box-sizing:border-box;position:relative;overflow-x:hidden;overflow-y:auto;max-height:80dvh;padding:24px 30px 22px;background:#fff;border:1px solid #eee;border-radius:22px;transform:none;box-shadow:0 20px 60px rgba(26,27,38,.28),0 2px 8px rgba(26,27,38,.08)}
             /* Línea de color animada arriba */
-            .lg-cookies .lg-card::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#ff4500,#ffcc00,#ff4500);background-size:200% 100%;animation:lgFlujo 5s linear infinite}
+            .lg-cookies .lgk-card::before{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,#ff4500,#ffcc00,#ff4500);background-size:200% 100%;animation:lgFlujo 5s linear infinite}
             .lg-cookies .lg-vista{width:100%;max-width:none}
             .lg-cookies .lg-vista[data-vista="resumen"]:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:36px}
             .lg-cookies .lg-texto{min-width:0;width:auto;max-width:none}
@@ -183,16 +183,16 @@ const Legal = (() => {
             .lg-cookies .lg-vista[data-vista="resumen"]:not([hidden]){grid-template-columns:1fr;row-gap:16px}
         }
         @media (min-width:601px) and (prefers-reduced-motion:reduce){
-            .lg-cookies .lg-card::before,.lg-cookies .lg-ico,.lg-cookies .lg-btn--primario{animation:none}
+            .lg-cookies .lgk-card::before,.lg-cookies .lg-ico,.lg-cookies .lg-btn--primario{animation:none}
         }
         @media (max-width:600px){
             .lg-cookies{left:0;right:0;bottom:0;width:100%}
-            .lg-card{border-radius:20px 20px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
+            .lgk-card{border-radius:20px 20px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px))}
             .lg-btn{flex:1 1 auto;text-align:center;padding:10px 14px}
-            .lg-link{flex:1 1 100%;text-align:center}
-            .lg-card h2{font-size:.98rem}
-            .lg-card p{font-size:.78rem;line-height:1.5;margin-bottom:12px}
-            .lg-card{max-height:75dvh}
+            .lgk-link{flex:1 1 100%;text-align:center}
+            .lgk-card h2{font-size:.98rem}
+            .lgk-card p{font-size:.78rem;line-height:1.5;margin-bottom:12px}
+            .lgk-card{max-height:75dvh}
         }
         @media (prefers-reduced-motion:reduce){.lg-cookies,.lg-switch,.lg-switch::after{transition:none}}`;
         document.head.appendChild(s);
