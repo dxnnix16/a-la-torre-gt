@@ -196,19 +196,19 @@ const vigilante = 'IntersectionObserver' in window
     if (!slider) return;
     // 5.º dato = id de la ficha en destinos-data.js (vacío = todavía no tiene página propia)
     const volcanes = [
-        ['acatenango.png', 'Volcán Acatenango', 'Chimaltenango / Sacatepéquez', '4.9', 'acatenango'],
-        ['fuego.jpeg', 'Volcán Fuego', 'Escuintla / Chimaltenango', '4.8', 'fuego'],
-        ['pacaya.jpg', 'Volcán de Pacaya', 'Escuintla / Guatemala', '4.7', 'pacaya'],
-        ['agua.jpg', 'Volcán de Agua', 'Sacatepéquez / Escuintla', '4.9', 'agua'],
-        ['tajumulco.jpg', 'Volcán Tajumulco', 'San Marcos', '4.7', 'tajumulco'],
-        ['atitlan.jpg', 'Volcán Atitlán', 'Sololá / Suchitepéquez', '4.7', ''],
-        ['santamaria.jpg', 'Volcán Santa María', 'Quetzaltenango', '4.7', 'santa-maria'],
-        ['tacana.jpg', 'Volcán Tacaná', 'San Marcos', '4.7', ''],
-        ['toliman.jpg', 'Volcán Tolimán', 'Sololá', '4.7', ''],
-        ['sanpedro.jpg', 'Volcán San Pedro', 'Sololá', '4.7', ''],
-        ['viboras.jpg', 'Volcán Víboras', 'Jutiapa', '4.7', ''],
-        ['tecuamburro.jpg', 'Volcán Tecuamburro', 'Santa Rosa', '4.7', ''],
-        ['chingo.jpg', 'Volcán Chingo', 'Jutiapa', '4.7', '']
+        ['acatenango.webp', 'Volcán Acatenango', 'Chimaltenango / Sacatepéquez', '4.9', 'acatenango'],
+        ['fuego.webp', 'Volcán Fuego', 'Escuintla / Chimaltenango', '4.8', 'fuego'],
+        ['pacaya.webp', 'Volcán de Pacaya', 'Escuintla / Guatemala', '4.7', 'pacaya'],
+        ['agua.webp', 'Volcán de Agua', 'Sacatepéquez / Escuintla', '4.9', 'agua'],
+        ['tajumulco.webp', 'Volcán Tajumulco', 'San Marcos', '4.7', 'tajumulco'],
+        ['atitlan.webp', 'Volcán Atitlán', 'Sololá / Suchitepéquez', '4.7', ''],
+        ['santamaria.webp', 'Volcán Santa María', 'Quetzaltenango', '4.7', 'santa-maria'],
+        ['tacana.webp', 'Volcán Tacaná', 'San Marcos', '4.7', ''],
+        ['toliman.webp', 'Volcán Tolimán', 'Sololá', '4.7', ''],
+        ['sanpedro.webp', 'Volcán San Pedro', 'Sololá', '4.7', ''],
+        ['viboras.webp', 'Volcán Víboras', 'Jutiapa', '4.7', ''],
+        ['tecuamburro.webp', 'Volcán Tecuamburro', 'Santa Rosa', '4.7', ''],
+        ['chingo.webp', 'Volcán Chingo', 'Jutiapa', '4.7', '']
     ];
     slider.innerHTML = volcanes.map(v => {
         const etiqueta = v[4] ? 'a' : 'div';
