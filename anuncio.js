@@ -9,6 +9,10 @@
 //     persona está usando el buscador.
 //   - Si no encuentra la imagen, simplemente no aparece (nunca sale roto).
 //
+// CADA VEZ QUE CAMBIES EL PÓSTER: sube el número de "version" (abajo).
+//   Eso hace que el anuncio vuelva a salir para todos y que el navegador
+//   descargue la imagen nueva en vez de usar la guardada.
+//
 // Para PROBARLO sin esperar la regla de "una vez": abre index.html?anuncio
 // ========================================================= 
 (function () {
@@ -16,12 +20,13 @@
 
     /* ====== CONFIGURACIÓN: lo único que tocas para cambiar el anuncio ====== */
     const ANUNCIO = {
-        imagen:  'img/anuncio1',            // ruta SIN extensión (prueba .jpg .jpeg .png .webp .avif …)
+        imagen:  'img/anuncio1',            // ruta SIN extensión (prueba .webp .jpg .jpeg .png .avif …)
+        version: '2',                       // <-- SÚBELE EL NÚMERO cada vez que cambies el póster (3, 4, 5…)
         enlace:  'detalle.html?id=santa-maria',   // a dónde lleva el botón
         retraso: 3000,                      // milisegundos que espera antes de aparecer
         unaVez:  true                       // true = una vez por visita · false = cada vez que entra
     };
-    const EXTENSIONES = ['jpg', 'jpeg', 'png', 'webp', 'avif', 'JPG', 'JPEG', 'PNG', 'WEBP', 'gif'];
+    const EXTENSIONES = ['webp', 'jpg', 'jpeg', 'png', 'avif', 'JPG', 'JPEG', 'PNG', 'WEBP', 'gif'];
     const MARGEN_ESPERA = 20000;            // si en ese tiempo extra no hubo buen momento, ya no sale
 
     const raiz = document.getElementById('anuncio');
@@ -34,7 +39,7 @@
     const equis  = raiz.querySelector('.anu-x');
     const brasas = raiz.querySelector('.anu-brasas');
     const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const llave = 'anuncio-visto:' + ANUNCIO.imagen;
+    const llave = 'anuncio-visto:' + ANUNCIO.imagen + ':' + ANUNCIO.version;
     const forzar = new URLSearchParams(location.search).has('anuncio');
 
     let abierto = false;
@@ -56,7 +61,7 @@
             let i = 0;
             (function probar() {
                 if (i >= EXTENSIONES.length) return resolve(null);
-                const url = ANUNCIO.imagen + '.' + EXTENSIONES[i++];
+                const url = ANUNCIO.imagen + '.' + EXTENSIONES[i++] + '?v=' + ANUNCIO.version;
                 const im = new Image();
                 im.onload = () => resolve(url);
                 im.onerror = probar;
@@ -150,7 +155,7 @@
         }
         imagenLista.then(function (url) {
             if (url) abrir(url);
-            else console.warn('[anuncio] No encontré ' + ANUNCIO.imagen + '.(jpg|jpeg|png|webp|avif). Guárdala en esa carpeta con ese nombre.');
+            else console.warn('[anuncio] No encontré ' + ANUNCIO.imagen + '.(webp|jpg|jpeg|png|avif). Guárdala en esa carpeta con ese nombre.');
         });
     }
     setTimeout(intentar, ANUNCIO.retraso);
