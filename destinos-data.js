@@ -179,10 +179,9 @@ const destinos = [
                 "La Soledad (faldas del volcán)": 400
             },
             grupo: {
-                "Russ Mall": 300,
-                "Interplaza Chimaltenango": 270,
-                "Antigua Guatemala": 300,
-                "La Soledad (faldas del volcán)": 230
+                "Russ Mall": 250,
+                "Interplaza Chimaltenango": 200,
+                "La Soledad (faldas del volcán)": 150
             }
         },
 
@@ -203,7 +202,7 @@ const destinos = [
                 // NUEVO — fechas de salida colectiva con fecha fija (bus). Tú las administras a mano.
                 // Fecha de prueba: último fin de semana de septiembre 2026.
                 fechasGrupales: [
-       { fecha: "2026-10-17", cupos: 12 }, ],
+       { fecha: "2026-11-07", cupos: 12 }, ],
                 precios: {
                     individual: {
                         "Russ Mall": 400,
@@ -212,16 +211,16 @@ const destinos = [
                         "La Soledad (faldas del volcán)": 400
                     },
                     grupo: {
-                        "Russ Mall": 300,
-                        "Interplaza Chimaltenango": 270,
-                        "Antigua Guatemala": 300,
-                        "La Soledad (faldas del volcán)": 230
+                        "Russ Mall": 250,
+                        "Interplaza Chimaltenango": 200,
+                       
+                        "La Soledad (faldas del volcán)": 150
                     },
                     grupal: { // TODO: pon tus precios reales de salida en bus
-                        "Russ Mall": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "Antigua Guatemala": 200,
-                        "La Soledad (faldas del volcán)": 160
+                        "Russ Mall": 250,
+                        "Interplaza Chimaltenango": 200,
+
+                        "La Soledad (faldas del volcán)": 150
                     }
                 },
                 itinerario: [
@@ -230,7 +229,7 @@ const destinos = [
                         titulo: "Ascenso nocturno",
                         eventos: [
                             { hora: "6:00 pm", lugar: "Russ Mall", descripcion: "Salida desde el centro comercial Russ Mall, Calzada Roosevelt." },
-                            { hora: "7:30 pm", lugar: "Antigua Guatemala", descripcion: "Punto de paso por Antigua Guatemala" },
+                            
                             { hora: "8:30 pm", lugar: "Interplaza Chimaltenango", descripcion: "Punto de paso por Interplaza Chimaltenango" },
                             { hora: "9:30 pm", lugar: "Faldas del volcán: Aldea La Soledad", descripcion: "Llegada a las faldas del volcán." },
                             { hora: "9:45 pm", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia la cumbre." }
@@ -656,13 +655,13 @@ const destinos = [
         descripcion: "El Volcán de Pacaya es uno de los volcanes activos más fascinantes y accesibles de Guatemala, ubicado entre los departamentos de Escuintla y Guatemala. Con una altitud de 2,552 metros sobre el nivel del mar, es famoso por ofrecer una experiencia única de contacto cercano con campos de lava petrificada y paisajes lunares. El ascenso desde la aldea San Francisco de Sales o San Vicente Pacaya es corto y accesible, atravesando senderos de arena volcánica y vegetación baja hasta llegar a la meseta del cráter activo Mackenney, donde los visitantes disfrutan de vistas impresionantes y la tradicional experiencia de asar malvaviscos con el calor de las rocas volcánicas.",
 
         // --- REQUISITOS Y NIVEL ---
-        edadMinima: 15,
+        edadMinima: 5,
         condicionSalud: "Buena condición de salud",
         exigencia: 3, // escala del 1 al 10
 
         // --- POLÍTICAS ---
         reservaMinima: "El tour se confirma con un mínimo del 50% de la reserva completa.",
-        cancelacion: "Cancelación gratuita si se cancela con 48 horas de antelación.",
+        cancelacion: "Cancelación gratuita si se cancela con 72 horas de antelación.",
 
         responsable: "Bajamos toda nuestra basura, cuidamos el sendero y trabajamos con guías locales.", // TODO: ajusta el texto si quieres
 
@@ -681,7 +680,7 @@ const destinos = [
             "Alquiler de equipo (carpa, saco de dormir, bastones)" // costo adicional
         ],
         noIncluye: [
-            "Entrada al volcán (Q100 / $13)",
+            "Entrada al volcán (Q30 nacionales)",
             "Agua"
         ],
 
@@ -719,7 +718,7 @@ const destinos = [
             {
                 titulo: "Por tu cuenta",
                 items: [
-                    "Pago de ingreso al volcán: Q50 residentes / Q100 visitantes extranjeros",
+                    "Pago de ingreso al volcán: Q30 residentes / Q100 visitantes extranjeros",
                     "Hidratación (agua) para todo el trayecto",
                     "Comidas principales — el servicio cubre únicamente snacks, y solo en tour privado",
                     "Equipo propio de montaña, salvo que decidas alquilarlo con nosotros"
@@ -728,11 +727,11 @@ const destinos = [
             {
                 titulo: "Restricciones de participación",
                 items: [
-                    "Edad mínima: 15 años",
+                    "Edad mínima: 5 años",
                     "No recomendado en embarazo",
                     "No recomendado con limitaciones de movilidad",
                     "No recomendado con antecedentes cardíacos",
-                    "Se requiere condición física razonable"
+                    "Se requiere condición física mínima"
                 ]
             },
             {
@@ -753,7 +752,7 @@ const destinos = [
                 items: [
                     "El sendero incluye tramos exigentes; conviene llegar con condición física adecuada.",
                     "Por las noches la temperatura baja considerablemente, así que el abrigo no es opcional.",
-                    "Se aconseja llevar algo de comer extra, ya que el recorrido consume bastante energía.",
+                    "Se aconseja llevar algo de comer extra, ya que el recorrido consume energía.",
                     "Si necesitas equipo prestado, avísanos con anticipación al reservar."
                 ]
             }
@@ -777,9 +776,8 @@ const destinos = [
                 "San Francisco de Sales (faldas del volcán)": 400
             },
             grupo: {
-                "Russ Mall": 300,
-                "Antigua Guatemala": 300,
-                "San Francisco de Sales (faldas del volcán)": 230
+                "Russ Mall": 200,
+                "San Francisco de Sales (faldas del volcán)": 150
             }
         },
 
@@ -789,7 +787,7 @@ const destinos = [
             amanecer: {
                 nombre: "Amanecer (ascenso nocturno)",
                 duracionDias: 2,
-                duracionTexto: "dos días y una noche",
+                duracionTexto: "Un día y una noche",
                 horasCaminata: "1 a 1.5 horas",
                 desnivel: "350m",
                 fechasGrupales: [
@@ -797,18 +795,17 @@ const destinos = [
                 precios: { // TODO: precios de relleno (copiados del Fuego), pon los reales
                     individual: {
                         "Russ Mall": 400,
-                        "Antigua Guatemala": 400,
                         "San Francisco de Sales (faldas del volcán)": 400
                     },
                     grupo: {
-                        "Russ Mall": 300,
-                        "Antigua Guatemala": 300,
-                        "San Francisco de Sales (faldas del volcán)": 230
+                        "Russ Mall": 200,
+        
+                        "San Francisco de Sales (faldas del volcán)": 150
                     },
                     grupal: {
                         "Russ Mall": 200,
-                        "Antigua Guatemala": 200,
-                        "San Francisco de Sales (faldas del volcán)": 160
+                        
+                        "San Francisco de Sales (faldas del volcán)": 150
                     }
                 },
                 itinerario: [
@@ -817,7 +814,7 @@ const destinos = [
                         titulo: "Traslado y ascenso nocturno",
                         eventos: [
                             { hora: "1:00 am", lugar: "Russ Mall", descripcion: "Salida desde el centro comercial Russ Mall, Calzada Roosevelt." },
-                            { hora: "1:45 am", lugar: "Antigua Guatemala", descripcion: "Punto de paso por Antigua Guatemala" },
+                            
                             { hora: "2:30 am", lugar: "Faldas del volcán: Aldea San Francisco de Sales", descripcion: "Llegada a las faldas del volcán." },
                             { hora: "3:00 am", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia la meseta y la cumbre." }
                         ]
@@ -1328,16 +1325,16 @@ const destinos = [
         // --- PRECIOS (RESPALDO) ---
         precios: { // TODO: precios de relleno (copiados del Fuego), pon los reales
             individual: {
-                "Russ Mall": 400,
-                "Interplaza Chimaltenango": 400,
-                "Interplaza Xela": 400,
-                "Llanos del Pinal (faldas del volcán)": 400
+                "Russ Mall": 500,
+                "Interplaza Chimaltenango": 500,
+                "Interplaza Xela": 500,
+                "Llanos del Pinal (faldas del volcán)": 500
             },
             grupo: {
                 "Russ Mall": 300,
                 "Interplaza Chimaltenango": 270,
                 "Interplaza Xela": 270,
-                "Llanos del Pinal (faldas del volcán)": 230
+                "Llanos del Pinal (faldas del volcán)": 100
             }
         },
 
@@ -1354,22 +1351,22 @@ const destinos = [
        { fecha: "2026-10-24", cupos: 12 }, ],
                 precios: { // TODO: precios de relleno (copiados del Fuego), pon los reales
                     individual: {
-                        "Russ Mall": 400,
-                        "Interplaza Chimaltenango": 400,
-                        "Interplaza Xela": 400,
-                        "Llanos del Pinal (faldas del volcán)": 400
+                        "Russ Mall": 500,
+                        "Interplaza Chimaltenango": 500,
+                        "Interplaza Xela": 500,
+                        "Llanos del Pinal (faldas del volcán)": 250
                     },
                     grupo: {
                         "Russ Mall": 300,
                         "Interplaza Chimaltenango": 270,
                         "Interplaza Xela": 270,
-                        "Llanos del Pinal (faldas del volcán)": 230
+                        "Llanos del Pinal (faldas del volcán)": 100
                     },
                     grupal: {
-                        "Russ Mall": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "Interplaza Xela": 180,
-                        "Llanos del Pinal (faldas del volcán)": 160
+                        "Russ Mall": 300,
+                        "Interplaza Chimaltenango": 270,
+                        "Interplaza Xela": 270,
+                        "Llanos del Pinal (faldas del volcán)": 100
                     }
                 },
                 itinerario: [
@@ -1902,12 +1899,12 @@ const destinos = [
                     grupo: {
                         "Russ Mall": 300,
                         "Interplaza Chimaltenango": 270,
-                        "Santiago Atitlán / San Lucas Tolimán (faldas del volcán)": 230
+                        "Santiago Atitlán / San Lucas Tolimán (faldas del volcán)": 270
                     },
                     grupal: {
-                        "Russ Mall": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "Santiago Atitlán / San Lucas Tolimán (faldas del volcán)": 160
+                        "Russ Mall": 300,
+                        "Interplaza Chimaltenango": 270,
+                        "Santiago Atitlán / San Lucas Tolimán (faldas del volcán)": 270
                     }
                 },
                 itinerario: [
@@ -2741,13 +2738,13 @@ const destinos = [
                         "Russ Mall": 300,
                         "Interplaza Chimaltenango": 270,
                         "Interplaza Xela": 270,
-                        "Finca La Chingada (faldas del volcán)": 230
+                        "Finca La Chingada (faldas del volcán)": 150
                     },
                     grupal: {
-                        "Russ Mall": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "Interplaza Xela": 180,
-                        "Finca La Chingada (faldas del volcán)": 160
+                        "Russ Mall": 300,
+                        "Interplaza Chimaltenango": 270,
+                        "Interplaza Xela": 270,
+                        "Finca La Chingada (faldas del volcán)": 150
                     }
                 },
                 itinerario: [
@@ -5359,16 +5356,16 @@ const destinos = [
                         "Base 4x4 Tajumulco (faldas del volcán)": 400
                     },
                     grupo: {
-                        "Russ Mall": 300,
-                        "Interplaza Chimaltenango": 270,
-                        "Interplaza Xela": 270,
-                        "Base 4x4 Tajumulco (faldas del volcán)": 230
+                        "Russ Mall": 400,
+                        "Interplaza Chimaltenango": 400,
+                        "Interplaza Xela": 300,
+                        "Base 4x4 Tajumulco (faldas del volcán)": 150
                     },
                     grupal: {
-                        "Russ Mall": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "Interplaza Xela": 180,
-                        "Base 4x4 Tajumulco (faldas del volcán)": 160
+                        "Russ Mall": 400,
+                        "Interplaza Chimaltenango": 400,
+                        "Interplaza Xela": 300,
+                        "Base 4x4 Tajumulco (faldas del volcán)": 150
                     }
                 },
                 itinerario: [
@@ -5640,8 +5637,8 @@ const destinos = [
                 ],
                 precios: { // TODO: precios de relleno (Q200), pon los reales
                     grupal: {
-                        "Villa Nueva": 200,
-                        "Russ Mall": 200
+                        "Villa Nueva": 290,
+                        "Russ Mall": 290
                     }
                 },
                 itinerario: [

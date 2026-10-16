@@ -15,10 +15,10 @@ const TIEMPO_ROTACION = 5000;               // 5 segundos (si lo cambias, cambia
   info     -> línea que se ve en la tarjeta con fotos rotativas
 */
 const STAFF = [
-  { slug: 'natalia',  nombre: 'Natalia',       rol: 'Fundadora y guía de expediciones', principal: true,
+  { slug: 'natalia',  nombre: 'Natalia',       rol: 'Guía de expediciones', principal: true,
     bio: 'Ha alcanzado las cumbres más altas de Guatemala, El Salvador, Colombia y México, y lleva 35 de los 37 volcanes guatemaltecos. Estudia Relaciones Internacionales y es apasionada del backpacking.',
     info: 'Guía en español, inglés, portugués y lenguaje de señas, con formación en primeros auxilios.' },
-  { slug: 'pablo',    nombre: 'Pablo',         rol: 'Fundador y guía de expediciones', principal: true,
+  { slug: 'pablo',    nombre: 'Pablo',         rol: 'Guía de expediciones', principal: true,
     bio: 'Ha alcanzado las cumbres más altas de Centroamérica. Su formación en ingeniería, su ojo de fotógrafo y su mirada de diseñador dan forma a la experiencia de cada expedición.',
     info: 'Guía bilingüe (español e inglés), fotógrafo y diseñador.' },
   { slug: 'rodas',    nombre: 'Luis Rodas',    rol: 'Guía de expediciones', principal: true,

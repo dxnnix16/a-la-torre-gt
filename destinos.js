@@ -63,7 +63,24 @@
     const m = d.modalidades && d.modalidades[d.modalidadPorDefecto];
     return (m && m.precios) || d.precios || null;
   }
+  /* Precio de la salida grupal MÁS CARA (la del punto más lejano) cuando el destino tiene una salida grupal vigente.
+     Si no tiene, devuelve null y cada tarjeta usa su regla de siempre. */
+  function precioGrupalMasCaro(d) {
+    if (!d.modalidades) return null;
+    const n = new Date();
+    const hoy = n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+    const vig = fs => (typeof Ofertas !== 'undefined' && Ofertas.vigentes) ? Ofertas.vigentes(fs) : fs.filter(f => f.fecha >= hoy);
+    const claves = Object.keys(d.modalidades).filter(k => vig(d.modalidades[k].fechasGrupales || []).length > 0);
+    if (!claves.length) return null;
+    const k = claves.includes(d.modalidadPorDefecto) ? d.modalidadPorDefecto : claves[0];
+    const p = d.modalidades[k].precios || d.precios;
+    const tabla = p && (p.grupal || p.grupo);
+    const valores = tabla ? Object.values(tabla).filter(Number.isFinite) : [];
+    return valores.length ? Math.max(...valores) : null;
+  }
   function precioDesde(d) {
+    const gMax = precioGrupalMasCaro(d);
+    if (gMax != null) return { monto: gMax, grupo: false, salidaGrupal: true };   // salida grupal vigente: la más cara
     const p = preciosDe(d);
     if (p && p.individual) {
       const usarGrupo = totalPersonas() >= 2 && p.grupo;
@@ -199,7 +216,7 @@
             ${salida ? `<span class="ds-salida">🗓️ Salida grupal · ${esc(fechaCorta(salida.fecha))}</span>` : ''}
             <div class="ds-card__pie">
               ${rating}
-              <div class="ds-precio">${precio ? `Desde<b data-gtq="${precio.monto}">${Moneda.formatear(precio.monto)}</b><em>por persona${precio.grupo ? ' (grupo)' : ''}</em>` : '<b>Consultar</b>'}</div>
+              <div class="ds-precio">${precio ? `Desde<b data-gtq="${precio.monto}">${Moneda.formatear(precio.monto)}</b><em>por persona${precio.salidaGrupal ? ' · salida grupal' : precio.grupo ? ' (grupo)' : ''}</em>` : '<b>Consultar</b>'}</div>
             </div>
           </div>
         </a>`;

@@ -88,7 +88,24 @@ const vigilante = 'IntersectionObserver' in window
     }
     // precio de la salida grupal en bus: el más bajo SIN contar los puntos "faldas del volcán"
     // (esos son llegar por tu cuenta, sin transporte). Si un destino no tiene precio grupal, usa el individual.
+    /* Precio de la salida grupal MÁS CARA (la del punto más lejano) cuando el destino tiene una salida grupal vigente.
+       Si no tiene, devuelve null y cada tarjeta usa su regla de siempre. */
+    function precioGrupalMasCaro(d) {
+      if (!d.modalidades) return null;
+      const n = new Date();
+      const hoy = n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+      const vig = fs => (typeof Ofertas !== 'undefined' && Ofertas.vigentes) ? Ofertas.vigentes(fs) : fs.filter(f => f.fecha >= hoy);
+      const claves = Object.keys(d.modalidades).filter(k => vig(d.modalidades[k].fechasGrupales || []).length > 0);
+      if (!claves.length) return null;
+      const k = claves.includes(d.modalidadPorDefecto) ? d.modalidadPorDefecto : claves[0];
+      const p = d.modalidades[k].precios || d.precios;
+      const tabla = p && (p.grupal || p.grupo);
+      const valores = tabla ? Object.values(tabla).filter(Number.isFinite) : [];
+      return valores.length ? Math.max(...valores) : null;
+    }
     function precioDesde(d) {
+        const gMax = precioGrupalMasCaro(d);
+        if (gMax != null) return gMax;   // salida grupal vigente: la más cara
         const m = d.modalidades && d.modalidades[d.modalidadPorDefecto];
         const p = (m && m.precios) || d.precios;
         const tabla = p && (p.grupal || p.individual);

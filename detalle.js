@@ -72,6 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .tt-monto { font-size: 1.15rem; font-weight: 800; letter-spacing: -.4px; line-height: 1.1; }
     .tt-precio small { font-size: .66rem; color: #888; }
     .tt-ahorro { margin-top: 4px; font-size: .68rem; font-weight: 700; color: #0f7a3c; background: rgba(37,211,102,.14); padding: 3px 8px; border-radius: 50px; white-space: nowrap; }
+    .modalidad-tab:disabled { opacity: .45; cursor: not-allowed; }
+    .detail-select:disabled { opacity: .75; cursor: not-allowed; background-color: #f3f4f7; }
     .tt-op:disabled { opacity: .55; cursor: not-allowed; border-style: dashed; background: #fafafa; }
     @media (prefers-reduced-motion: reduce) { .tt-op::before { animation: none; } .tt-op, .tt-radio::after { transition-duration: .01s; } }`;
     document.head.appendChild(estilosTipoTour);
@@ -200,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         franjaBox.innerHTML = items.map(([ico, t, txt]) => `
             <div class="info-item">
-                <span class="info-icono"><img src="${CARPETA_ICONOS}${ico}.png" alt="" loading="lazy"></span>
+                <span class="info-icono"><img src="${CARPETA_ICONOS}${ico}.webp" alt="" loading="lazy" onerror="if(!this.dataset.png){this.dataset.png=1;this.src='${CARPETA_ICONOS}${ico}.png'}"></span>
                 <div><strong>${t}</strong><p>${txt}</p></div>
             </div>`).join('');
     }
@@ -417,12 +419,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function actualizarCajaPrecio() {
+        // NUEVO: modalidades que tienen salida grupal vigente (ej. solo "amanecer")
+        const claves = destino.modalidades ? Object.keys(destino.modalidades) : [];
+        const clavesGrupales = claves.filter(k => Ofertas.vigentes(destino.modalidades[k].fechasGrupales || []).length > 0);
+        // ¿alguna modalidad de este destino tiene salida grupal? (si ninguna, no se muestra la elección)
+        const hayGrupalEnAlguna = clavesGrupales.length > 0;
+        const claveGrupalPref = clavesGrupales.includes(destino.modalidadPorDefecto) ? destino.modalidadPorDefecto : clavesGrupales[0];
+
+        // NUEVO: si está elegida la salida grupal y la modalidad mostrada no tiene salidas, pasa a la que sí
+        if (tipoTour === 'grupal' && hayGrupalEnAlguna && !clavesGrupales.includes(selectModalidad.value)) {
+            selectModalidad.value = claveGrupalPref;
+            renderItinerario(claveGrupalPref);
+        }
+
         const m = modalidadActual();
         const fechasGrupales = Ofertas.vigentes((m && m.fechasGrupales) || []);   // las fechas pasadas ya no se ofrecen
         const hayGrupal = fechasGrupales.length > 0;
-        // ¿alguna modalidad de este destino tiene salida grupal? (si ninguna, no se muestra la elección)
-        const hayGrupalEnAlguna = !!destino.modalidades &&
-            Object.values(destino.modalidades).some(x => Ofertas.vigentes(x.fechasGrupales || []).length > 0);
 
         // Precios de la modalidad elegida; si no tiene, usa los generales
         const preciosActivos = (m && m.precios) || destino.precios || null;
@@ -434,6 +446,24 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (!hayGrupal) tipoTour = 'privado';     // sin fechas para esta modalidad solo existe el tour privado
         const esGrupal = tipoTour === 'grupal';
 
+        // NUEVO: en salida grupal solo se ofrecen las modalidades con salida; si es una sola, el desplegable queda fijo (bloqueado)
+        if (destino.modalidades) {
+            const permitidas = (esGrupal && hayGrupalEnAlguna) ? clavesGrupales : claves;
+            const huella = permitidas.join('|');
+            if (selectModalidad.dataset.opc !== huella) {
+                const valor = selectModalidad.value;
+                selectModalidad.innerHTML = permitidas.map(k => `<option value="${k}">${destino.modalidades[k].nombre}</option>`).join('');
+                selectModalidad.dataset.opc = huella;
+                selectModalidad.value = permitidas.includes(valor) ? valor : permitidas[0];
+            }
+            selectModalidad.disabled = esGrupal && permitidas.length <= 1;
+            tabsBox.querySelectorAll('.modalidad-tab').forEach(t => {
+                const bloqueada = esGrupal && !permitidas.includes(t.dataset.mod);
+                t.disabled = bloqueada;
+                t.title = bloqueada ? 'Solo disponible en tour privado' : '';
+            });
+        }
+
         // Puntos de salida según los precios activos (conserva el que ya estaba elegido)
         if (preciosActivos) {
             const puntos = Object.keys(preciosActivos.individual || preciosActivos.grupal || preciosActivos.grupo || {});
@@ -444,10 +474,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Tarjetas Tour privado / Salida grupal (cada una muestra su propio precio)
         const puntoSel = selectPunto.value;
+        // NUEVO: si estás en otra modalidad (ej. atardecer), la tarjeta grupal muestra la de la modalidad que sí tiene salida
+        const mTarjeta = (hayGrupal || !hayGrupalEnAlguna) ? m : destino.modalidades[claveGrupalPref];
+        const fechasTarjeta = mTarjeta === m ? fechasGrupales : Ofertas.vigentes(mTarjeta.fechasGrupales || []);
+        const preciosTarjeta = (mTarjeta && mTarjeta.precios) || destino.precios || null;
         pintarTipoTour({
-            esGrupal, hayGrupal, hayGrupalEnAlguna, fechasGrupales, sinPrivado,
+            esGrupal, hayGrupal: fechasTarjeta.length > 0, hayGrupalEnAlguna, fechasGrupales: fechasTarjeta, sinPrivado,
             precioPrivado: preciosActivos ? (preciosActivos[selectGrupo.value] || preciosActivos.individual)?.[puntoSel] : destino.precioDesde,
-            precioGrupal: preciosActivos ? (preciosActivos.grupal || preciosActivos.grupo)?.[puntoSel] : undefined
+            precioGrupal: preciosTarjeta ? (preciosTarjeta.grupal || preciosTarjeta.grupo)?.[puntoSel] : undefined
         });
 
         // Campo de participantes (individual/grupo) solo aplica al tour privado
@@ -468,14 +502,15 @@ document.addEventListener('DOMContentLoaded', () => {
             fieldFechaGrupal.innerHTML = '';
         }
 
-        // Precio "Desde": si hay salida grupal con precio, se muestra ESE (es el más bajo);
-        // si no hay, el del tour privado ("individual" o "grupo" según participantes).
+        // Precio "Desde": si hay salida grupal con precio, se muestra el de la salida grupal MÁS CARA
+        // (el del punto más lejano, no el de las faldas); si no hay, el del tour privado ("individual" o "grupo" según participantes).
         // Salida grupal (bus) usa "grupal" (si no existe, cae en "grupo").
         let desdeEsGrupal = false;
         if (preciosActivos) {
             const claveGrupal = preciosActivos.grupal ? 'grupal' : 'grupo';
             // CAMBIO: sin tour privado, el precio siempre es el de la salida grupal (aunque no haya fechas vigentes)
-            const precioGrupal = (esGrupal || hayGrupal || sinPrivado) ? preciosActivos[claveGrupal]?.[selectPunto.value] : undefined;
+            const valoresGrupal = (esGrupal || hayGrupal || sinPrivado) ? Object.values(preciosActivos[claveGrupal] || {}) : [];
+            const precioGrupal = valoresGrupal.length ? Math.max(...valoresGrupal) : undefined;
             desdeEsGrupal = precioGrupal != null;
             const precio = desdeEsGrupal ? precioGrupal : preciosActivos[selectGrupo.value]?.[selectPunto.value];
             Moneda.poner(precioBox, precio);
@@ -527,6 +562,10 @@ document.addEventListener('DOMContentLoaded', () => {
         actualizarCajaPrecio();
     });
 
+    // NUEVO: si el destino ya tiene una salida grupal vigente, arranca elegida la salida grupal
+    if (destino.modalidades && Object.values(destino.modalidades).some(x => Ofertas.vigentes(x.fechasGrupales || []).length > 0)) {
+        tipoTour = 'grupal';
+    }
     actualizarCajaPrecio();
 
     // --- RESERVA: fecha, participantes, disponibilidad y pasos (ver reserva.js) ---
@@ -624,7 +663,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- 12. SUGERENCIAS (otros volcanes) ---
+    /* Precio de la salida grupal MÁS CARA (la del punto más lejano) cuando el destino tiene una salida grupal vigente.
+       Si no tiene, devuelve null y cada tarjeta usa su regla de siempre. */
+    function precioGrupalMasCaro(d) {
+      if (!d.modalidades) return null;
+      const n = new Date();
+      const hoy = n.getFullYear() + '-' + String(n.getMonth() + 1).padStart(2, '0') + '-' + String(n.getDate()).padStart(2, '0');
+      const vig = fs => (typeof Ofertas !== 'undefined' && Ofertas.vigentes) ? Ofertas.vigentes(fs) : fs.filter(f => f.fecha >= hoy);
+      const claves = Object.keys(d.modalidades).filter(k => vig(d.modalidades[k].fechasGrupales || []).length > 0);
+      if (!claves.length) return null;
+      const k = claves.includes(d.modalidadPorDefecto) ? d.modalidadPorDefecto : claves[0];
+      const p = d.modalidades[k].precios || d.precios;
+      const tabla = p && (p.grupal || p.grupo);
+      const valores = tabla ? Object.values(tabla).filter(Number.isFinite) : [];
+      return valores.length ? Math.max(...valores) : null;
+    }
     function precioDesdeDestino(d) {
+        const gMax = precioGrupalMasCaro(d);
+        if (gMax != null) return gMax;   // salida grupal vigente: la más cara
         const m = d.modalidades && d.modalidades[d.modalidadPorDefecto];
         const p = (m && m.precios) || d.precios;
         // CAMBIO: si el destino solo tiene salida grupal, se usa el precio más bajo de "grupal"
