@@ -515,10 +515,10 @@ const destinos = [
                         "La Soledad (faldas del volcán)": 230
                     },
                     grupal: {
-                        "Russ Mall": 200,
-                        "Antigua Guatemala": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "La Soledad (faldas del volcán)": 160
+                        "Russ Mall": 225,
+                        "Antigua Guatemala": 225,
+                        "Interplaza Chimaltenango": 225,
+                        "La Soledad (faldas del volcán)": 150
                     }
                 },
                 itinerario: [
