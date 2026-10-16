@@ -17,7 +17,7 @@
     /* ====== CONFIGURACIÓN: lo único que tocas para cambiar el anuncio ====== */
     const ANUNCIO = {
         imagen:  'img/anuncio1',            // ruta SIN extensión (prueba .jpg .jpeg .png .webp .avif …)
-        enlace:  'detalle.html?id=fuego',   // a dónde lleva el botón
+        enlace:  'detalle.html?id=santa-maria',   // a dónde lleva el botón
         retraso: 3000,                      // milisegundos que espera antes de aparecer
         unaVez:  true                       // true = una vez por visita · false = cada vez que entra
     };
