@@ -32,8 +32,8 @@ const PROVEEDORES = {
         anticipo: 0.5,                             // reserva con el 50% (como dice reservaMinima en destinos-data.js)
         anticipacionDias: 1,                       // cuántos días antes como mínimo se puede reservar un tour privado
         cuentas: [                                 // TODO: pon tus cuentas reales
-            { banco: 'Banco Industrial', tipo: 'Monetaria', numero: '000-000000-0', titular: 'Nombre del titular', moneda: 'GTQ' },
-            { banco: 'Banrural',         tipo: 'Ahorro',    numero: '0000000000',   titular: 'Nombre del titular', moneda: 'GTQ' }
+            { banco: 'Banco GYT', tipo: 'Ahorro', numero: '02962324172', titular: 'Heidy Espiñeira', moneda: 'GTQ' },
+           
         ],
         ofertas: 'auto'
     },
