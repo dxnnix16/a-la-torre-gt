@@ -5664,6 +5664,223 @@ const destinos = [
         }
     },
     {
+        id: "chuiraxamolo",
+        nombre: "Cerro Chuiraxamoló: Camping en el Mirador y Piscina en Zoola San Pedro",
+        region: "Sololá",
+        categoria: "lugares",
+        calificacion: null, // TODO: cuando tengas reseñas reales, pon la calificación
+        numeroResenas: 0,
+        imagen: "img/chuiraxamolo.webp", // TODO: sube las fotos como chuiraxamolo, chuiraxamolo1, chuiraxamolo2... (se cargan solas)
+
+        descripcion: "Vive una escapada al Lago de Atitlán: sube al Cerro Chuiraxamoló, en Santa Clara la Laguna, con una caminata corta y accesible hasta su cumbre. Después acampamos en el Mirador Bella Vista, con fogata y convivencia, para despertar con el amanecer sobre el lago y sus volcanes. El domingo bajamos a San Pedro la Laguna para disfrutar de la piscina de Zoola San Pedro con una bebida incluida, o recorrer el pueblo y almorzar donde más te guste.",
+
+        // --- REQUISITOS Y NIVEL ---
+        edadMinima: 5, // TODO: ajusta la edad mínima real
+        condicionSalud: "Condición física básica",
+        exigencia: 3, // escala del 1 al 10
+
+        // --- POLÍTICAS ---
+        reservaMinima: "Reserva con el 50% y el resto lo cancelas días antes del viaje.",
+        cancelacion: "Cancelación gratuita si se cancela con 48 horas de antelación.",
+
+        responsable: "Bajamos toda nuestra basura, cuidamos el sendero y trabajamos con guías locales.",
+
+        // --- SERVICIO ---
+        guiaIdiomas: ["Español", "Inglés", "Portugués", "Lenguaje de Señas"],
+        servicioRecogida: true,
+
+        // --- QUÉ INCLUYE / QUÉ NO ---
+        incluye: [
+            "Transporte redondo en bus",
+            "Equipo de staff",
+            "Entrada al cerro (garita) con camping",
+            "Entrada a la piscina de Zoola San Pedro con una bebida incluida",
+            "Botón conmemorativo"
+        ],
+        incluyeOpcional: [
+            "Canopy (costo extra)"
+        ],
+        noIncluye: [
+            "Equipo de camping (tienda, sleeping bag, colchoneta)",
+            "Comidas y agua",
+            "Gastos personales en San Pedro la Laguna"
+        ],
+
+        // --- QUÉ DEBE LLEVAR EL CLIENTE ---
+        queLlevar: [
+            "Tienda de acampar, sleeping bag y colchoneta",
+            "Linterna o lámpara frontal",
+            "Agua pura (2 litros como mínimo) y snacks",
+            "Desayuno para el domingo",
+            "Ropa y zapatos cómodos con buena suela",
+            "Traje de baño y toalla para la piscina",
+            "Suéter o chaqueta ligera para la noche"
+        ],
+
+        // --- BLOQUES DE INFORMACIÓN ---
+        infoBloques: [
+            {
+                titulo: "La experiencia",
+                items: [
+                    "Sube al Cerro Chuiraxamoló, en Santa Clara la Laguna, con una caminata corta (dificultad 3/10)",
+                    "Almuerza en la cumbre con vista al Lago de Atitlán",
+                    "Acampa en el Mirador Bella Vista con fogata y convivencia",
+                    "Disfruta el amanecer sobre el lago y sus volcanes",
+                    "Relájate en la piscina de Zoola San Pedro o recorre San Pedro la Laguna"
+                ]
+            },
+            {
+                titulo: "Incluido en tu reserva",
+                items: [
+                    "Transporte de ida y vuelta en bus desde Russ Mall, con paradas en Interplaza Chimaltenango, Zaragoza y Patzicía",
+                    "Acompañamiento del equipo de staff durante todo el viaje",
+                    "Entrada al cerro (garita) y derecho a camping",
+                    "Entrada a la piscina de Zoola San Pedro con una bebida incluida",
+                    "Botón conmemorativo"
+                ]
+            },
+            {
+                titulo: "Por tu cuenta",
+                items: [
+                    "Equipo de camping",
+                    "Comidas, agua y snacks",
+                    "Canopy, si deseas hacerlo (costo extra)",
+                    "Almuerzo y gastos personales en San Pedro la Laguna"
+                ]
+            },
+            {
+                titulo: "Para acampar",
+                items: [
+                    "Tienda de acampar",
+                    "Sleeping bag",
+                    "Colchoneta o pad para colocar bajo el sleeping",
+                    "Linterna o lámpara frontal"
+                ]
+            },
+            {
+                titulo: "Agua y comida",
+                items: [
+                    "Agua pura, 2 litros como mínimo",
+                    "Desayuno del domingo: sopas instantáneas, chocolate caliente, pan o galletas",
+                    "Café, chocolate o jugo",
+                    "Sartén o pocillo",
+                    "Taza, cubiertos y un plato o bowl",
+                    "Snacks para la caminata (frutos secos, barras de granola, fruta)",
+                    "Bolsa para la basura",
+                    "Hay tienda cerca: puedes comprar lo que se te olvide o completar el desayuno (aceptan efectivo y transferencias)"
+                ]
+            },
+            {
+                titulo: "Para la caminata",
+                items: [
+                    "Ropa cómoda",
+                    "Zapatos cómodos con buena suela",
+                    "Gorra o sombrero",
+                    "Lentes de sol",
+                    "Protector solar"
+                ]
+            },
+            {
+                titulo: "Para el domingo",
+                items: [
+                    "Traje de baño para la piscina en San Pedro la Laguna (si deseas meterte)",
+                    "Toalla",
+                    "Una bolsa para la ropa mojada",
+                    "Ropa seca para cambiarte"
+                ]
+            },
+            {
+                titulo: "Extras útiles (opcionales)",
+                items: [
+                    "Suéter o chaqueta ligera (las noches y madrugadas suelen ser frescas)",
+                    "Papel higiénico y toallitas húmedas",
+                    "Power bank y celular cargado",
+                    "Fósforos o encendedor"
+                ]
+            },
+            {
+                titulo: "Antes de salir",
+                items: [
+                    "Este tour se realiza únicamente en salida grupal, en fecha fija.",
+                    "Desde donde se deja el bus se caminan unos 10 minutos hasta el camping.",
+                    "En el camping hay tienda cerca y venta de comida.",
+                    "Los tiempos son aproximados: dependen del ritmo del grupo, el clima y el tráfico.",
+                    "¡Cupos limitados!"
+                ]
+            }
+        ],
+
+        // --- RESEÑAS ---
+        resenas: [],
+
+        // --- GALERÍA DE FOTOS ---
+        fotos: [
+            "img/chuiraxamolo.webp" // TODO: fotos pendientes
+        ],
+
+        // --- PRECIOS (RESPALDO) --- solo salida grupal
+        precios: {
+            grupal: {
+                "Russ Mall": 400,
+                "Interplaza Chimaltenango": 400,
+                "Zaragoza": 400,
+                "Patzicía": 400
+            }
+        },
+
+        // --- MODALIDADES ---
+        modalidadPorDefecto: "camping",
+        modalidades: {
+            camping: {
+                nombre: "Camping + piscina en Zoola San Pedro",
+                duracionDias: 2,
+                duracionTexto: "2 días y 1 noche",
+                horasCaminata: "1 hora aprox.",
+                desnivel: "2000m",
+                fechasGrupales: [
+                    { fecha: "2026-11-14", cupos: 15 },
+                ],
+                precios: {
+                    grupal: { // incluye garita
+                        "Russ Mall": 400,
+                        "Interplaza Chimaltenango": 400,
+                        "Zaragoza": 400,
+                        "Patzicía": 400
+                    }
+                },
+                itinerario: [
+                    {
+                        dia: 1,
+                        titulo: "Sábado · Cumbre del Cerro Chuiraxamoló y camping",
+                        eventos: [
+                            { hora: "10:00 am", lugar: "Russ Mall", descripcion: "Salida desde Russ Mall, Calzada Roosevelt (a un costado de la Shell), hacia Santa Clara la Laguna." },
+                            { hora: "11:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Parada para recoger a quienes salen desde aquí (hora aproximada)." },
+                            { hora: "11:20 am", lugar: "Zaragoza", descripcion: "Parada para recoger a quienes salen desde aquí (hora aproximada)." },
+                            { hora: "11:40 am", lugar: "Patzicía", descripcion: "Parada para recoger a quienes salen desde aquí (hora aproximada)." },
+                            { hora: "3:00 pm aprox.", lugar: "Cerro Chuiraxamoló", descripcion: "Llegada al cerro e inicio del ascenso (aproximadamente 1 hora de caminata)." },
+                            { hora: "Tarde", tipo: "punto", lugar: "Cumbre", descripcion: "Cumbre del Cerro Chuiraxamoló y tiempo para almorzar." },
+                            { hora: "Atardecer", tipo: "punto", lugar: "Descenso", descripcion: "Bajamos hacia el bus y nos dirigimos al mirador donde haremos el camping." },
+                            { hora: "Atardecer", tipo: "punto", lugar: "Mirador Bella Vista", descripcion: "Llegada al camping: se caminan unos 10 minutos desde donde se deja el bus." },
+                            { hora: "Noche", tipo: "periodo", lugar: "Camping", descripcion: "Convivencia y fogata. Hay tienda cerca y venta de comida en el lugar." }
+                        ]
+                    },
+                    {
+                        dia: 2,
+                        titulo: "Domingo · Amanecer y San Pedro la Laguna",
+                        eventos: [
+                            { hora: "5:00 am", lugar: "Mirador Bella Vista", descripcion: "Amanecer sobre el Lago de Atitlán. Después, tiempo para desayunar." },
+                            { hora: "8:00 am", lugar: "Traslado", descripcion: "Nos trasladamos hacia San Pedro la Laguna." },
+                            { hora: "9:00 am", lugar: "San Pedro la Laguna", descripcion: "Llegada a San Pedro." },
+                            { hora: "9:30 am", lugar: "Zoola San Pedro", descripcion: "Vamos a la piscina de Zoola San Pedro (bebida incluida). También puedes elegir caminar por el centro. Tiempo para caminar y almorzar donde más te guste." },
+                            { hora: "1:00 pm", lugar: "Salida de San Pedro", descripcion: "Regreso hacia Russ Mall." },
+                            { hora: "5:00 pm", lugar: "Russ Mall", descripcion: "Llegada estimada. Los tiempos son aproximados y dependen del ritmo del grupo, el clima y el tráfico." }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         id: "semuc-champey",
         nombre: "Semuc Champey",
         region: "Alta Verapaz",
