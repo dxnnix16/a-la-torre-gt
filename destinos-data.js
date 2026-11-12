@@ -5851,29 +5851,30 @@ const destinos = [
                 itinerario: [
                     {
                         dia: 1,
-                        titulo: "Sábado · Cumbre del Cerro Chuiraxamoló y camping",
+                        titulo: "Sábado · Ascenso al Cerro Chuiraxamoló y camping",
                         eventos: [
-                            { hora: "10:00 am", lugar: "Russ Mall", descripcion: "Salida desde Russ Mall, Calzada Roosevelt (a un costado de la Shell), hacia Santa Clara la Laguna." },
-                            { hora: "11:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Parada para recoger a quienes salen desde aquí (hora aproximada)." },
-                            { hora: "11:20 am", lugar: "Zaragoza", descripcion: "Parada para recoger a quienes salen desde aquí (hora aproximada)." },
-                            { hora: "11:40 am", lugar: "Patzicía", descripcion: "Parada para recoger a quienes salen desde aquí (hora aproximada)." },
-                            { hora: "3:00 pm aprox.", lugar: "Cerro Chuiraxamoló", descripcion: "Llegada al cerro e inicio del ascenso (aproximadamente 1 hora de caminata)." },
-                            { hora: "Tarde", tipo: "punto", lugar: "Cumbre", descripcion: "Cumbre del Cerro Chuiraxamoló y tiempo para almorzar." },
-                            { hora: "Atardecer", tipo: "punto", lugar: "Descenso", descripcion: "Bajamos hacia el bus y nos dirigimos al mirador donde haremos el camping." },
-                            { hora: "Atardecer", tipo: "punto", lugar: "Mirador Bella Vista", descripcion: "Llegada al camping: se caminan unos 10 minutos desde donde se deja el bus." },
-                            { hora: "Noche", tipo: "periodo", lugar: "Camping", descripcion: "Convivencia y fogata. Hay tienda cerca y venta de comida en el lugar." }
+                            { hora: "10:00 am", lugar: "Russ Mall", descripcion: "Salida en bus desde Russ Mall, Calzada Roosevelt (a un costado de la Shell)." },
+                            { hora: "11:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Punto de abordaje." },
+                            { hora: "11:20 am", lugar: "Zaragoza", descripcion: "Punto de abordaje." },
+                            { hora: "11:40 am", lugar: "Patzicía", descripcion: "Punto de abordaje." },
+                            { hora: "11:45 am – 3:00 pm", lugar: "Traslado a Santa Clara la Laguna", descripcion: "Trayecto en bus hacia Santa Clara la Laguna, Sololá." },
+                            { hora: "3:00 pm", lugar: "Cerro Chuiraxamoló", descripcion: "Inicio del ascenso guiado, de aproximadamente una hora." },
+                            { hora: "4:00 pm", lugar: "Cumbre", descripcion: "Vista panorámica del Lago de Atitlán y tiempo para almorzar." },
+                            { hora: "5:00 pm", lugar: "Descenso", descripcion: "Regreso al bus y traslado al Mirador Bella Vista." },
+                            { hora: "5:30 pm", lugar: "Mirador Bella Vista", descripcion: "Caminata de unos 10 minutos hasta el área de camping, instalación de tiendas y atardecer sobre el lago." },
+                            { hora: "7:00 pm", lugar: "Fogata y convivencia", descripcion: "Noche en el campamento. Hay tienda y venta de comida cerca." }
                         ]
                     },
                     {
                         dia: 2,
-                        titulo: "Domingo · Amanecer y San Pedro la Laguna",
+                        titulo: "Domingo · Amanecer y Zoola San Pedro",
                         eventos: [
-                            { hora: "5:00 am", lugar: "Mirador Bella Vista", descripcion: "Amanecer sobre el Lago de Atitlán. Después, tiempo para desayunar." },
-                            { hora: "8:00 am", lugar: "Traslado", descripcion: "Nos trasladamos hacia San Pedro la Laguna." },
-                            { hora: "9:00 am", lugar: "San Pedro la Laguna", descripcion: "Llegada a San Pedro." },
-                            { hora: "9:30 am", lugar: "Zoola San Pedro", descripcion: "Vamos a la piscina de Zoola San Pedro (bebida incluida). También puedes elegir caminar por el centro. Tiempo para caminar y almorzar donde más te guste." },
-                            { hora: "1:00 pm", lugar: "Salida de San Pedro", descripcion: "Regreso hacia Russ Mall." },
-                            { hora: "5:00 pm", lugar: "Russ Mall", descripcion: "Llegada estimada. Los tiempos son aproximados y dependen del ritmo del grupo, el clima y el tráfico." }
+                            { hora: "5:00 am", lugar: "Mirador Bella Vista", descripcion: "Amanecer sobre el Lago de Atitlán y sus volcanes, seguido de tiempo para desayunar." },
+                            { hora: "8:00 am", lugar: "Salida hacia San Pedro la Laguna", descripcion: "Levantamos el campamento y abordamos el bus." },
+                            { hora: "9:00 am", lugar: "San Pedro la Laguna", descripcion: "Llegada al pueblo." },
+                            { hora: "9:30 am – 1:00 pm", lugar: "Zoola San Pedro", descripcion: "Día de piscina con una bebida incluida. Si lo prefieres, puedes recorrer el centro del pueblo. Almuerzo libre." },
+                            { hora: "1:00 pm", lugar: "Regreso", descripcion: "Salida de San Pedro la Laguna hacia la Ciudad de Guatemala." },
+                            { hora: "5:00 pm", lugar: "Russ Mall", descripcion: "Llegada estimada. Los horarios pueden variar según el ritmo del grupo, el clima y el tráfico." }
                         ]
                     }
                 ]
