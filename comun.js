@@ -27,6 +27,39 @@
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+  /* ---------- siempre la versión más reciente ----------
+     Si el cliente deja la pestaña abierta o vuelve con "atrás", el celular muestra la página
+     que tenía en memoria. Al volver a la pestaña revisamos si se publicó algo nuevo
+     (la página o los precios en destinos-data.js) y, si cambió, se recarga sola. */
+  (function versionReciente() {
+    const ARCHIVOS = [location.pathname, 'destinos-data.js'];
+    const REVISAR_CADA_MS = 60 * 1000;   // como máximo una revisión por minuto
+    let huellaInicial = null, ultimaRevision = 0;
+
+    const huella = () => Promise.all(ARCHIVOS.map(a =>
+      fetch(a, { method: 'HEAD', cache: 'no-store' })
+        .then(r => r.ok ? (r.headers.get('etag') || r.headers.get('last-modified') || '') : '')
+        .catch(() => '')
+    )).then(h => h.join('|'));
+
+    function revisar(forzar) {
+      const ahora = Date.now();
+      if (!forzar && ahora - ultimaRevision < REVISAR_CADA_MS) return;
+      ultimaRevision = ahora;
+      huella().then(h => {
+        if (!h.replace(/\|/g, '')) return;                 // sin conexión o sin datos: no hacemos nada
+        if (huellaInicial === null) { huellaInicial = h; return; }
+        if (h !== huellaInicial) location.reload();
+      });
+    }
+
+    if (location.protocol.startsWith('http')) {
+      revisar(true);
+      document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') revisar(false); });
+      window.addEventListener('pageshow', e => { if (e.persisted) revisar(true); });   // regresó con "atrás"
+    }
+  })();
+
   /* ---------- cargar comun.css automáticamente ---------- */
   const yo = document.currentScript;
   const base = yo && yo.src ? yo.src.replace(/[^/]*$/, '') : '';
