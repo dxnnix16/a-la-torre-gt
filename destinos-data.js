@@ -190,7 +190,7 @@ const destinos = [
         //   individual = tour privado, 1 persona
         //   grupo      = tour privado, precio por persona si van 2+
         //   grupal     = salida colectiva en bus con fecha fija (por persona)
-        modalidadPorDefecto: "amanecer",
+        modalidadPorDefecto: "atardecer",
         modalidades: {
 
             amanecer: {
@@ -247,38 +247,46 @@ const destinos = [
             },
 
             atardecer: {
-                nombre: "Atardecer",
+                nombre: "Atardecer con erupciones en vivo",
                 duracionDias: 1,
                 duracionTexto: "1 día y 1 noche",  // NUEVO
                 horasCaminata: "10 horas",  // NUEVO
                 desnivel: "1575m",       // NUEVO
-                fechasGrupales: [],     // NUEVO
-                precios: { // TODO: ajusta a los precios reales del atardecer
-                    individual: {
+                fechasGrupales: [
+                    { fecha: "2026-11-21", cupos: 12 }
+                ],
+                precios: {
+                    individual: { // tour privado, 1 persona
                         "Russ Mall": 400,
                         "Interplaza Chimaltenango": 400,
                         "Antigua Guatemala": 400,
                         "La Soledad (faldas del volcán)": 400
                     },
-                    grupo: {
+                    grupo: { // tour privado, 2 personas o más (por persona)
                         "Russ Mall": 300,
                         "Interplaza Chimaltenango": 270,
                         "Antigua Guatemala": 300,
                         "La Soledad (faldas del volcán)": 230
                     },
-                    grupal: {
-                        "Russ Mall": 200,
-                        "Interplaza Chimaltenango": 180,
-                        "Antigua Guatemala": 200,
-                        "La Soledad (faldas del volcán)": 160
+                    grupal: { // salida grupal, 1 persona
+                        "Russ Mall": 275,
+                        "Interplaza Chimaltenango": 275,
+                        "Antigua Guatemala": 275,
+                        "La Soledad (faldas del volcán)": 275
+                    },
+                    grupalGrupo: { // salida grupal, 2 personas o más (por persona)
+                        "Russ Mall": 250,
+                        "Interplaza Chimaltenango": 250,
+                        "Antigua Guatemala": 250,
+                        "La Soledad (faldas del volcán)": 250
                     }
                 },
                 itinerario: [
                     {
                         dia: 1,
-                        titulo: "Ascenso y Atardecer",
+                        titulo: "Sábado · Ascenso, atardecer y erupciones en vivo",
                         eventos: [
-                            { hora: "6:00 am", lugar: "Russ Mall", descripcion: "Salida desde el centro comercial Russ Mall, Calzada Roosevelt." },
+                            { hora: "6:00 am", lugar: "Russ Mall", descripcion: "Salida en bus desde el centro comercial Russ Mall, Calzada Roosevelt. Te pedimos puntualidad: el bus sale a las 6:00 am." },
                             { hora: "7:00 am", lugar: "Antigua Guatemala", descripcion: "Punto de paso por Antigua Guatemala" },
                             { hora: "8:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Punto de paso por Interplaza Chimaltenango" },
                             { hora: "8:45 am", lugar: "Faldas del volcán: Aldea La Soledad", descripcion: "Llegada a las faldas del volcán." },

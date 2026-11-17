@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pintarTipoTour({
             esGrupal, hayGrupal: fechasTarjeta.length > 0, hayGrupalEnAlguna, fechasGrupales: fechasTarjeta, sinPrivado,
             precioPrivado: preciosActivos ? (preciosActivos[selectGrupo.value] || preciosActivos.individual)?.[puntoSel] : destino.precioDesde,
-            precioGrupal: preciosTarjeta ? (preciosTarjeta.grupal || preciosTarjeta.grupo)?.[puntoSel] : undefined
+            precioGrupal: preciosTarjeta ? ((((typeof Reserva !== 'undefined' && Reserva.personas) || 1) >= 2 && preciosTarjeta.grupalGrupo) || preciosTarjeta.grupal || preciosTarjeta.grupo)?.[puntoSel] : undefined
         });
 
         // Campo de participantes (individual/grupo) solo aplica al tour privado
