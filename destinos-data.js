@@ -2727,24 +2727,22 @@ const destinos = [
                 desnivel: "1300m",
                 fechasGrupales: [
        { fecha: "2026-11-28", cupos: 12 }, ],
-                precios: { // TODO: precios de relleno (copiados del Fuego), pon los reales
-                    individual: {
-                        "Russ Mall": 400,
-                        "Interplaza Chimaltenango": 400,
-                        "Interplaza Xela": 400,
-                        "Finca La Chingada (faldas del volcán)": 400
+                precios: {
+                    // Tour privado DESHABILITADO por ahora (solo se ofrece la salida grupal).
+                    // Para volver a activarlo, quita las "//" de estas dos tablas:
+                    // individual: { "Russ Mall": 400, "Interplaza Chimaltenango": 400, "Interplaza Xela": 400, "Finca La Chingada (faldas del volcán)": 400 },
+                    // grupo:      { "Russ Mall": 400, "Interplaza Chimaltenango": 400, "Interplaza Xela": 400, "Finca La Chingada (faldas del volcán)": 400 },
+                    grupal: { // salida grupal, 1 persona
+                        "Russ Mall": 375,
+                        "Interplaza Chimaltenango": 375,
+                        "Interplaza Xela": 375,
+                        "Finca La Chingada (faldas del volcán)": 375
                     },
-                    grupo: {
-                        "Russ Mall": 300,
-                        "Interplaza Chimaltenango": 270,
-                        "Interplaza Xela": 270,
-                        "Finca La Chingada (faldas del volcán)": 150
-                    },
-                    grupal: {
-                        "Russ Mall": 300,
-                        "Interplaza Chimaltenango": 270,
-                        "Interplaza Xela": 270,
-                        "Finca La Chingada (faldas del volcán)": 150
+                    grupalGrupo: { // salida grupal, 2 personas o más (precio por persona)
+                        "Russ Mall": 350,
+                        "Interplaza Chimaltenango": 350,
+                        "Interplaza Xela": 350,
+                        "Finca La Chingada (faldas del volcán)": 350
                     }
                 },
                 itinerario: [
@@ -2755,7 +2753,7 @@ const destinos = [
                             { hora: "3:00 pm", lugar: "Russ Mall", descripcion: "Salida desde el centro comercial Russ Mall, Calzada Roosevelt." },
                             { hora: "4:30 pm", lugar: "Interplaza Chimaltenango", descripcion: "Punto de paso por Interplaza Chimaltenango" },
                             { hora: "7:30 pm", lugar: "Interplaza Xela", descripcion: "Punto de paso por Interplaza Xela" },
-                            { hora: "8:00 pm", lugar: "Punto de abordaje 4x4", descripcion: "Llegada al punto de abordaje 4x4." },
+                            { hora: "8:00 pm", lugar: "Gasolinera de Zunil (abordaje 4x4)", descripcion: "Llegada a la gasolinera de Zunil, punto de abordaje 4x4." },
                             { hora: "8:30 pm", lugar: "Finca La Chingada (faldas del volcán)", descripcion: "Llegada a las faldas del volcán en trasbordo 4x4." },
                             { hora: "9:00 pm", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia la cumbre." }
                         ]
@@ -2806,7 +2804,7 @@ const destinos = [
                             { hora: "4:30 am", lugar: "Russ Mall", descripcion: "Salida desde el centro comercial Russ Mall, Calzada Roosevelt." },
                             { hora: "6:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Punto de paso por Interplaza Chimaltenango" },
                             { hora: "9:00 am", lugar: "Interplaza Xela", descripcion: "Punto de paso por Interplaza Xela" },
-                            { hora: "9:30 am", lugar: "Punto de abordaje 4x4", descripcion: "Llegada al punto de abordaje 4x4." },
+                            { hora: "9:30 am", lugar: "Gasolinera de Zunil (abordaje 4x4)", descripcion: "Llegada a la gasolinera de Zunil, punto de abordaje 4x4." },
                             { hora: "10:00 am", lugar: "Finca La Chingada (faldas del volcán)", descripcion: "Llegada a las faldas del volcán en trasbordo 4x4." },
                             { hora: "10:30 am", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia la cumbre." },
                             { hora: "4:30 pm", lugar: "Cumbre", descripcion: "Llegada a la cumbre — momento para contemplar el atardecer." },
@@ -2851,7 +2849,7 @@ const destinos = [
                             { hora: "4:30 am", lugar: "Russ Mall", descripcion: "Salida desde el centro comercial Russ Mall, Calzada Roosevelt." },
                             { hora: "6:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Punto de paso por Interplaza Chimaltenango" },
                             { hora: "9:00 am", lugar: "Interplaza Xela", descripcion: "Punto de paso por Interplaza Xela" },
-                            { hora: "9:30 am", lugar: "Punto de abordaje 4x4", descripcion: "Llegada al punto de abordaje 4x4." },
+                            { hora: "9:30 am", lugar: "Gasolinera de Zunil (abordaje 4x4)", descripcion: "Llegada a la gasolinera de Zunil, punto de abordaje 4x4." },
                             { hora: "10:00 am", lugar: "Finca La Chingada (faldas del volcán)", descripcion: "Llegada a las faldas del volcán en trasbordo 4x4." },
                             { hora: "10:30 am", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia la cumbre." },
                             { hora: "4:30 pm", lugar: "Llegada a la zona de camping / cumbre", descripcion: "Armado de tiendas y apreciación del atardecer." }

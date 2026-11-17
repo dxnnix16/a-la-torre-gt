@@ -537,8 +537,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Precio por persona del tour elegido (privado o grupal): reserva.js lo usa para el total bajo "Participantes"
         let unitarioSel;
         if (preciosActivos) {
+            const personasSel = (typeof Reserva !== 'undefined' && Reserva.personas) || 1;
             unitarioSel = esGrupal
-                ? (preciosActivos.grupal || preciosActivos.grupo || preciosActivos.individual)?.[puntoSel]
+                ? ((personasSel >= 2 && preciosActivos.grupalGrupo) || preciosActivos.grupal || preciosActivos.grupo || preciosActivos.individual)?.[puntoSel]
                 : (preciosActivos[selectGrupo.value] || preciosActivos.individual)?.[puntoSel];
         } else {
             unitarioSel = destino.precioDesde;

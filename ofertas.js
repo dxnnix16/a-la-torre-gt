@@ -55,7 +55,11 @@ const Ofertas = (() => {
     // ---------- Qué precio aplica ----------
     // privado + 1 persona → individual · privado + 2 o más → grupo · salida grupal (bus) → grupal
     function nivelPrecio(tipoTour, personas, precios) {
-        if (tipoTour === 'grupal') return precios.grupal ? 'grupal' : (precios.grupo ? 'grupo' : 'individual');
+        // "grupalGrupo" (opcional): precio por persona de la salida grupal cuando van 2 o más
+        if (tipoTour === 'grupal') {
+            if (personas >= 2 && precios.grupalGrupo) return 'grupalGrupo';
+            return precios.grupal ? 'grupal' : (precios.grupo ? 'grupo' : 'individual');
+        }
         return (personas >= 2 && precios.grupo) ? 'grupo' : 'individual';
     }
 
