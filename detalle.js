@@ -16,6 +16,17 @@ document.addEventListener('DOMContentLoaded', () => {
     .gal-contador { position: absolute; right: 14px; bottom: 14px; background: rgba(26,27,38,.8); color: #fff; font-size: .8rem; font-weight: 700; padding: 6px 13px; border-radius: 50px; pointer-events: none; }
     .gal-flecha { position: absolute; top: 50%; translate: 0 -50%; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: #1a1b26; font-size: 1rem; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
     .gal-prev { left: 12px; } .gal-next { right: 12px; }
+    .gm-cargando { min-height: 468px; border-radius: 22px; background: #eceef2; }
+    .gm { display: grid; grid-template-columns: 2fr 1fr 1fr; grid-template-rows: 230px 230px; gap: 8px; border-radius: 22px; overflow: hidden; }
+    .gm-foto { position: relative; display: block; width: 100%; height: 100%; padding: 0; border: 0; overflow: hidden; background: #e4e6eb; cursor: zoom-in; }
+    .gm-foto img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+    .gm-foto:hover img { transform: scale(1.04); }
+    .gm-foto:focus-visible { outline: 3px solid #ff4500; outline-offset: -3px; }
+    .gm-foto:first-child { grid-row: 1 / 3; }
+    .gm-foto:nth-child(n+6) { display: none; }
+    .gm-todas { position: absolute; right: 14px; bottom: 14px; min-height: 40px; padding: 0 16px; border: 0; border-radius: 50px; background: #fff; color: #1a1b26; font: 600 .84rem Poppins, sans-serif; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+    .gm-todas:focus-visible { outline: 3px solid #ff4500; outline-offset: 2px; }
+    .gm-contador { display: none; }
     .dt-flotante { display: none; }
     .detail-price-box { scroll-margin-top: 14px; }
     @keyframes dt-pulso { 0% { box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 0 0 0 rgba(255,69,0,.55); } 100% { box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 0 0 18px rgba(255,69,0,0); } }
@@ -24,6 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         .gal-pista { gap: 0; border-radius: 0 0 26px 26px; }
         .gal-slide { flex: 0 0 100%; height: 300px; border-radius: 0; }
         .gal-flecha { display: none; }
+        .gm-cargando { min-height: 420px; border-radius: 0; }
+        .gm { display: flex; gap: 8px; height: 420px; padding: 0 20px; border-radius: 0; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+        .gm::-webkit-scrollbar { display: none; }
+        .gm-foto, .gm-foto:nth-child(n+6) { display: block; flex: 0 0 84%; border-radius: 18px; scroll-snap-align: start; }
+        .gm-foto:hover img { transform: none; }
+        .gm-todas { display: none; }
+        .gm-contador { display: block; position: absolute; right: 32px; bottom: 12px; padding: 5px 12px; border-radius: 50px; background: rgba(26,27,38,.8); color: #fff; font-size: .78rem; font-weight: 700; pointer-events: none; }
         body.tiene-flotante { padding-bottom: 100px; }
         .dt-flotante { position: fixed; left: 0; right: 0; bottom: 0; z-index: 280; display: flex; align-items: center; justify-content: space-between; gap: 14px;
             padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px)); background: #fff; border-radius: 22px 22px 0 0;
@@ -39,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .dt-flotante__btn:active { transform: scale(.97); }
         .detail-price-box.dt-resalta { animation: dt-pulso .9s ease-out 2; }
     }
-    @media (prefers-reduced-motion: reduce) { .dt-flotante { transition: none; } .detail-price-box.dt-resalta { animation: none; } }`;
+    @media (prefers-reduced-motion: reduce) { .gm-foto img { transition: none; } .dt-flotante { transition: none; } .detail-price-box.dt-resalta { animation: none; } }`;
     document.head.appendChild(estilosDetalle);
 
     // --- ESTILOS DEL SELECTOR "TOUR PRIVADO / SALIDA GRUPAL" (tarjetas con precio) ---
@@ -115,8 +133,33 @@ document.addEventListener('DOMContentLoaded', () => {
     let fotos = [destino.imagen];
     let fotoActual = 0;
 
+    let galeriaLista = false;
+
+    // Mosaico: 1 foto grande y 4 pequeñas; en celular se deslizan con la mano
+    function renderMosaico() {
+        galeria.innerHTML = `
+            <div class="gm" id="gm">${fotos.map((f, i) => `<button type="button" class="gm-foto" data-index="${i}" aria-label="Ver foto ${i + 1} de ${fotos.length}"><img src="${f}" alt="" ${i ? 'loading="lazy"' : 'fetchpriority="high"'}></button>`).join('')}</div>
+            <button type="button" class="gm-todas" data-index="0">Ver las ${fotos.length} fotos</button>
+            <span class="gm-contador" id="gm-contador" aria-hidden="true">1 / ${fotos.length}</span>`;
+        const gm = document.getElementById('gm');
+        const cont = document.getElementById('gm-contador');
+        galeria.addEventListener('click', e => {
+            const b = e.target.closest('[data-index]');
+            if (b) openLightbox(parseInt(b.dataset.index));
+        });
+        gm.addEventListener('scroll', () => {
+            const paso = gm.children[0].offsetWidth + 8;
+            cont.textContent = `${Math.min(fotos.length, Math.round(gm.scrollLeft / paso) + 1)} / ${fotos.length}`;
+        }, { passive: true });
+    }
+
     function renderGaleria() {
         galeria.classList.add('gal');
+        if (destino.galeriaMosaico) {
+            galeria.classList.toggle('gm-cargando', !galeriaLista);
+            if (!galeriaLista) return;                   // espera a saber cuántas fotos hay
+            if (fotos.length >= 5) return renderMosaico();
+        }
         galeria.innerHTML = `
             <div class="gal-pista" id="gal-pista">${fotos.map((f, i) => `<div class="gal-slide" data-index="${i}" style="background-image:url('${f}');"></div>`).join('')}</div>
             ${fotos.length > 1 ? `<span class="gal-contador" id="gal-contador">1 / ${fotos.length}</span>
@@ -174,8 +217,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderGaleria();
     Imagenes.galeria(destino).then(lista => {
-        if (!lista.length) return;                       // no se encontró nada: se queda como estaba
-        fotos = lista;
+        galeriaLista = true;
+        if (lista.length) fotos = lista;                 // si no se encontró nada, se queda la foto principal
         renderGaleria();
     });
 
@@ -200,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `${m.horasCaminata || 'Por confirmar'} de caminata y ${m.desnivel || 'por confirmar'} de desnivel.`],
             ['requisitosdeedad', 'Edad mínima y condición física',
                 `Desde ${destino.edadMinima ?? '—'} años. ${destino.condicionSalud || ''}`],
-            ['guia', 'Guía hasta la cumbre', 'Te acompañamos en todo el ascenso y el descenso.'],
+            ['guia', `Guía hasta ${destino.guiaHasta || 'la cumbre'}`, 'Te acompañamos en todo el ascenso y el descenso.'],
             ['idioma', `Guías en ${(destino.guiaIdiomas || []).join(', ') || '—'}`, 'Explicaciones y seguridad en tu idioma.'],
             ['traslado', 'Recogida y traslado incluidos', `Salimos desde ${puntosSalida.join(', ') || 'punto por confirmar'}.`],
             ['cancelacion', 'Cancelación gratuita', destino.cancelacion || ''],
@@ -423,12 +466,14 @@ document.addEventListener('DOMContentLoaded', () => {
         fieldEscala.hidden = !p;
         if (!p) { fieldEscala.innerHTML = ''; return; }
         const n = (typeof Reserva !== 'undefined' && Reserva.personas) || 1;
-        const activa = Math.min(n, 3);
+        const desde = p.grupalMasDesde;
+        const activa = n >= desde ? desde : Math.min(n, 2);
+        const txtGrupo = desde === 3 ? '2 personas' : `2 a ${desde - 1} personas`;
         const op = (k, txt, q) => `<button type="button" class="esc-op" data-personas="${k}" aria-pressed="${k === activa}">
             <small>${txt}</small><b data-gtq="${q}">${Moneda.formatear(q)}</b></button>`;
         const tuvoFoco = fieldEscala.contains(document.activeElement);
         fieldEscala.innerHTML = `<label class="detail-field-label">Precio por persona</label><div class="esc-ops">
-            ${op(1, '1 persona', p.grupal[punto])}${op(2, '2 personas', p.grupalGrupo[punto])}${op(3, '3 o más', p.grupalTres[punto])}</div>`;
+            ${op(1, '1 persona', p.grupal[punto])}${op(2, txtGrupo, p.grupalGrupo[punto])}${op(desde, `${desde} o más`, p.grupalMas[punto])}</div>`;
         if (tuvoFoco) fieldEscala.querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
     }
     fieldEscala.addEventListener('click', e => {
@@ -573,12 +618,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Precio según cuántos viajan: se muestran las 3 opciones y el precio grande sigue a la elegida
-        const conEscala = esGrupal && preciosActivos && preciosActivos.grupalTres;
+        const conEscala = esGrupal && preciosActivos && preciosActivos.grupalMas;
         pintarEscala(conEscala ? preciosActivos : null, puntoSel);
-        if (conEscala) {
+        // En estos destinos el precio grande siempre es el de la opción elegida (grupal o privada)
+        const precioExacto = preciosActivos && preciosActivos.grupalMas;
+        if (precioExacto) {
             Moneda.poner(precioBox, unitarioSel);
-            document.querySelector('.detail-price-from').textContent = 'Tu precio';
+            if (etiquetaPrecio) etiquetaPrecio.textContent = esGrupal ? 'por persona · salida grupal' : 'por persona · tour privado';
         }
+        document.querySelector('.detail-price-from').textContent = precioExacto ? 'Tu precio' : 'Desde';
         if (typeof Reserva !== 'undefined' && Reserva.actualizarTotal) Reserva.actualizarTotal(unitarioSel);
         if (typeof sincronizarBarra === 'function') sincronizarBarra();
     }

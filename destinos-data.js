@@ -12,14 +12,16 @@ const destinos = [
     // ==========================================
     {
         id: "fuego",
-        nombre: "Volcán de Fuego: Observa la Erupción en Vivo Desde las Faldas del Volcán",
+        nombre: "Volcán de Fuego: Observa la Erupción en Vivo Desde el Camellón del Volcán",
+        galeriaMosaico: true, // Fotos en mosaico: 1 grande y 4 pequeñas (en celular se deslizan)
+        guiaHasta: "el camellón",
         region: "Escuintla / Chimaltenango",
         categoria: "volcanes",
         calificacion: 4.8,
         numeroResenas: 0, // TODO: cuando tengas reseñas reales, actualiza este número
         imagen: "img/fuego.webp",
 
-        descripcion: "Vive una de las experiencias más impresionantes de Guatemala: contempla en vivo las erupciones del Volcán de Fuego, uno de los volcanes más activos de Centroamérica. Una aventura de ascenso nocturno guiado, pensada para quienes buscan algo más que una simple caminata — un recuerdo que se queda para siempre.",
+        descripcion: "Vive una de las experiencias más impresionantes de Guatemala: contempla en vivo las erupciones del Volcán de Fuego, uno de los volcanes más activos de Centroamérica. Una caminata guiada hasta el camellón del volcán, pensada para quienes buscan algo más que una simple caminata — un recuerdo que se queda para siempre.",
 
         // --- REQUISITOS Y NIVEL ---
         edadMinima: 15,
@@ -69,7 +71,7 @@ const destinos = [
             {
                 titulo: "La experiencia",
                 items: [
-                    "Camina hacia las faldas del volcán de Fuego, uno de los más activos de Centroamérica",
+                    "Camina hasta el camellón del volcán de Fuego, uno de los más activos de Centroamérica",
                     "Sé testigo de sus erupciones constantes, de día o de noche según la modalidad elegida",
                     "Recorrido acompañado en todo momento por guías capacitados",
                     "Una salida pensada para quienes buscan algo distinto a una caminata común"
@@ -269,16 +271,23 @@ const destinos = [
                         "La Soledad (faldas del volcán)": 230
                     },
                     grupal: { // salida grupal, 1 persona
-                        "Russ Mall": 275,
-                        "Interplaza Chimaltenango": 275,
-                        "Antigua Guatemala": 275,
-                        "La Soledad (faldas del volcán)": 275
-                    },
-                    grupalGrupo: { // salida grupal, 2 personas o más (por persona)
                         "Russ Mall": 250,
                         "Interplaza Chimaltenango": 250,
                         "Antigua Guatemala": 250,
                         "La Soledad (faldas del volcán)": 250
+                    },
+                    grupalGrupo: { // salida grupal, 2 a 5 personas (por persona)
+                        "Russ Mall": 225,
+                        "Interplaza Chimaltenango": 225,
+                        "Antigua Guatemala": 225,
+                        "La Soledad (faldas del volcán)": 225
+                    },
+                    grupalMasDesde: 6, // desde cuántas personas aplica "grupalMas"
+                    grupalMas: { // salida grupal, 6 personas o más (por persona)
+                        "Russ Mall": 200,
+                        "Interplaza Chimaltenango": 200,
+                        "Antigua Guatemala": 200,
+                        "La Soledad (faldas del volcán)": 200
                     }
                 },
                 itinerario: [
@@ -290,8 +299,8 @@ const destinos = [
                             { hora: "7:00 am", lugar: "Antigua Guatemala", descripcion: "Punto de paso por Antigua Guatemala" },
                             { hora: "8:00 am", lugar: "Interplaza Chimaltenango", descripcion: "Punto de paso por Interplaza Chimaltenango" },
                             { hora: "8:45 am", lugar: "Faldas del volcán: Aldea La Soledad", descripcion: "Llegada a las faldas del volcán." },
-                            { hora: "9:00 am", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia la cumbre." },
-                            { hora: "4:30 pm", lugar: "Llegada a la cumbre", descripcion: "Llegada a la cumbre — momento para contemplar el atardecer y las erupciones." },
+                            { hora: "9:00 am", lugar: "Inicio del ascenso", descripcion: "Comienza la caminata guiada hacia el camellón." },
+                            { hora: "4:30 pm", lugar: "Llegada al camellón", descripcion: "Llegada al camellón del volcán: momento para contemplar el atardecer y las erupciones." },
                             { hora: "6:00 pm", lugar: "Descenso", descripcion: "Inicio del descenso. La hora de llegada depende del paso del grupo o de la persona, y puedes bajarte en Antigua Guatemala, Interplaza, Russ Mall o cualquier punto del camino de regreso." }
                         ]
                     }
@@ -6029,7 +6038,8 @@ const destinos = [
         precios: {
             grupal: { "Ciudad de Guatemala": 1500 },      // 1 persona
             grupalGrupo: { "Ciudad de Guatemala": 1250 }, // 2 personas
-            grupalTres: { "Ciudad de Guatemala": 1000 }   // 3 personas o más
+            grupalMasDesde: 3,                             // desde cuántas personas aplica "grupalMas"
+            grupalMas: { "Ciudad de Guatemala": 1000 }    // 3 personas o más
         },
 
         // --- MODALIDADES ---
@@ -6045,7 +6055,8 @@ const destinos = [
                 precios: {
                     grupal: { "Ciudad de Guatemala": 1500 },      // 1 persona
                     grupalGrupo: { "Ciudad de Guatemala": 1250 }, // 2 personas
-                    grupalTres: { "Ciudad de Guatemala": 1000 }   // 3 personas o más
+                    grupalMasDesde: 3,                             // desde cuántas personas aplica "grupalMas"
+                    grupalMas: { "Ciudad de Guatemala": 1000 }    // 3 personas o más
                 },
                 itinerario: [
                     {
