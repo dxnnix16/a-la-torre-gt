@@ -5888,6 +5888,206 @@ const destinos = [
         }
     },
     {
+        id: "tikal",
+        nombre: "Tikal, el Llamado del Jaguar: Isla de Flores, Cráter Azul y Río Dulce",
+        region: "Tikal, Petén, Guatemala",
+        categoria: "lugares",
+        calificacion: null,
+        numeroResenas: 0,
+        imagen: "img/revista/momento6.webp",
+        fotoBase: "img/tikal", // Las fotos nuevas se suben como img/tikal1, img/tikal2... y aparecen solas en la galería
+
+        descripcion: "Salimos de noche desde la Ciudad de Guatemala y despertamos en Petén para recorrer Tikal con tiempo, entre templos, plazas y selva. Por la tarde llegamos a la isla de Flores para ver el atardecer sobre el lago y disfrutar la noche a tu manera. El domingo nadamos en las aguas transparentes del Cráter Azul y seguimos hasta Río Dulce antes de regresar a la capital el lunes por la mañana.",
+
+        // --- REQUISITOS Y NIVEL ---
+        condicionSalud: "Condición física básica para caminar varias horas",
+        exigencia: 4,
+
+        // --- POLÍTICAS ---
+        reservaMinima: "Reserva con el 50% y el resto lo cancelas antes del viaje.",
+        cancelacion: "Cancelación gratuita si se cancela con 48 horas de antelación.",
+        responsable: "Nos llevamos nuestra basura y cuidamos cada lugar que visitamos.",
+        servicioRecogida: false,
+        descripcionGrupal: "Viaja en bus con el grupo. Incluye hospedaje, un desayuno, imán conmemorativo y fotografías.",
+
+        // --- FRANJA "LO ESENCIAL" (reemplaza la de los volcanes) ---
+        franja: [
+            ["duracion", "4 días y 3 noches", "Salimos el viernes 18 de diciembre por la noche y regresamos el lunes 21 por la mañana."],
+            ["traslado", "Bus en todos los traslados", "Dos noches de viaje en bus y una noche en hospedaje."],
+            ["dificultad", "Dificultad 4/10", "Caminatas sin prisa por Tikal y tiempo para nadar en el Cráter Azul."],
+            ["cancelacion", "Cancelación gratuita", "Hasta 48 horas antes de la salida."],
+            ["pago", "Reserva con el 50%", "El resto lo cancelas antes del viaje."],
+            ["turismoresponsable", "Turismo responsable", "Nos llevamos nuestra basura y cuidamos cada lugar que visitamos."]
+        ],
+
+        // --- QUÉ INCLUYE / QUÉ NO ---
+        incluye: [
+            "Bus en todos los traslados",
+            "Una noche de hospedaje",
+            "Desayuno del domingo",
+            "Imán conmemorativo",
+            "Fotografías de la experiencia"
+        ],
+        incluyeOpcional: [],
+        noIncluye: [
+            "Entradas a Tikal, Cráter Azul y Castillo de San Felipe", // TODO: confirmar si se incluyen
+            "Lancha al Cráter Azul", // TODO: confirmar si se incluye
+            "Comidas, excepto el desayuno del domingo",
+            "Agua y gastos personales"
+        ],
+
+        // --- QUÉ DEBE LLEVAR EL CLIENTE ---
+        queLlevar: [
+            "Agua pura",
+            "DPI o pasaporte",
+            "Efectivo",
+            "Traje de baño y toalla",
+            "Zapatos cómodos",
+            "Repelente y bloqueador solar"
+        ],
+
+        // --- BLOQUES DE INFORMACIÓN ---
+        infoBloques: [
+            {
+                titulo: "La experiencia",
+                items: [
+                    "Recorre Tikal con tiempo para explorar sus templos, plazas y senderos en la selva",
+                    "Mira el atardecer sobre el lago Petén Itzá desde la isla de Flores",
+                    "Ten la noche libre en Flores para cenar, pasear o salir de fiesta",
+                    "Nada en el Cráter Azul, mira los peces y toma fotografías",
+                    "Termina el viaje en Río Dulce, cerca del Castillo de San Felipe"
+                ]
+            },
+            {
+                titulo: "Incluido en tu reserva",
+                items: [
+                    "Bus en todos los traslados",
+                    "Una noche de hospedaje, todo el grupo junto",
+                    "<strong>Desayuno incluido el domingo</strong> antes de salir al Cráter Azul",
+                    "Imán conmemorativo de la experiencia",
+                    "Fotografías del viaje"
+                ]
+            },
+            {
+                titulo: "Por tu cuenta",
+                items: [
+                    "Todas las comidas, excepto el desayuno del domingo",
+                    "Entrada a Tikal (referencia: Q25 guatemaltecos con DPI, Q150 extranjeros)",
+                    "Lancha y entrada al Cráter Azul",
+                    "Entrada al Castillo de San Felipe, si está abierto (referencia: Q25 nacionales, Q75 extranjeros)",
+                    "Agua pura, snacks y gastos personales"
+                ]
+            },
+            {
+                titulo: "Qué llevar",
+                items: [
+                    "Agua pura para todo el viaje, mejor en botella reutilizable",
+                    "DPI o pasaporte vigente",
+                    "Efectivo para comidas, entradas y compras",
+                    "Zapatos cómodos para caminar en Tikal",
+                    "Ropa fresca y un suéter para el bus",
+                    "Traje de baño, toalla y sandalias",
+                    "Bolsa para la ropa mojada",
+                    "Una muda para la noche en Flores"
+                ]
+            },
+            {
+                titulo: "Recomendaciones",
+                items: [
+                    "Repelente de insectos",
+                    "Bloqueador solar, gorra y lentes de sol",
+                    "Snacks para el camino",
+                    "Almohada de viaje para las noches en bus",
+                    "Power bank y cargador",
+                    "Medicamentos personales"
+                ]
+            },
+            {
+                titulo: "Antes de salir",
+                items: [
+                    "El punto exacto de salida se confirma al reservar.",
+                    "Los horarios son aproximados: dependen de la carretera, el clima y el ritmo del grupo.",
+                    "El domingo salimos muy temprano para aprovechar el Cráter Azul.",
+                    "Llegamos a Río Dulce al final de la tarde, cuando el Castillo de San Felipe normalmente ya cerró; lo veremos por fuera si el tiempo lo permite."
+                ]
+            }
+        ],
+
+        // --- RESEÑAS ---
+        resenas: [],
+
+        // --- GALERÍA DE FOTOS ---
+        fotos: [
+            "img/revista/momento6.webp"
+        ],
+
+        // --- PRECIOS (RESPALDO) --- por persona, según cuántos viajan
+        precios: {
+            grupal: { "Ciudad de Guatemala": 1500 },      // 1 persona
+            grupalGrupo: { "Ciudad de Guatemala": 1250 }, // 2 personas
+            grupalTres: { "Ciudad de Guatemala": 1000 }   // 3 personas o más
+        },
+
+        // --- MODALIDADES ---
+        modalidadPorDefecto: "ruta",
+        modalidades: {
+            ruta: {
+                nombre: "Ruta completa",
+                duracionDias: 4,
+                duracionTexto: "4 días y 3 noches",
+                fechasGrupales: [
+                    { fecha: "2026-12-18" }
+                ],
+                precios: {
+                    grupal: { "Ciudad de Guatemala": 1500 },      // 1 persona
+                    grupalGrupo: { "Ciudad de Guatemala": 1250 }, // 2 personas
+                    grupalTres: { "Ciudad de Guatemala": 1000 }   // 3 personas o más
+                },
+                itinerario: [
+                    {
+                        dia: 1,
+                        titulo: "Viernes 18 de diciembre · Salida nocturna",
+                        eventos: [
+                            { hora: "8:00 pm", lugar: "Ciudad de Guatemala", descripcion: "Abordamos el bus. El punto exacto se confirma al reservar." },
+                            { hora: "8:30 pm – 6:00 am", tipo: "periodo", lugar: "Viaje a Petén", descripcion: "Noche en bus rumbo a Tikal, con paradas en el camino." }
+                        ]
+                    },
+                    {
+                        dia: 2,
+                        titulo: "Sábado 19 de diciembre · Tikal e isla de Flores",
+                        eventos: [
+                            { hora: "6:00 am", lugar: "Parada para desayunar", descripcion: "Tiempo para comprar el desayuno, por tu cuenta." },
+                            { hora: "7:30 am – 2:30 pm", tipo: "periodo", lugar: "Parque Nacional Tikal", descripcion: "Tiempo para explorar el parque: sus templos, plazas y senderos en la selva. El almuerzo va por tu cuenta." },
+                            { hora: "2:30 pm", lugar: "Salida hacia Flores", descripcion: "Volvemos al bus rumbo a la isla." },
+                            { hora: "4:00 pm – 9:30 pm", tipo: "periodo", lugar: "Isla de Flores", descripcion: "Atardecer sobre el lago Petén Itzá y tiempo libre para cenar, pasear o salir de fiesta." },
+                            { hora: "10:00 pm", lugar: "Hospedaje", descripcion: "Nos vamos todos juntos a descansar. La noche está incluida." }
+                        ]
+                    },
+                    {
+                        dia: 3,
+                        titulo: "Domingo 20 de diciembre · Cráter Azul y Río Dulce",
+                        eventos: [
+                            { hora: "4:30 am", lugar: "Desayuno incluido", descripcion: "Desayunamos en el hospedaje antes de salir." },
+                            { hora: "5:00 am", lugar: "Salida hacia el Cráter Azul", descripcion: "Viajamos en bus hacia Sayaxché." },
+                            { hora: "7:30 am", lugar: "Río La Pasión", descripcion: "Llegamos al embarcadero y continuamos en lancha." },
+                            { hora: "8:30 am – 10:30 am", tipo: "periodo", lugar: "Cráter Azul", descripcion: "Tiempo para nadar, ver los peces y tomar fotografías." },
+                            { hora: "11:15 am – 6:30 pm", tipo: "periodo", lugar: "Viaje a Río Dulce", descripcion: "Trayecto en bus con parada para almorzar, por tu cuenta." },
+                            { hora: "6:30 pm – 11:00 pm", tipo: "periodo", lugar: "Río Dulce", descripcion: "Tiempo libre y cena por tu cuenta. Si el tiempo lo permite, vemos por fuera el Castillo de San Felipe." },
+                            { hora: "11:00 pm", lugar: "Regreso", descripcion: "Salimos de noche hacia la Ciudad de Guatemala." }
+                        ]
+                    },
+                    {
+                        dia: 4,
+                        titulo: "Lunes 21 de diciembre · Llegada",
+                        eventos: [
+                            { hora: "5:00 – 6:00 am", tipo: "punto", lugar: "Ciudad de Guatemala", descripcion: "Llegada estimada. El horario puede variar según la carretera." }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    {
         id: "semuc-champey",
         nombre: "Semuc Champey",
         region: "Alta Verapaz",

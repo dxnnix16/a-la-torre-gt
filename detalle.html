@@ -22,6 +22,8 @@
     </style>
 </head>
 <body>
+    <!-- Animación de selva y diseño especial: solo se activa en detalle.html?id=tikal -->
+    <script src="tikal-selva.js"></script>
 
     <nav class="navbar">
         <a class="logo" href="index.html">
@@ -130,6 +132,9 @@
                     <label class="detail-field-label" id="tipo-tour-label">¿Cómo quieres ir?</label>
                     <div class="tt-opciones" id="tipo-tour" role="radiogroup" aria-labelledby="tipo-tour-label"></div>
                 </div>
+
+                <!-- Precio por persona según cuántos viajan (solo en destinos con "grupalTres") -->
+                <div class="detail-field" id="field-escala" hidden></div>
 
                 <div class="detail-field" id="field-modalidad">
                     <label class="detail-field-label">Modalidad</label>

@@ -806,5 +806,5 @@ const Reserva = (() => {
     // cfg = { destino, contFecha, contPersonas, leerSeleccion(), alCambiar() }
     function iniciar(config) { cfg = config; montarCampos(); pintarFecha(); }
 
-    return { iniciar, abrirDisponibilidad, actualizarTotal, get personas() { return est.personas; }, get fecha() { return est.fecha; } };
+    return { iniciar, abrirDisponibilidad, actualizarTotal, fijarPersonas: cambiarPersonas, get personas() { return est.personas; }, get fecha() { return est.fecha; } };
 })();

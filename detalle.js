@@ -45,7 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ESTILOS DEL SELECTOR "TOUR PRIVADO / SALIDA GRUPAL" (tarjetas con precio) ---
     const estilosTipoTour = document.createElement('style');
     estilosTipoTour.textContent = `
-    #field-tipo-tour[hidden] { display: none; }
+    #field-tipo-tour[hidden], #field-escala[hidden] { display: none; }
+    .esc-ops { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    .esc-op { display: grid; gap: 2px; padding: 9px 4px; border: 1.5px solid #e6e8ee; border-radius: 12px; background: #fff; color: #1a1b26; font-family: inherit; text-align: center; cursor: pointer; touch-action: manipulation; transition: border-color .2s ease, background .2s ease; }
+    .esc-op small { font-size: .7rem; color: #666; }
+    .esc-op b { font-size: .92rem; font-weight: 800; }
+    .esc-op:hover { border-color: #ffb38a; }
+    .esc-op:focus-visible { outline: 3px solid #ff4500; outline-offset: 2px; }
+    .esc-op[aria-pressed="true"] { border-color: #ff4500; background: #fff8f2; }
     .tt-opciones { display: grid; gap: 10px; }
     .tt-op { position: relative; isolation: isolate; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
         width: 100%; padding: 14px; border: 1.5px solid #e6e8ee; border-radius: 16px; background: #fff; color: #1a1b26;
@@ -186,7 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
             ? Object.keys(modPrecios.individual || modPrecios.grupal || modPrecios.grupo || {})
             : [];
 
-        const items = [
+        // Un destino puede traer su propia franja (los que no son volcanes)
+        const items = destino.franja || [
             ['duracion', `Duración ${duracion}`, 'Consulta los horarios de salida según la modalidad.'],
             ['dificultad', `Dificultad ${destino.exigencia ? destino.exigencia + '/10' : '—'}`,
                 `${m.horasCaminata || 'Por confirmar'} de caminata y ${m.desnivel || 'por confirmar'} de desnivel.`],
@@ -234,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (destino.edadMinima || destino.exigencia) {
         const exigenciaPct = (destino.exigencia || 0) * 10;
         requisitosBox.innerHTML = `
-            <div class="requisito-item"><strong>Edad mínima:</strong> ${destino.edadMinima ?? '—'} años</div>
+            ${destino.edadMinima != null ? `<div class="requisito-item"><strong>Edad mínima:</strong> ${destino.edadMinima} años</div>` : ''}
             <div class="requisito-item"><strong>Condición de salud:</strong> ${destino.condicionSalud ?? '—'}</div>
             <div class="requisito-item requisito-exigencia">
                 <strong>Nivel de exigencia:</strong> ${destino.exigencia ?? '—'}/10
@@ -410,9 +418,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tuvoFoco) { const act = tipoTourBox.querySelector('.activo'); if (act) act.focus({ preventScroll: true }); }
     }
 
+    const fieldEscala = document.getElementById('field-escala');
+    function pintarEscala(p, punto) {
+        fieldEscala.hidden = !p;
+        if (!p) { fieldEscala.innerHTML = ''; return; }
+        const n = (typeof Reserva !== 'undefined' && Reserva.personas) || 1;
+        const activa = Math.min(n, 3);
+        const op = (k, txt, q) => `<button type="button" class="esc-op" data-personas="${k}" aria-pressed="${k === activa}">
+            <small>${txt}</small><b data-gtq="${q}">${Moneda.formatear(q)}</b></button>`;
+        const tuvoFoco = fieldEscala.contains(document.activeElement);
+        fieldEscala.innerHTML = `<label class="detail-field-label">Precio por persona</label><div class="esc-ops">
+            ${op(1, '1 persona', p.grupal[punto])}${op(2, '2 personas', p.grupalGrupo[punto])}${op(3, '3 o más', p.grupalTres[punto])}</div>`;
+        if (tuvoFoco) fieldEscala.querySelector('[aria-pressed="true"]').focus({ preventScroll: true });
+    }
+    fieldEscala.addEventListener('click', e => {
+        const b = e.target.closest('[data-personas]');
+        if (b) Reserva.fijarPersonas(Number(b.dataset.personas));
+    });
+
     function sincronizarBarra() {
         const p = document.getElementById('dtFlotPrecio'), b = document.getElementById('dtFlotBtn');
         if (!p || !b) return;                 // la barra se crea un poco más abajo
+        document.getElementById('dtFlotDesde').textContent = document.querySelector('.detail-price-from').textContent;
         if (precioBox.dataset.gtq) p.dataset.gtq = precioBox.dataset.gtq; else delete p.dataset.gtq;
         p.textContent = precioBox.textContent;
         b.textContent = btnReservar.textContent;
@@ -481,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pintarTipoTour({
             esGrupal, hayGrupal: fechasTarjeta.length > 0, hayGrupalEnAlguna, fechasGrupales: fechasTarjeta, sinPrivado,
             precioPrivado: preciosActivos ? (preciosActivos[selectGrupo.value] || preciosActivos.individual)?.[puntoSel] : destino.precioDesde,
-            precioGrupal: preciosTarjeta ? ((((typeof Reserva !== 'undefined' && Reserva.personas) || 1) >= 2 && preciosTarjeta.grupalGrupo) || preciosTarjeta.grupal || preciosTarjeta.grupo)?.[puntoSel] : undefined
+            precioGrupal: preciosTarjeta ? preciosTarjeta[Ofertas.nivelPrecio('grupal', (typeof Reserva !== 'undefined' && Reserva.personas) || 1, preciosTarjeta)]?.[puntoSel] : undefined
         });
 
         // Campo de participantes (individual/grupo) solo aplica al tour privado
@@ -539,10 +566,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (preciosActivos) {
             const personasSel = (typeof Reserva !== 'undefined' && Reserva.personas) || 1;
             unitarioSel = esGrupal
-                ? ((personasSel >= 2 && preciosActivos.grupalGrupo) || preciosActivos.grupal || preciosActivos.grupo || preciosActivos.individual)?.[puntoSel]
+                ? preciosActivos[Ofertas.nivelPrecio('grupal', personasSel, preciosActivos)]?.[puntoSel]
                 : (preciosActivos[selectGrupo.value] || preciosActivos.individual)?.[puntoSel];
         } else {
             unitarioSel = destino.precioDesde;
+        }
+
+        // Precio según cuántos viajan: se muestran las 3 opciones y el precio grande sigue a la elegida
+        const conEscala = esGrupal && preciosActivos && preciosActivos.grupalTres;
+        pintarEscala(conEscala ? preciosActivos : null, puntoSel);
+        if (conEscala) {
+            Moneda.poner(precioBox, unitarioSel);
+            document.querySelector('.detail-price-from').textContent = 'Tu precio';
         }
         if (typeof Reserva !== 'undefined' && Reserva.actualizarTotal) Reserva.actualizarTotal(unitarioSel);
         if (typeof sincronizarBarra === 'function') sincronizarBarra();
@@ -598,7 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
     barra.setAttribute('aria-label', 'Reservar');
     barra.innerHTML = `
         <div class="dt-flotante__precio">
-            <span>Desde</span><b id="dtFlotPrecio">${Moneda.formatear(null)}</b><em>por persona</em>
+            <span id="dtFlotDesde">Desde</span><b id="dtFlotPrecio">${Moneda.formatear(null)}</b><em>por persona</em>
             ${destino.etiqueta ? `<i class="dt-flotante__tag">${destino.etiqueta}</i>` : ''}
         </div>
         <button type="button" class="dt-flotante__btn" id="dtFlotBtn">Ver disponibilidad</button>`;
