@@ -2667,7 +2667,7 @@ const destinos = [
             {
                 titulo: "Por tu cuenta",
                 items: [
-                    "Pago de ingreso al volcán: Q50 residentes / Q100 visitantes extranjeros",
+                    "Pago de ingreso al volcán: Q35 residentes / Q100 visitantes extranjeros",
                     "Hidratación (agua) para todo el trayecto",
                     "Comidas principales — el servicio cubre únicamente snacks, y solo en tour privado",
                     "Equipo propio de montaña, salvo que decidas alquilarlo con nosotros"

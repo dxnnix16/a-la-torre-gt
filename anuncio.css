@@ -62,13 +62,13 @@ html.anu-bloqueo { scrollbar-gutter: stable; }
    Ancho = el menor entre: pantalla, 420px y lo que deja la altura libre,
    así el póster 3:4 + el botón siempre caben sin cortarse. */
 .anu-card {
-    --w: min(calc(100vw - 32px), 420px, calc((100vh - 150px) * 0.75));
+    --w: min(calc(100vw - 32px), 420px, calc((100vh - 150px) * 0.8));
     position: relative; z-index: 3; margin: auto; width: max(var(--w), 230px);
     background: #14151d; border-radius: 22px; overflow: hidden; isolation: isolate; outline: none;
     box-shadow: 0 40px 90px -20px rgba(255, 69, 0, 0.38), 0 18px 40px rgba(0, 0, 0, 0.5);
 }
 @supports (height: 100dvh) {
-    .anu-card { --w: min(calc(100vw - 32px), 420px, calc((100dvh - 150px) * 0.75)); }
+    .anu-card { --w: min(calc(100vw - 32px), 420px, calc((100dvh - 150px) * 0.8)); }
 }
 /* aro de lava girando (el mismo recurso del menú y las tarjetas) */
 .anu-card::before {
@@ -80,7 +80,7 @@ html.anu-bloqueo { scrollbar-gutter: stable; }
 }
 
 /* ---------- PÓSTER 3:4 ---------- */
-.anu-foto { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: #14151d; }
+.anu-foto { position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: #14151d; }
 .anu-foto img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
 /* "Lava que sube": una cortina oscura con borde ondulado sube y deja ver el póster;

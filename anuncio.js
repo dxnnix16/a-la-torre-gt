@@ -2,35 +2,43 @@
 // A La Torre GT · ANUNCIO DE LA PRÓXIMA SALIDA (solo en el inicio)
 //
 // Qué hace:
-//   - ~3 s después de entrar al inicio muestra el póster 3:4 con su animación.
-//   - Una sola vez por visita (si recargas o vuelves al inicio en la misma
-//     pestaña, ya no molesta). Si cambias de póster, vuelve a salir solo.
+//   - Elige solo el póster de la próxima salida, según la fecha de hoy.
+//   - El día de la salida ese póster ya no aparece y entra el siguiente.
+//     Si no quedan pósters, no aparece ningún anuncio.
+//   - ~3 s después de entrar al inicio lo muestra con su animación.
+//   - Una sola vez por visita; si cambia el póster, vuelve a salir.
 //   - Espera a que se vaya la pantalla de carga, y no interrumpe si la
 //     persona está usando el buscador.
 //   - Si no encuentra la imagen, simplemente no aparece (nunca sale roto).
 //
-// CADA VEZ QUE CAMBIES EL PÓSTER: sube el número de "version" (abajo).
-//   Eso hace que el anuncio vuelva a salir para todos y que el navegador
-//   descargue la imagen nueva en vez de usar la guardada.
+// PARA AGREGAR UN PÓSTER: súbelo a img/posters_de_anuncio/ (proporción 4:5)
+//   y agrega una línea en POSTERES. Si dos salidas son el mismo día, pon solo
+//   el póster de la que quieras anunciar.
 //
-// Para PROBARLO sin esperar la regla de "una vez": abre index.html?anuncio
+// Para PROBARLO: index.html?anuncio&fecha=2026-11-21
 // ========================================================= 
 (function () {
     'use strict';
 
     /* ====== CONFIGURACIÓN: lo único que tocas para cambiar el anuncio ====== */
-    const ANUNCIO = {
-        imagen:  'img/anuncio1',            // ruta SIN extensión (prueba .webp .jpg .jpeg .png .avif …)
-        version: '2',                       // <-- SÚBELE EL NÚMERO cada vez que cambies el póster (3, 4, 5…)
-        enlace:  'detalle.html?id=santa-maria',   // a dónde lleva el botón
-        retraso: 3000,                      // milisegundos que espera antes de aparecer
-        unaVez:  true                       // true = una vez por visita · false = cada vez que entra
-    };
-    const EXTENSIONES = ['webp', 'jpg', 'jpeg', 'png', 'avif', 'JPG', 'JPEG', 'PNG', 'WEBP', 'gif'];
+    // fecha = día de la salida (AAAA-MM-DD). El póster se muestra hasta el día anterior.
+    const POSTERES = [
+        { imagen: 'img/posters_de_anuncio/fuego21nov.jpeg', fecha: '2026-11-21', enlace: 'detalle.html?id=fuego' },
+        { imagen: 'img/posters_de_anuncio/pecul28nov.webp', fecha: '2026-11-28', enlace: 'detalle.html?id=santo-tomas' }
+    ];
+    const RETRASO = 3000;                   // milisegundos que espera antes de aparecer
+    const UNA_VEZ = true;                   // true = una vez por visita · false = cada vez que entra
     const MARGEN_ESPERA = 20000;            // si en ese tiempo extra no hubo buen momento, ya no sale
 
+    const parametros = new URLSearchParams(location.search);
+    const ahora = new Date();
+    const hoyReal = ahora.getFullYear() + '-' + String(ahora.getMonth() + 1).padStart(2, '0') + '-' + String(ahora.getDate()).padStart(2, '0');
+    const fechaPrueba = parametros.get('fecha');
+    const hoy = /^\d{4}-\d{2}-\d{2}$/.test(fechaPrueba || '') ? fechaPrueba : hoyReal;
+    const ANUNCIO = POSTERES.filter(p => p.fecha > hoy).sort((a, b) => a.fecha.localeCompare(b.fecha))[0];
+
     const raiz = document.getElementById('anuncio');
-    if (!raiz) return;
+    if (!raiz || !ANUNCIO) return;
 
     const html   = document.documentElement;
     const card   = raiz.querySelector('.anu-card');
@@ -39,15 +47,15 @@
     const equis  = raiz.querySelector('.anu-x');
     const brasas = raiz.querySelector('.anu-brasas');
     const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const llave = 'anuncio-visto:' + ANUNCIO.imagen + ':' + ANUNCIO.version;
-    const forzar = new URLSearchParams(location.search).has('anuncio');
+    const llave = 'anuncio-visto:' + ANUNCIO.imagen;
+    const forzar = parametros.has('anuncio');
 
     let abierto = false;
     let previo = null;
 
     // ---- memoria de "ya lo vio" (por pestaña) ----
     function yaVisto() {
-        if (forzar || !ANUNCIO.unaVez) return false;
+        if (forzar || !UNA_VEZ) return false;
         try { return sessionStorage.getItem(llave) === '1'; } catch (e) { return false; }
     }
     function marcarVisto() {
@@ -55,18 +63,13 @@
     }
     if (yaVisto()) return;
 
-    // ---- busca la imagen sin importar la extensión (se adelanta para que esté lista a los 3 s) ----
+    // ---- carga la imagen antes de tiempo para que esté lista a los 3 s ----
     function buscarImagen() {
         return new Promise(resolve => {
-            let i = 0;
-            (function probar() {
-                if (i >= EXTENSIONES.length) return resolve(null);
-                const url = ANUNCIO.imagen + '.' + EXTENSIONES[i++] + '?v=' + ANUNCIO.version;
-                const im = new Image();
-                im.onload = () => resolve(url);
-                im.onerror = probar;
-                im.src = url;
-            })();
+            const im = new Image();
+            im.onload = () => resolve(ANUNCIO.imagen);
+            im.onerror = () => resolve(null);
+            im.src = ANUNCIO.imagen;
         });
     }
     const imagenLista = buscarImagen();
@@ -150,13 +153,13 @@
     const t0 = performance.now();
     function intentar() {
         if (!buenMomento()) {
-            if (performance.now() - t0 < ANUNCIO.retraso + MARGEN_ESPERA) setTimeout(intentar, 1000);
+            if (performance.now() - t0 < RETRASO + MARGEN_ESPERA) setTimeout(intentar, 1000);
             return;
         }
         imagenLista.then(function (url) {
             if (url) abrir(url);
-            else console.warn('[anuncio] No encontré ' + ANUNCIO.imagen + '.(webp|jpg|jpeg|png|avif). Guárdala en esa carpeta con ese nombre.');
+            else console.warn('[anuncio] No encontré ' + ANUNCIO.imagen);
         });
     }
-    setTimeout(intentar, ANUNCIO.retraso);
+    setTimeout(intentar, RETRASO);
 })();
