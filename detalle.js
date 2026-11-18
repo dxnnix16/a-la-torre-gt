@@ -690,7 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 11. COMPARTIR ---
     document.getElementById('btn-compartir').addEventListener('click', async () => {
-        const url = window.location.href;
+        const url = destino.enlaceCompartir ? new URL(destino.enlaceCompartir, window.location.href).href : window.location.href;
         if (navigator.share) {
             try { await navigator.share({ title: destino.nombre, text: destino.descripcion, url }); }
             catch (e) { /* el usuario canceló, no hacemos nada */ }

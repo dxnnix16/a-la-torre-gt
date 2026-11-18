@@ -5893,6 +5893,7 @@ const destinos = [
         region: "Tikal, Petén, Guatemala",
         categoria: "lugares",
         fijado: true, // Aparece primero en Destinos, en el inicio y en las sugerencias
+        enlaceCompartir: "tikal.html", // Enlace con vista previa propia para WhatsApp e Instagram
         etiqueta: "📌 Destacado",
         calificacion: null,
         numeroResenas: 0,
