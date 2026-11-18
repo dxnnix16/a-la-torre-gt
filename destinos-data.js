@@ -5892,6 +5892,8 @@ const destinos = [
         nombre: "Tikal, el Llamado del Jaguar: Isla de Flores, Cráter Azul y Río Dulce",
         region: "Tikal, Petén, Guatemala",
         categoria: "lugares",
+        fijado: true, // Aparece primero en Destinos, en el inicio y en las sugerencias
+        etiqueta: "📌 Destacado",
         calificacion: null,
         numeroResenas: 0,
         imagen: "img/revista/momento6.webp",
@@ -5905,17 +5907,17 @@ const destinos = [
 
         // --- POLÍTICAS ---
         reservaMinima: "Reserva con el 50% y el resto lo cancelas antes del viaje.",
-        cancelacion: "Cancelación gratuita si se cancela con 48 horas de antelación.",
+        cancelacion: "", // Vacío: no se muestra nada sobre cancelación en este tour
         responsable: "Nos llevamos nuestra basura y cuidamos cada lugar que visitamos.",
         servicioRecogida: false,
-        descripcionGrupal: "Viaja en bus con el grupo. Incluye hospedaje, un desayuno, imán conmemorativo y fotografías.",
+        descripcionGrupal: "Viaja en bus con el grupo. Incluye entrada a Tikal, hospedaje, un desayuno, imán conmemorativo y fotografías.",
 
         // --- FRANJA "LO ESENCIAL" (reemplaza la de los volcanes) ---
         franja: [
             ["duracion", "4 días y 3 noches", "Salimos el viernes 18 de diciembre por la noche y regresamos el lunes 21 por la mañana."],
             ["traslado", "Bus en todos los traslados", "Dos noches de viaje en bus y una noche en hospedaje."],
             ["dificultad", "Dificultad 4/10", "Caminatas sin prisa por Tikal y tiempo para nadar en el Cráter Azul."],
-            ["cancelacion", "Cancelación gratuita", "Hasta 48 horas antes de la salida."],
+            ["guia", "Entrada a Tikal incluida", "La lancha y las demás entradas van por tu cuenta."],
             ["pago", "Reserva con el 50%", "El resto lo cancelas antes del viaje."],
             ["turismoresponsable", "Turismo responsable", "Nos llevamos nuestra basura y cuidamos cada lugar que visitamos."]
         ],
@@ -5923,6 +5925,7 @@ const destinos = [
         // --- QUÉ INCLUYE / QUÉ NO ---
         incluye: [
             "Bus en todos los traslados",
+            "Entrada a Tikal",
             "Una noche de hospedaje",
             "Desayuno del domingo",
             "Imán conmemorativo",
@@ -5930,8 +5933,8 @@ const destinos = [
         ],
         incluyeOpcional: [],
         noIncluye: [
-            "Entradas a Tikal, Cráter Azul y Castillo de San Felipe", // TODO: confirmar si se incluyen
-            "Lancha al Cráter Azul", // TODO: confirmar si se incluye
+            "Entradas al Cráter Azul y al Castillo de San Felipe",
+            "Lancha al Cráter Azul",
             "Comidas, excepto el desayuno del domingo",
             "Agua y gastos personales"
         ],
@@ -5962,6 +5965,7 @@ const destinos = [
                 titulo: "Incluido en tu reserva",
                 items: [
                     "Bus en todos los traslados",
+                    "<strong>Entrada al Parque Nacional Tikal</strong>",
                     "Una noche de hospedaje, todo el grupo junto",
                     "<strong>Desayuno incluido el domingo</strong> antes de salir al Cráter Azul",
                     "Imán conmemorativo de la experiencia",
@@ -5972,7 +5976,6 @@ const destinos = [
                 titulo: "Por tu cuenta",
                 items: [
                     "Todas las comidas, excepto el desayuno del domingo",
-                    "Entrada a Tikal (referencia: Q25 guatemaltecos con DPI, Q150 extranjeros)",
                     "Lancha y entrada al Cráter Azul",
                     "Entrada al Castillo de San Felipe, si está abierto (referencia: Q25 nacionales, Q75 extranjeros)",
                     "Agua pura, snacks y gastos personales"
@@ -5983,7 +5986,7 @@ const destinos = [
                 items: [
                     "Agua pura para todo el viaje, mejor en botella reutilizable",
                     "DPI o pasaporte vigente",
-                    "Efectivo para comidas, entradas y compras",
+                    "Efectivo para comidas, lancha, entradas y compras",
                     "Zapatos cómodos para caminar en Tikal",
                     "Ropa fresca y un suéter para el bus",
                     "Traje de baño, toalla y sandalias",
@@ -6057,7 +6060,7 @@ const destinos = [
                         titulo: "Sábado 19 de diciembre · Tikal e isla de Flores",
                         eventos: [
                             { hora: "6:00 am", lugar: "Parada para desayunar", descripcion: "Tiempo para comprar el desayuno, por tu cuenta." },
-                            { hora: "7:30 am – 2:30 pm", tipo: "periodo", lugar: "Parque Nacional Tikal", descripcion: "Tiempo para explorar el parque: sus templos, plazas y senderos en la selva. El almuerzo va por tu cuenta." },
+                            { hora: "7:30 am – 2:30 pm", tipo: "periodo", lugar: "Parque Nacional Tikal", descripcion: "Entrada incluida. Tiempo para explorar el parque: sus templos, plazas y senderos en la selva. El almuerzo va por tu cuenta." },
                             { hora: "2:30 pm", lugar: "Salida hacia Flores", descripcion: "Volvemos al bus rumbo a la isla." },
                             { hora: "4:00 pm – 9:30 pm", tipo: "periodo", lugar: "Isla de Flores", descripcion: "Atardecer sobre el lago Petén Itzá y tiempo libre para cenar, pasear o salir de fiesta." },
                             { hora: "10:00 pm", lugar: "Hospedaje", descripcion: "Nos vamos todos juntos a descansar. La noche está incluida." }
@@ -6069,7 +6072,7 @@ const destinos = [
                         eventos: [
                             { hora: "4:30 am", lugar: "Desayuno incluido", descripcion: "Desayunamos en el hospedaje antes de salir." },
                             { hora: "5:00 am", lugar: "Salida hacia el Cráter Azul", descripcion: "Viajamos en bus hacia Sayaxché." },
-                            { hora: "7:30 am", lugar: "Río La Pasión", descripcion: "Llegamos al embarcadero y continuamos en lancha." },
+                            { hora: "7:30 am", lugar: "Río La Pasión", descripcion: "Llegamos al embarcadero y continuamos en lancha, por tu cuenta." },
                             { hora: "8:30 am – 10:30 am", tipo: "periodo", lugar: "Cráter Azul", descripcion: "Tiempo para nadar, ver los peces y tomar fotografías." },
                             { hora: "11:15 am – 6:30 pm", tipo: "periodo", lugar: "Viaje a Río Dulce", descripcion: "Trayecto en bus con parada para almorzar, por tu cuenta." },
                             { hora: "6:30 pm – 11:00 pm", tipo: "periodo", lugar: "Río Dulce", descripcion: "Tiempo libre y cena por tu cuenta. Si el tiempo lo permite, vemos por fuera el Castillo de San Felipe." },
@@ -6106,3 +6109,5 @@ const destinos = [
     
 ];
 
+// Los destinos con "fijado: true" van primero en todas las listas
+destinos.sort((a, b) => (b.fijado ? 1 : 0) - (a.fijado ? 1 : 0));

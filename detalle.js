@@ -657,6 +657,8 @@ document.addEventListener('DOMContentLoaded', () => {
         destino.reservaMinima || 'Sujeto a disponibilidad.';
     document.getElementById('detail-cancelacion').textContent =
         destino.cancelacion || 'Consulta política de cancelación.';
+    // cancelacion: "" en destinos-data.js = no mencionar la cancelación en este destino
+    if (destino.cancelacion === '') document.getElementById('detail-cancelacion').closest('.detail-policy-item').style.display = 'none';
 
     const policyExtra = document.getElementById('detail-policy-extra');
     let extraHtml = '';
@@ -736,7 +738,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const sugerenciasBox = document.getElementById('detail-suggestions');
-    const otros = destinos.filter(d => d.id !== destino.id && d.categoria === destino.categoria).slice(0, 3);
+    const otros = destinos.filter(d => d.id !== destino.id && (d.fijado || d.categoria === destino.categoria)).slice(0, 3);
     if (otros.length) {
         sugerenciasBox.innerHTML = otros.map(d => {
             const precio = precioDesdeDestino(d);

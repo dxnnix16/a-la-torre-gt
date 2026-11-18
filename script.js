@@ -54,7 +54,7 @@ const vigilante = 'IntersectionObserver' in window
 
 // ---------------------------------------------------------
 // 2.5) LOS MÁS RESERVADOS (las 5 tarjetas se arman solas desde destinos-data.js)
-//    - Las 2 primeras SIEMPRE son las de FIJOS (Acatenango y Fuego).
+//    - Las primeras SIEMPRE son las de FIJOS (destinos con "fijado: true", Acatenango y Fuego).
 //    - Las otras 3 son los destinos con la salida grupal más próxima (por fecha),
 //      sin repetir los fijos. Cuando una fecha pasa, el destino sale solo y entra el siguiente.
 //    - Si hay menos de 3 con fecha, se completa con los mejor calificados.
@@ -64,7 +64,8 @@ const vigilante = 'IntersectionObserver' in window
     const grid = document.querySelector('#mas-reservados .mas-res-grid');
     if (!grid || typeof destinos === 'undefined') return;
 
-    const FIJOS = ['acatenango', 'fuego'];   // ids que siempre van primero, en este orden
+    // ids que siempre van primero, en este orden (antes, los que tienen "fijado: true")
+    const FIJOS = [...destinos.filter(d => d.fijado).map(d => d.id), 'acatenango', 'fuego'];
     const TOTAL = 5;                         // cuántas tarjetas se muestran
     const CUPOS_POCOS = 6;                   // con estos cupos o menos dice "Quedan pocos cupos"
     const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -157,7 +158,7 @@ const vigilante = 'IntersectionObserver' in window
             tag = (s.cupos != null && s.cupos <= CUPOS_POCOS)
                 ? '<span class="tc-tag tc-tag-hot" data-i18n="inicio.tc.pocos">Quedan pocos cupos</span>'
                 : `<span class="tc-tag">🗓️ Salida ${f.getDate()} ${MESES[f.getMonth()]}</span>`;
-        } else if (d.id === FIJOS[0]) {
+        } else if (d.id === 'acatenango') {
             tag = '<span class="tc-tag tc-tag-hot" data-i18n="inicio.tc.agota">🔥 Se agota fácil</span>';
         } else {
             tag = `<span class="tc-tag" data-i18n="inicio.tc.rank" data-i18n-n="${i + 1}">#${i + 1} Más reservado</span>`;
@@ -284,7 +285,8 @@ const vigilante = 'IntersectionObserver' in window
         agregar(d.fechasGrupales, '');
         if (d.modalidades) Object.values(d.modalidades).forEach(m => agregar(m.fechasGrupales, modCorto(m.nombre)));
     });
-    salidas.sort((a, b) => a.fecha.localeCompare(b.fecha));
+    // Los destinos fijados se anuncian primero; luego, por fecha
+    salidas.sort((a, b) => (b.d.fijado ? 1 : 0) - (a.d.fijado ? 1 : 0) || a.fecha.localeCompare(b.fecha));
     const lista = salidas.slice(0, MAX_ANUNCIOS);
     if (!lista.length) return;                                          // sin salidas: el bloque queda oculto
 
@@ -466,6 +468,7 @@ const vigilante = 'IntersectionObserver' in window
 
     // --- MÓVIL: buscador a pantalla completa (como GetYourGuide) ---
     const sugerencias = [
+        ['Tikal', 'Petén'],
         ['Volcán de Fuego', 'Escuintla / Chimaltenango'],
         ['Volcán Acatenango', 'Chimaltenango / Sacatepéquez'],
         ['Volcán de Pacaya', 'Escuintla / Guatemala'],

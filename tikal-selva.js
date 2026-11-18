@@ -12,7 +12,7 @@
   const DURACION_MS = 3900;   // cuánto dura la escena antes de abrirse
   const SALIDA_MS = 900;      // cuánto tardan las hojas en abrirse
   const PARADAS = ['Tikal', 'Isla de Flores', 'Cráter Azul', 'Río Dulce'];
-  const INCLUYE = ['Bus en todos los traslados', 'Hospedaje', 'Desayuno del domingo', 'Imán conmemorativo', 'Fotografías'];
+  const INCLUYE = ['Bus en todos los traslados', 'Entrada a Tikal', 'Hospedaje', 'Desayuno del domingo', 'Imán conmemorativo', 'Fotografías'];
 
   const sinMovimiento = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];

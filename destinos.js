@@ -175,6 +175,9 @@
         (rangeStart ? (salidaGrupal(b) ? 1 : 0) - (salidaGrupal(a) ? 1 : 0) : 0));
     }
 
+    // Los destinos fijados siempre van primero, con cualquier orden elegido
+    lista = [...lista.filter(d => d.fijado), ...lista.filter(d => !d.fijado)];
+
     return { base, lista };
   }
 
